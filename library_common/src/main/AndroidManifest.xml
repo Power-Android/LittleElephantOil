@@ -2,4 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.xxjy.common">
 
+    <application>
+        <activity android:name=".base.BindingFragment"></activity>
+        <activity android:name=".base.BaseFragment" />
+        <activity android:name=".base.BindingActivity" />
+        <activity android:name=".base.BaseActivity" />
+    </application>
+
 </manifest>
