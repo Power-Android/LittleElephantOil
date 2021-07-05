@@ -1,7 +1,15 @@
-plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
+if (!singleModule.toBoolean()) {
+    apply plugin: 'com.android.library'
+} else {
+    apply plugin: 'com.android.application'
 }
+apply from:'../config.gradle'
+apply plugin: 'kotlin-android'
+//plugins {
+////    id 'com.android.application'
+//    id 'kotlin-android'
+//}
+
 
 android {
     compileSdkVersion 30
