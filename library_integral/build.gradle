@@ -10,15 +10,17 @@ apply plugin: 'kotlin-android'
 //    id 'kotlin-android'
 //}
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.3"
+    compileSdkVersion android.compileSdkVersion
+    buildToolsVersion android.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.xxjy.integral"
-        minSdkVersion 21
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        if (singleModule.toBoolean()) {
+            applicationId "com.xxjy.integral"
+        }
+        minSdkVersion android.minSdkVersion
+        targetSdkVersion android.targetSdkVersion
+        versionCode android.versionCode
+        versionName android.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -35,6 +37,15 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    sourceSets {
+        main {
+            if (singleModule.toBoolean()) {
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+            } else {
+                manifest.srcFile 'src/main/manifest/AndroidManifest.xml'
+            }
+        }
     }
 }
 
