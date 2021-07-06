@@ -4,6 +4,45 @@ if (!singleModule.toBoolean()) {
 apply from:   '../config.gradle'
 apply plugin: 'kotlin-android'
 
+android {
+    compileSdkVersion android.compileSdkVersion
+    buildToolsVersion android.buildToolsVersion
+
+    defaultConfig {
+        if(singleModule.toBoolean()){
+            applicationId "com.xxjy.common"
+        }
+        minSdkVersion android.minSdkVersion
+        targetSdkVersion android.targetSdkVersion
+        versionCode android.versionCode
+        versionName android.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'src/main/AndroidManifest.xml'
+        }
+    }
+}
+
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.3.1'
@@ -26,9 +65,9 @@ dependencies {
     implementation rootProject.ext.dependencies["rxandroid"]
     implementation rootProject.ext.dependencies["rxlife"]
     implementation rootProject.ext.dependencies["PersistentCookieJar"]
-//    implementation rootProject.ext.dependencies["refresh_layout"]
-//    implementation rootProject.ext.dependencies["refresh_header_classicst"]
-//    implementation rootProject.ext.dependencies["refresh_footer_classics"]
+    implementation rootProject.ext.dependencies["refresh_layout"]
+    implementation rootProject.ext.dependencies["refresh_header_classics"]
+    implementation rootProject.ext.dependencies["refresh_footer_classics"]
     implementation rootProject.ext.dependencies["roundedImageview"]
     implementation rootProject.ext.dependencies["BaseRecyclerViewAdapterHelper"]
     implementation rootProject.ext.dependencies["PictureSelector"]

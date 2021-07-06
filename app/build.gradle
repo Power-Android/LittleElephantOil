@@ -33,7 +33,6 @@ android {
 }
 
 dependencies {
-
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.3.1'
     implementation 'androidx.appcompat:appcompat:1.2.0'
@@ -42,4 +41,13 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    if (!singleModule.toBoolean()) {
+        implementation project(path: ':library_common')
+        implementation project(path: ':library_home')
+        implementation project(path: ':library_oil')
+        implementation project(path: ':library_carservice')
+        implementation project(path: ':library_integral')
+        implementation project(path: ':library_personal')
+    }
 }
