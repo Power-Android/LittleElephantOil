@@ -4,14 +4,13 @@ plugins {
 }
 apply from:'../config.gradle'
 android {
-    compileSdkVersion android.compileSdkVersion
-    buildToolsVersion android.buildToolsVersion
-
+    compileSdkVersion rootProject.ext.android['compileSdkVersion']
+    buildToolsVersion rootProject.ext.android['buildToolsVersion']
     defaultConfig {
-        minSdkVersion android.minSdkVersion
-        targetSdkVersion android.targetSdkVersion
-        versionCode android.versionCode
-        versionName android.versionName
+        minSdkVersion rootProject.ext.android['minSdkVersion']
+        targetSdkVersion rootProject.ext.android['targetSdkVersion']
+        versionCode rootProject.ext.android['versionCode']
+        versionName rootProject.ext.android['versionName']
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"

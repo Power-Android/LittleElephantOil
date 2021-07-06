@@ -18,10 +18,10 @@ android {
         if(singleModule.toBoolean()){
             applicationId "com.xxjy.home"
         }
-        minSdkVersion android.minSdkVersion
-        targetSdkVersion android.targetSdkVersion
-        versionCode android.versionCode
-        versionName android.versionName
+        minSdkVersion rootProject.ext.android['minSdkVersion']
+        targetSdkVersion rootProject.ext.android['targetSdkVersion']
+        versionCode rootProject.ext.android['versionCode']
+        versionName rootProject.ext.android['versionName']
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
