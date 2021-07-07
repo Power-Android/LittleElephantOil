@@ -7,4 +7,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <!--app内容的主色调-->
+    <color name="colorAccent">#1676FF</color>
+    <!--app内容主色调按压色-->
+    <color name="colorAccentDark">#1636FF</color>
 </resources>
