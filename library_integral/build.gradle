@@ -5,10 +5,9 @@ if (!singleModule.toBoolean()) {
 }
 apply from:'../config.gradle'
 apply plugin: 'kotlin-android'
-//plugins {
-////    id 'com.android.application'
-//    id 'kotlin-android'
-//}
+//apply plugin: 'kotlin-kapt'
+//apply plugin: 'dagger.hilt.android.plugin'
+
 android {
     compileSdkVersion rootProject.ext.android['compileSdkVersion']
     buildToolsVersion rootProject.ext.android['buildToolsVersion']
@@ -59,4 +58,7 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    implementation project(path: ':library_common')
+
 }

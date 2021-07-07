@@ -19,8 +19,8 @@ abstract class BaseActivity : QMUIFragmentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initLoadingDialog()
         BarUtils.setStatusBarLightMode(this, true)
+        initLoadingDialog()
     }
 
     /**
@@ -46,9 +46,7 @@ abstract class BaseActivity : QMUIFragmentActivity() {
      */
     open fun setTransparentStatusBar(view: View?, isDark: Boolean) {
         BarUtils.transparentStatusBar(this)
-        if (view != null) {
-            BarUtils.addMarginTopEqualStatusBarHeight(view)
-        }
+        view?.let { BarUtils.addMarginTopEqualStatusBarHeight(it) }
         BarUtils.setStatusBarLightMode(this, isDark)
     }
 
@@ -87,11 +85,13 @@ abstract class BaseActivity : QMUIFragmentActivity() {
     /**
      * 展示读取的 dialog
      */
-    open fun showLoadingDialog() = mLoadingDialog?.show()
+    open fun showLoadingDialog() =
+        mLoadingDialog?.show()
 
     /**
      * 隐藏读取的 dialog
      */
-    open fun dismissLoadingDialog() = mLoadingDialog?.dismiss()
+    open fun dismissLoadingDialog() =
+        mLoadingDialog?.dismiss()
 
 }

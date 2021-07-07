@@ -68,5 +68,7 @@ ext {
             "qmui"                         : "com.qmuiteam:qmui:$qmui_arch_version",
             "qmui_arch"                    : "com.qmuiteam:arch:$qmui_arch_version",
             "qmui_arch_compiler"           : "com.qmuiteam:arch-compiler:$qmui_arch_version",
+            "hilt"                         : "com.google.dagger:hilt-android:2.36",
+            "hilt_compiler"                : "com.google.dagger:hilt-android-compiler:2.36",
     ]
 }

@@ -1,6 +1,8 @@
 apply plugin: 'com.android.library'
 apply from: '../config.gradle'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
 
 android {
     compileSdkVersion rootProject.ext.android['compileSdkVersion']
@@ -84,4 +86,6 @@ dependencies {
     implementation rootProject.ext.dependencies["qmui"]
     implementation rootProject.ext.dependencies["qmui_arch"]
     annotationProcessor rootProject.ext.dependencies["qmui_arch_compiler"]
+    implementation rootProject.ext.dependencies["hilt"]
+    annotationProcessor rootProject.ext.dependencies["hilt_compiler"]
 }

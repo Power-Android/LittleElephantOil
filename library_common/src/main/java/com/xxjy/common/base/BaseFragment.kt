@@ -1,12 +1,28 @@
 package com.xxjy.common.base
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import com.xxjy.common.R
+import androidx.fragment.app.Fragment
 
-class BaseFragment : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_base_fragment)
+abstract class BaseFragment : Fragment() {
+
+    open fun getBaseActivity(): BaseActivity? {
+        return if (activity is BaseActivity) {
+            activity as BaseActivity?
+        } else null
     }
+
+    fun showToast(str: String?) =
+        getBaseActivity()?.showToast(str)
+
+    fun showToastInfo(str: String?) =
+        getBaseActivity()?.showToastInfo(str)
+
+    fun showToastWarning(str: String?) =
+        getBaseActivity()?.showToastWarning(str)
+
+    fun showToastError(str: String?) =
+        getBaseActivity()?.showToastError(str)
+
+    fun showToastSuccess(str: String?) =
+        getBaseActivity()?.showToastSuccess(str)
+
 }
