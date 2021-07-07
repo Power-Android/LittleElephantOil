@@ -1,4 +1,4 @@
-package com.xxjy.common.constants;
+package com.xxjy.common.constants
 
 /**
  * @author power
@@ -6,104 +6,105 @@ package com.xxjy.common.constants;
  * @project RunElephant
  * @description: SP存储tag用
  */
-public class SPConstants {
+object SPConstants {
     /**
      * 保存app的首次下载安装渠道
      */
-    public static final String APP_CHANNEL_KEY = "app_channel_key";
+    const val APP_CHANNEL_KEY = "app_channel_key"
+
     /**
      * 首次打开
      */
-    public static final String FIRST_OPEN = "first_open";
+    const val FIRST_OPEN = "first_open"
 
     /**
      * 是否同意隐私协议
      */
-    public static final  String AGREE_PRIVACY = "agree_privacy";
+    const val AGREE_PRIVACY = "agree_privacy"
+
     /**
      * 登录状态
      */
-    public static final String LOGIN_STATUS = "login_status";
+    const val LOGIN_STATUS = "login_status"
+
     /**
      * token
      */
-    public static final String APP_TOKEN = "token";
+    const val APP_TOKEN = "token"
 
     /**
      * 用户类型
      */
-    public static final String USER_TYPE = "user_type";
+    const val USER_TYPE = "user_type"
 
     /**
      * 手机号
      */
-    public static final String MOBILE = "mobile";
+    const val MOBILE = "mobile"
 
     /**
      * h5链接
      */
-    public static final String WEB_LINKS = "web_links";
+    const val WEB_LINKS = "web_links"
 
     /**
      * 经纬度
      */
-    public static final String LONGITUDE = "longitude";
+    const val LONGITUDE = "longitude"
+
     /**
      * 经纬度
      */
-    public static final String LATITUDE = "latitude";
+    const val LATITUDE = "latitude"
+    const val OPEN_ID = "openId"
 
-
-    public static final String OPEN_ID = "openId";
     /**
      * 城市码
      */
-    public static final String CITY_CODE = "city_code";
+    const val CITY_CODE = "city_code"
 
     //app引导guide版本标识
-    public static final String SP_APP_SHOW_GUIDE_VERSION = "guide_version";
+    const val SP_APP_SHOW_GUIDE_VERSION = "guide_version"
 
     /**
      * 隐藏权益相关内容
      */
-    public static final String GONE_INTEGRAL = "gone_integral";
+    const val GONE_INTEGRAL = "gone_integral"
 
     /**
      * 隐藏余额
      */
-    public static final String GONE_BALANCE = "gone_balance";
+    const val GONE_BALANCE = "gone_balance"
 
     /**
-    *后台时间
+     * 后台时间
      */
-    public static final String BACKGROUND_TIME = "background_time";
+    const val BACKGROUND_TIME = "background_time"
 
     /**
      * 通知弹窗提醒
      */
-    public static final String NOTIFICATION_REMIND = "notification_remind";
-    public static final String NOTIFICATION_REMIND_VERSION = "notification_remind_version";
-    public static final String NOTIFICATION_REMIND_USER_CENTER = "notification_remind_user_center";
+    const val NOTIFICATION_REMIND = "notification_remind"
+    const val NOTIFICATION_REMIND_VERSION = "notification_remind_version"
+    const val NOTIFICATION_REMIND_USER_CENTER = "notification_remind_user_center"
 
     /**
      * 埋点启动标识
      */
-    public static final String START_FROM = "startFrom";
-
+    const val START_FROM = "startFrom"
 
     /**
-     *新人红包弹窗
+     * 新人红包弹窗
      */
-    public static final String NEW_USER_RED_PACKET = "new_user_red_packet";
+    const val NEW_USER_RED_PACKET = "new_user_red_packet"
 
     /**
      * 今天是否展示悬浮窗
      */
-    public static final String IS_TODAY = "is_today";
+    const val IS_TODAY = "is_today"
 
     /**
      * 车型选择
      */
-    public static final String CAR_TYPE = "car_type";
-
+    const val CAR_TYPE = "car_type"
 }

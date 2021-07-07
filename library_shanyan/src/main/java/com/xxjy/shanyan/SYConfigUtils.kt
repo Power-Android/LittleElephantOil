@@ -20,13 +20,14 @@ import com.blankj.utilcode.util.SizeUtils
 import com.chuanglan.shanyan_sdk.listener.ShanYanCustomInterface
 import com.chuanglan.shanyan_sdk.tool.ShanYanUIConfig
 import com.xxjy.common.constants.Constants
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 object SYConfigUtils {
     private var invitationLayout: ConstraintLayout? = null
     private const val isDown = false
     var inviteCode = ""
     var phoneNum = ""
-
     //沉浸式竖屏样式
     fun getCJSConfig(
         context: Context, relativeLayoutClick: ShanYanCustomInterface?,

@@ -48,7 +48,7 @@ dependencies {
     implementation rootProject.ext.dependencies["hilt"]
     annotationProcessor rootProject.ext.dependencies["hilt_compiler"]
 
-    implementation project(path: ':library_common')
+    api project(path: ':library_common')
     if (!singleModule.toBoolean()) {
         implementation project(path: ':library_home')
         implementation project(path: ':library_oil')

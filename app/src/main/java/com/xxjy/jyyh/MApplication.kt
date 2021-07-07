@@ -1,5 +1,6 @@
 package com.xxjy.jyyh
 
+import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 
 /**
@@ -10,6 +11,6 @@ import dagger.hilt.android.HiltAndroidApp
  * 类说明：
  */
 @HiltAndroidApp
-class MApplication  {
+class MApplication:Application()  {
 
 }
