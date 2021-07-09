@@ -6,34 +6,12 @@ apply from:'../config.gradle'
 //apply plugin: 'kotlin-kapt'
 //apply plugin: 'dagger.hilt.android.plugin'
 
-android {
-    compileSdkVersion rootProject.ext.android['compileSdkVersion']
-    buildToolsVersion rootProject.ext.android['buildToolsVersion']
-    defaultConfig {
-        minSdkVersion rootProject.ext.android['minSdkVersion']
-        targetSdkVersion rootProject.ext.android['targetSdkVersion']
-        versionCode rootProject.ext.android['versionCode']
-        versionName rootProject.ext.android['versionName']
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles "consumer-rules.pro"
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
-}
-
 dependencies {
-//    api project(':library_common')
+    implementation fileTree(include: ['*.jar','*.aar'], dir: 'libs')
+    api files('libs/alipaysdk-noutdid-15.8.02.210308182128.aar')
+    api files('libs/qmf-ppplugin-android-3.1.1.aar')
+    implementation files('libs\\UPPayAssistEx.jar')
+    implementation files('libs\\UPPayPluginExPro.jar')
+//    api project(path:':library_common')
+    api rootProject.ext.dependencies["wechat"]
 }

@@ -3,7 +3,7 @@ ext {
     //android开发版本配置
     android = [
             compileSdkVersion: 30,
-            buildToolsVersion: "30.0.1",
+            buildToolsVersion: "30.0.2",
             applicationId    : "com.xxjy.jyyh",
             minSdkVersion    : 21,
             targetSdkVersion : 28,

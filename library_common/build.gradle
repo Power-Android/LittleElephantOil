@@ -56,7 +56,7 @@ dependencies {
 
     api rootProject.ext.dependencies["gson"]
     api rootProject.ext.dependencies["glide"]
-    annotationProcessor rootProject.ext.dependencies["glide_compiler"]
+    kapt rootProject.ext.dependencies["glide_compiler"]
     api rootProject.ext.dependencies["okhttp"]
     api rootProject.ext.dependencies["okhttpLogging"]
     api rootProject.ext.dependencies["rxhttp"]
@@ -83,9 +83,18 @@ dependencies {
     api rootProject.ext.dependencies["activity"]
     api rootProject.ext.dependencies["fragment"]
     api rootProject.ext.dependencies["eventbus"]
+
+
     api rootProject.ext.dependencies["qmui"]
     api rootProject.ext.dependencies["qmui_arch"]
     kapt rootProject.ext.dependencies["qmui_arch_compiler"]
     api rootProject.ext.dependencies["hilt"]
     kapt rootProject.ext.dependencies["hilt_compiler"]
+
+
+    api rootProject.ext.support["room"]
+    api rootProject.ext.support["room-compiler"]
+    api rootProject.ext.support["coroutines-core"]
+    api rootProject.ext.support["coroutines-android"]
+    api rootProject.ext.support["viewmodel"]
 }

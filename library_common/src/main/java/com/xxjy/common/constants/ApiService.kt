@@ -19,9 +19,9 @@ object ApiService {
     //    public static final String CONFIG_DEBUG_URL = "https://ccore.qqgyhk.com/";
     const val DEBUG_URL = CONFIG_DEBUG_URL + "server/"
 
-    @DefaultDomain //默认域名
-    var BASE_URL = if (Constants.URL_IS_DEBUG) DEBUG_URL else RELEASE_URL
-    var CONFIG_BASE_URL = if (Constants.URL_IS_DEBUG) CONFIG_DEBUG_URL else CONFIG_RELEASE_URL
+//    @DefaultDomain //默认域名
+     var BASE_URL = if (Constants.URL_IS_DEBUG) DEBUG_URL else RELEASE_URL
+     var CONFIG_BASE_URL = if (Constants.URL_IS_DEBUG) CONFIG_DEBUG_URL else CONFIG_RELEASE_URL
 
     //获取验证码
     const val GET_CODE = "api/v1/wx/sendSmsCode"

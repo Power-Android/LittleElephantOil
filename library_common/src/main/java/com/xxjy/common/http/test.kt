@@ -9,8 +9,8 @@ import com.xxjy.common.base.BaseActivity
  * @project LittleElephantOil_Kotlin
  * @description:
  */
+
 class test {
     fun t(){
-        ActivityUtils.finishActivity(BaseActivity::class.java)
     }
 }
