@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--自动处理格式的手机号-->
+    <declare-styleable name="ContentWithSpaceEditText">
+        <attr name="input_type" format="enum">
+            <enum name="phone" value="0" />
+            <enum name="bank_card_no" value="1" />
+            <enum name="identify_card_no" value="2" />
+        </attr>
+    </declare-styleable>
+    <!--验证码的属性-->
+    <declare-styleable name="VerCodeEditText">
+        <attr name="figures" format="integer" />
+        <attr name="verCodeMargin" format="dimension" />
+        <attr name="bottomLineSelectedColor" format="reference" />
+        <attr name="bottomLineNormalColor" format="reference" />
+        <attr name="bottomLineHeight" format="dimension" />
+        <attr name="backgroundRadios" format="dimension" />
+        <attr name="selectedBackgroundColor" format="reference" />
+        <attr name="normalBackgroundColor" format="reference" />
+    </declare-styleable>
+    <!--带框验证码的属性-->
+    <declare-styleable name="VerificationCodeInput">
+        <attr name="box" format="integer" />
+        <attr name="child_h_padding" format="dimension" />
+        <attr name="child_v_padding" format="dimension" />
+        <attr name="child_width" format="dimension" />
+        <attr name="child_height" format="dimension" />
+        <attr name="padding" format="dimension" />
+        <attr name="box_bg_focus" format="reference" />
+        <attr name="box_bg_normal" format="reference" />
+        <attr name="inputType" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="ScrollFloatinigView">
+        <attr name="scrollEnable" format="boolean" />
+    </declare-styleable>
+</resources>

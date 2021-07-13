@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--dialog 的基类配置-->
+    <style name="BaseDialog" parent="@android:style/Theme.Dialog">
+        <!-- 没有标题栏 -->
+        <item name="windowNoTitle">true</item>
+        <!--边框-->
+        <item name="android:windowFrame">@null</item>
+        <!--是否浮现在activity之上-->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 是否透明 -->
+        <item name="android:windowIsTranslucent">true</item>
+        <!--除去title-->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 对话框是否有遮盖 -->
+        <item name="android:windowContentOverlay">@null</item>
+        <!-- 对话框出现时背景是否变暗 -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!-- 对话框的背景变暗的程度，值越大，背景就越暗 -->
+        <item name="android:backgroundDimAmount">0.6</item>
+        <!-- 背景颜色，因为windowBackground中的背景已经写死了，所以这里的设置无效 -->
+        <item name="android:colorBackground">@color/background_floating_material_light</item>
+        <!--对话框背景(重要)  , default = abc_dialog_material_background-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!--是否填充整个屏幕-->
+        <item name="android:windowFullscreen">true</item>
+        <!--//设置对话框的背景颜色是-->
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+    <!--dialog 中基类的一些动画方法-->
+    <style name="DialogVerticleWindowAnim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/push_up_in</item>
+        <item name="android:windowExitAnimation">@anim/push_up_out</item>
+    </style>
+
+    <style name="DialogRightHorizontalWindowAnim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/push_right_in</item>
+        <item name="android:windowExitAnimation">@anim/push_left_out</item>
+    </style>
+
+    <style name="DialogGrowWindowAnim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/push_grow_in</item>
+        <item name="android:windowExitAnimation">@anim/push_grow_out</item>
+    </style>
+
+    <!--从上到下-->
+    <style name="DialogVerticleDownWindowAnim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/push_down_in</item>
+        <item name="android:windowExitAnimation">@anim/push_down_out</item>
+    </style>
+
+    <style name="ToolbarTheme" parent="Theme.AppCompat.Light">
+        <!-- 设置 toolbar 溢出菜单的文字的颜色 -->
+        <item name="android:textColor">@android:color/holo_red_dark</item>
+        <!-- 设置 显示在toobar上菜单文字的颜色 -->
+        <item name="actionMenuTextColor">@android:color/white</item>
+        <!-- 设置toolbar 弹出菜单的字体大小和溢出菜单文字大小-->
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="login_input_edit_text_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@null</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:inputType">number</item>
+        <item name="android:paddingBottom">@dimen/dp_9</item>
+        <item name="android:paddingLeft">@dimen/dp_10</item>
+        <item name="android:paddingTop">@dimen/dp_9</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorHint">@color/color_BE</item>
+        <item name="android:textSize">@dimen/sp_13</item>
+    </style>
+    <style name="bottom_sheet_dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.2</item>
+        <item name="android:windowEnterAnimation">@anim/bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/bottom_out</item>
+    </style>
+
+    <style name="login_style" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <item name="android:windowEnterAnimation">@anim/bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/bottom_out</item>
+    </style>
+
+    <style name="syDialogStyle" parent="Theme.AppCompat.Light.NoActionBar">
+        <!--没有标题-->
+        <item name="windowNoTitle">true</item>
+        <!--背景透明-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <!--dialog的整个屏幕的背景是否有遮障层-->
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+    <style name="login_editText_hintTextAppearance">
+        <item name="android:textColor">#000000</item>
+        <item name="android:textSize">@dimen/sp_12</item>
+        <item name="android:paddingBottom">@dimen/dp_1</item>
+    </style>
+
+</resources>

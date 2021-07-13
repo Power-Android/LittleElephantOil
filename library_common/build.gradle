@@ -9,9 +9,6 @@ android {
 
     defaultConfig {
         if (singleModule.toBoolean()) {
-            if (singleModule.toBoolean()) {
-                applicationId "com.xxjy.common"
-            }
             minSdkVersion rootProject.ext.android['minSdkVersion']
             targetSdkVersion rootProject.ext.android['targetSdkVersion']
             versionCode rootProject.ext.android['versionCode']
