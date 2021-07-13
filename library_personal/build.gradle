@@ -8,11 +8,8 @@ android {
             applicationId "com.xxjy.personal"
         }
     }
+}
+dependencies {
+    api project(path: ':library_common')
 
 }
-    dependencies {
-
-
-        api project(path: ':library_common')
-
-    }

@@ -1,8 +1,47 @@
-apply from: "../module.build.gradle"
-
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+//    id 'kotlin-kapt'
+//    id 'dagger.hilt.android.plugin'
+//    id 'com.blankj.bus'
+}
 android {
+    compileSdkVersion rootProject.ext.android['compileSdkVersion']
+    buildToolsVersion rootProject.ext.android['buildToolsVersion']
+//apply {
+//    apply plugin: "com.blankj.bus"
+//}
+
     defaultConfig {
         applicationId "com.xxjy.jyyh"
+        minSdkVersion rootProject.ext.android['minSdkVersion']
+        targetSdkVersion rootProject.ext.android['targetSdkVersion']
+        versionCode rootProject.ext.android['versionCode']
+        versionName rootProject.ext.android['versionName']
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    buildFeatures {
+        viewBinding = true
     }
 }
 
@@ -15,4 +54,8 @@ dependencies {
         implementation project(path: ':library_integral')
         implementation project(path: ':library_personal')
     }
+}
+
+configurations {
+    all*.exclude group: 'com.google.guava', module: 'listenablefuture'
 }
