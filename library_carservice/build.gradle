@@ -3,58 +3,13 @@ apply from: "../module.build.gradle"
 //apply plugin: 'dagger.hilt.android.plugin'
 
 android {
-    compileSdkVersion rootProject.ext.android['compileSdkVersion']
-    buildToolsVersion rootProject.ext.android['buildToolsVersion']
-
     defaultConfig {
         if(singleModule.toBoolean()){
             applicationId "com.xxjy.carservice"
         }
-        minSdkVersion rootProject.ext.android['minSdkVersion']
-        targetSdkVersion rootProject.ext.android['targetSdkVersion']
-        versionCode rootProject.ext.android['versionCode']
-        versionName rootProject.ext.android['versionName']
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    buildTypes {
-        debug {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
-
-    sourceSets {
-        main {
-            if (singleModule.toBoolean()) {
-                manifest.srcFile 'src/main/AndroidManifest.xml'
-            } else {
-                manifest.srcFile 'src/main/manifest/AndroidManifest.xml'
-            }
-        }
-    }
-
-    buildFeatures {
-        viewBinding = true
     }
 }
 
 dependencies {
-
-
     api project(path: ':library_common')
 }
