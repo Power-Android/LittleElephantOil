@@ -14,8 +14,10 @@
         android:theme="@style/Theme.LittleElephantOil_Kotlin"
         android:usesCleartextTraffic="true"
         tools:targetApi="n">
-        <activity android:name=".WelcomeActivity"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".WelcomeActivity"
+            tools:ignore="Instantiatable"></activity>
+        <activity android:name=".MainActivity"
+            tools:ignore="Instantiatable">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

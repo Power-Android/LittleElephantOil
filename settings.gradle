@@ -1,11 +1,12 @@
 include ':library_pay'
 include ':library_navigation'
 include ':library_shanyan'
-include ':library_personal'
-include ':library_integral'
-include ':library_carservice'
-include ':library_oil'
-include ':library_home'
 include ':library_common'
 include ':app'
+include ':module_home'
+include ':module_personal'
+include ':module_carservice'
+include ':module_oil'
+include ':module_integral'
 rootProject.name = "LittleElephantOil_Kotlin"
+

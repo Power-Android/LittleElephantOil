@@ -12,7 +12,6 @@ android {
     buildToolsVersion rootProject.ext.android['buildToolsVersion']
 
     defaultConfig {
-        if (singleModule.toBoolean()) {
             minSdkVersion rootProject.ext.android['minSdkVersion']
             targetSdkVersion rootProject.ext.android['targetSdkVersion']
             versionCode rootProject.ext.android['versionCode']
@@ -46,7 +45,6 @@ android {
             viewBinding = true
         }
     }
-}
 
 dependencies {
     implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
