@@ -2,10 +2,7 @@ plugins {
     id 'com.android.library'
     id 'kotlin-android'
 }
-apply from:'../config.gradle'
-//apply plugin: 'kotlin-kapt'
-//apply plugin: 'dagger.hilt.android.plugin'
-
+apply from: "../module.build.gradle"
 
 dependencies {
 //support

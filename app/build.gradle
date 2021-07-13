@@ -4,8 +4,7 @@ plugins {
 //    id 'kotlin-kapt'
 //    id 'dagger.hilt.android.plugin'
 }
-apply from: '../config.gradle'
-
+//apply from: '../config.gradle'
 android {
     compileSdkVersion rootProject.ext.android['compileSdkVersion']
     buildToolsVersion rootProject.ext.android['buildToolsVersion']
@@ -42,7 +41,7 @@ dependencies {
 //    implementation rootProject.ext.dependencies["hilt"]
 //    annotationProcessor rootProject.ext.dependencies["hilt_compiler"]
 
-    api project(path: ':library_common')
+    implementation project(path: ':library_common')
     if (!singleModule.toBoolean()) {
         implementation project(path: ':library_home')
         implementation project(path: ':library_oil')

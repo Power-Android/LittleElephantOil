@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply from: '../config.gradle'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
@@ -84,13 +83,11 @@ dependencies {
     api rootProject.ext.dependencies["fragment"]
     api rootProject.ext.dependencies["eventbus"]
 
-
     api rootProject.ext.dependencies["qmui"]
     api rootProject.ext.dependencies["qmui_arch"]
     kapt rootProject.ext.dependencies["qmui_arch_compiler"]
     api rootProject.ext.dependencies["hilt"]
     kapt rootProject.ext.dependencies["hilt_compiler"]
-
 
     api rootProject.ext.support["room"]
     api rootProject.ext.support["room-compiler"]

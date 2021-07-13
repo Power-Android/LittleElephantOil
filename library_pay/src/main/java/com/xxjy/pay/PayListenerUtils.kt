@@ -41,6 +41,6 @@ class PayListenerUtils private constructor() {
                 return field
             }
             private set
-        private val resultList: ArrayList<PayListener> = ArrayList<PayListener>()
+        private val resultList: ArrayList<IPayListener> = ArrayList<IPayListener>()
     }
 }
