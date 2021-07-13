@@ -3,12 +3,15 @@ plugins {
     id 'kotlin-android'
 //    id 'kotlin-kapt'
 //    id 'dagger.hilt.android.plugin'
+//    id 'com.blankj.bus'
 }
 //apply from: '../config.gradle'
 android {
     compileSdkVersion rootProject.ext.android['compileSdkVersion']
     buildToolsVersion rootProject.ext.android['buildToolsVersion']
-
+//apply {
+//    apply plugin: "com.blankj.bus"
+//}
 
     defaultConfig {
         applicationId "com.xxjy.jyyh"
@@ -21,6 +24,10 @@ android {
     }
 
     buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -33,6 +40,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -43,11 +54,11 @@ dependencies {
 
     implementation project(path: ':library_common')
     if (!singleModule.toBoolean()) {
-        implementation project(path: ':library_home')
-        implementation project(path: ':library_oil')
-        implementation project(path: ':library_carservice')
-        implementation project(path: ':library_integral')
-        implementation project(path: ':library_personal')
+        api project(path: ':library_home')
+        api project(path: ':library_oil')
+        api project(path: ':library_carservice')
+        api project(path: ':library_integral')
+        api project(path: ':library_personal')
     }
 }
 configurations {

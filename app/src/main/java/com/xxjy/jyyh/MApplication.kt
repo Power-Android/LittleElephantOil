@@ -11,6 +11,6 @@ import dagger.hilt.android.HiltAndroidApp
  * 类说明：
  */
 @HiltAndroidApp
-class MApplication:Application()  {
+class MApplication: Application() {
 
 }

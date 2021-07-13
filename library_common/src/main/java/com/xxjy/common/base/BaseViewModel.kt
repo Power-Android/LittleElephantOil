@@ -10,7 +10,7 @@ import java.lang.reflect.ParameterizedType
  * @project RunElephant
  * @description:
  */
-open class BaseViewModel<M : BaseRepository?>(application: Application) : AndroidViewModel(application),
+open class BaseViewModel<M : BaseRepository?> constructor(application: Application) : AndroidViewModel(application),
     LifecycleObserver {
 
     var repository: M?
@@ -41,14 +41,14 @@ open class BaseViewModel<M : BaseRepository?>(application: Application) : Androi
         return repository
     }
 
-    fun loadingView(): LiveData<Boolean> {
-        return repository!!.isShowLoading
-    }
+    fun loadingView(): LiveData<Boolean>? =
+        repository?.isShowLoading
+
 
     override fun onCleared() {
         super.onCleared()
         //ViewModel销毁时会执行，同时取消所有异步任务
-        repository!!.unDisposable()
+        repository?.unDisposable()
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_ANY)

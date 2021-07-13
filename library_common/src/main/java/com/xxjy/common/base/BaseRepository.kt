@@ -13,22 +13,20 @@ import io.reactivex.rxjava3.disposables.Disposable
  */
 open class BaseRepository {
     //管理RxJava，主要针对RxJava异步操作造成的内存泄漏
-    private var mCompositeDisposable: CompositeDisposable? = null
     private val loadingLiveData: MutableLiveData<Boolean> = MutableLiveData()
+    private var mCompositeDisposable : CompositeDisposable = CompositeDisposable()
+
 
     protected fun addDisposable(disposable: Disposable?) {
-        if (mCompositeDisposable == null) {
-            mCompositeDisposable = CompositeDisposable()
-        }
-        mCompositeDisposable!!.add(disposable)
+        mCompositeDisposable.add(disposable)
     }
 
     /**
      * viewModel销毁时清除Rxjava
      */
     fun unDisposable() {
-        if (mCompositeDisposable != null && mCompositeDisposable!!.isDisposed) {
-            mCompositeDisposable!!.clear()
+        if (mCompositeDisposable.isDisposed) {
+            mCompositeDisposable.clear()
         }
     }
 

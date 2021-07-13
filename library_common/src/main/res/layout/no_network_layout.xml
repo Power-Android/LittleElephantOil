@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/no_network_parent_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="@dimen/dp_142"
+            android:layout_height="@dimen/dp_124"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/no_result_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_10"
+            android:text="您的网络不太流畅"
+            android:textColor="#959595"
+            android:textSize="@dimen/sp_16" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_10"
+            android:text="别紧张，刷新页面试试"
+            android:textColor="#959595"
+            android:textSize="@dimen/sp_12" />
+
+        <TextView
+            android:id="@+id/refresh_view"
+            android:layout_width="@dimen/dp_102"
+            android:layout_height="@dimen/dp_30"
+            android:layout_marginTop="@dimen/dp_25"
+            android:background="@drawable/selector_solid_red_gray"
+            android:gravity="center"
+            android:text="刷新"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_14" />
+    </LinearLayout>
+
+
+</LinearLayout>

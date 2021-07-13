@@ -1,43 +1,10 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
+apply from: "../module.build.gradle"
 apply plugin: 'dagger.hilt.android.plugin'
 
 android {
-    compileSdkVersion rootProject.ext.android['compileSdkVersion']
-    buildToolsVersion rootProject.ext.android['buildToolsVersion']
-
     defaultConfig {
-        if (singleModule.toBoolean()) {
+        if(singleModule.toBoolean()){
             applicationId "com.xxjy.common"
-        }
-        minSdkVersion rootProject.ext.android['minSdkVersion']
-        targetSdkVersion rootProject.ext.android['targetSdkVersion']
-        versionCode rootProject.ext.android['versionCode']
-        versionName rootProject.ext.android['versionName']
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
-
-    sourceSets {
-        main {
-            manifest.srcFile 'src/main/AndroidManifest.xml'
         }
     }
 }
@@ -90,8 +57,8 @@ dependencies {
     kapt rootProject.ext.dependencies["hilt_compiler"]
 
     api rootProject.ext.support["room"]
-    api rootProject.ext.support["room-compiler"]
-    api rootProject.ext.support["coroutines-core"]
-    api rootProject.ext.support["coroutines-android"]
+    api rootProject.ext.support["room_compiler"]
+    api rootProject.ext.support["coroutines_core"]
+    api rootProject.ext.support["coroutines_android"]
     api rootProject.ext.support["viewmodel"]
 }

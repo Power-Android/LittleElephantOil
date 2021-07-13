@@ -9,7 +9,6 @@ android {
             applicationId "com.xxjy.home"
         }
     }
-
 }
 
 dependencies {
