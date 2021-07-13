@@ -54,11 +54,11 @@ dependencies {
 
     implementation project(path: ':library_common')
     if (!singleModule.toBoolean()) {
-        api project(path: ':library_home')
-        api project(path: ':library_oil')
-        api project(path: ':library_carservice')
-        api project(path: ':library_integral')
-        api project(path: ':library_personal')
+        implementation project(path: ':library_home')
+        implementation project(path: ':library_oil')
+        implementation project(path: ':library_carservice')
+        implementation project(path: ':library_integral')
+        implementation project(path: ':library_personal')
     }
 }
 configurations {

@@ -12,10 +12,12 @@ import com.tencent.mm.opensdk.modelpay.PayReq
 import com.tencent.mm.opensdk.openapi.IWXAPI
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
 import com.unionpay.UPPayAssistEx
-import com.xxjy.common.constants.Constants
 import java.lang.ref.WeakReference
 
 class PayHelper {
+    //微信配置
+     val WX_APP_ID = "wx3704434db8357ec1"
+     val WX_APP_SCRIPT = "787d5dcefab80f6bca272800e9bad139" //ab730ab00dd73986593da2ce6514ffe8     6b4edd26960e017c050f940210a99723
     var msgApi: IWXAPI? = null
     fun WexPay(context: Context?,
                appId:String,
@@ -27,7 +29,7 @@ class PayHelper {
                sign:String) {
         if (msgApi == null) {
             msgApi = WXAPIFactory.createWXAPI(context, null)
-            msgApi?.registerApp(Constants.WX_APP_ID) // 将该app注册到微信
+            msgApi?.registerApp(WX_APP_ID) // 将该app注册到微信
         }
         val req = PayReq()
         if (!(msgApi?.isWXAppInstalled())!!) {
