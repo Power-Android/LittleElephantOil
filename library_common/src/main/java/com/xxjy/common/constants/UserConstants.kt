@@ -1,11 +1,7 @@
 package com.xxjy.common.constants
 
-import android.text.TextUtils
-import com.blankj.utilcode.util.DeviceUtils
-import com.blankj.utilcode.util.SPUtils
-import com.blankj.utilcode.util.StringUtils
-import com.blankj.utilcode.util.TimeUtils
-import java.util.*
+import com.xxjy.common.util.sp.MContext.context
+import com.xxjy.common.util.sp.SharedPreferencesUtils
 
 /**
  * @author power
@@ -14,158 +10,49 @@ import java.util.*
  * @description:
  */
 object UserConstants {
-    fun setH5Links(links: String?) {
-        SPUtils.getInstance().put(SPConstants.WEB_LINKS, links)
-    }
 
-    var token: String?
-        get() = SPUtils.getInstance().getString(SPConstants.APP_TOKEN, "")
-        set(token) {
-            SPUtils.getInstance().put(SPConstants.APP_TOKEN, token)
-        }
-    var userType: Int
-        get() = SPUtils.getInstance().getInt(SPConstants.USER_TYPE, -1)
-        set(userType) {
-            SPUtils.getInstance().put(SPConstants.USER_TYPE, userType)
-        }
-    var mobile: String?
-        get() = SPUtils.getInstance().getString(SPConstants.MOBILE, "")
-        set(mobile) {
-            SPUtils.getInstance().put(SPConstants.MOBILE, mobile)
-        }
-    val uuid: String
-        get() {
-            val uniqueDeviceId: String = DeviceUtils.getUniqueDeviceId()
-            return if (StringUtils.isEmpty(uniqueDeviceId)) {
-                ""
-            } else uniqueDeviceId
-        }
-    var openId: String?
-        get() = SPUtils.getInstance().getString(SPConstants.OPEN_ID)
-        set(openId) {
-            SPUtils.getInstance().put(SPConstants.OPEN_ID, "")
-        }
-    var isLogin: Boolean?
-        get() = SPUtils.getInstance().getBoolean(SPConstants.LOGIN_STATUS)
-        set(isLogin) {
-            SPUtils.getInstance().put(SPConstants.LOGIN_STATUS, true)
-        }
-    var longitude: String?
-        get() = SPUtils.getInstance().getString(SPConstants.LONGITUDE, "0")
-        set(longitude) {
-            SPUtils.getInstance().put(SPConstants.LONGITUDE, longitude)
-        }
-    var latitude: String?
-        get() = SPUtils.getInstance().getString(SPConstants.LATITUDE, "0")
-        set(latitude) {
-            SPUtils.getInstance().put(SPConstants.LATITUDE, latitude)
-        }
-    var firstOpen: Boolean
-        get() = SPUtils.getInstance().getBoolean(SPConstants.FIRST_OPEN)
-        set(firstOpen) {
-            SPUtils.getInstance().put(SPConstants.FIRST_OPEN, firstOpen)
-        }
-    var agreePrivacy: Boolean
-        get() = SPUtils.getInstance().getBoolean(SPConstants.AGREE_PRIVACY)
-        set(isAgree) {
-            SPUtils.getInstance().put(SPConstants.AGREE_PRIVACY, isAgree)
-        }
-    var appChannel: String?
-        get() = SPUtils.getInstance().getString(SPConstants.APP_CHANNEL_KEY)
-        set(appChannel) {
-            SPUtils.getInstance().put(SPConstants.APP_CHANNEL_KEY, appChannel)
-        }
-    var goneIntegral: Boolean
-        get() = SPUtils.getInstance().getBoolean(SPConstants.GONE_INTEGRAL, false)
-        set(b) {
-            SPUtils.getInstance().put(SPConstants.GONE_INTEGRAL, b)
-        }
-    var goneBalance: Boolean
-        get() = SPUtils.getInstance().getBoolean(SPConstants.GONE_BALANCE, false)
-        set(b) {
-            SPUtils.getInstance().put(SPConstants.GONE_BALANCE, b)
-        }
-    var backgroundTime: Long
-        get() = SPUtils.getInstance().getLong(SPConstants.BACKGROUND_TIME)
-        set(b) {
-            SPUtils.getInstance().put(SPConstants.BACKGROUND_TIME, b)
-        }
-    var startFrom: String?
-        get() = SPUtils.getInstance().getString(SPConstants.START_FROM)
-        set(startFrom) {
-            SPUtils.getInstance().put(SPConstants.START_FROM, startFrom)
-        }
-    var notificationRemind: Boolean
-        get() {
-            val content = SPUtils.getInstance().getString(SPConstants.NOTIFICATION_REMIND)
-            return TextUtils.equals(
-                content,
-                TimeUtils.date2String(Date(), "yyyy-MM-dd") + "@_@" + true
-            )
-        }
-        set(b) {
-            val str = TimeUtils.date2String(Date(), "yyyy-MM-dd") + "@_@" + b
-            SPUtils.getInstance().put(SPConstants.NOTIFICATION_REMIND, str)
-        }
-//    var notificationRemindVersion: Boolean
-//        get() {
-//            val content = SPUtils.getInstance().getString(SPConstants.NOTIFICATION_REMIND_VERSION)
-//            return TextUtils.equals(content, Util.getVersionName().toString() + "@_@" + true)
-//        }
-//        set(b) {
-//            val str: String = Util.getVersionName().toString() + "@_@" + b
-//            SPUtils.getInstance().put(SPConstants.NOTIFICATION_REMIND_VERSION, str)
-//        }
+    var app_channel_key by SharedPreferencesUtils(context(), SPConstants.APP_CHANNEL_KEY, "")
+    var first_open by SharedPreferencesUtils(context(), SPConstants.FIRST_OPEN, "")
+    var agree_privacy by SharedPreferencesUtils(context(), SPConstants.AGREE_PRIVACY, "")
+    var login_status by SharedPreferencesUtils(context(), SPConstants.LOGIN_STATUS, "")
+    var token by SharedPreferencesUtils(context(), SPConstants.APP_TOKEN, "")
+    var user_type by SharedPreferencesUtils(context(), SPConstants.USER_TYPE, -1)
+    var mobile by SharedPreferencesUtils(context(), SPConstants.MOBILE, "")
+    var web_links by SharedPreferencesUtils(context(), SPConstants.WEB_LINKS, "")
+    var longitude by SharedPreferencesUtils(context(), SPConstants.LONGITUDE, "0")
+    var latitude by SharedPreferencesUtils(context(), SPConstants.LATITUDE, "0")
+    var openId by SharedPreferencesUtils(context(), SPConstants.OPEN_ID, "")
+    var city_code by SharedPreferencesUtils(context(), SPConstants.CITY_CODE, "")
+    var guide_version by SharedPreferencesUtils(
+        context(),
+        SPConstants.SP_APP_SHOW_GUIDE_VERSION,
+        ""
+    )
+    var gone_integral by SharedPreferencesUtils(context(), SPConstants.GONE_INTEGRAL, false)
+    var gone_balance by SharedPreferencesUtils(context(), SPConstants.GONE_BALANCE, false)
+    var background_time by SharedPreferencesUtils(context(), SPConstants.BACKGROUND_TIME, "")
+    var notification_remind by SharedPreferencesUtils(
+        context(),
+        SPConstants.NOTIFICATION_REMIND,
+        ""
+    )
+    var notification_remind_version by SharedPreferencesUtils(
+        context(),
+        SPConstants.NOTIFICATION_REMIND_VERSION,
+        ""
+    )
+    var notification_remind_user_center by SharedPreferencesUtils(
+        context(),
+        SPConstants.NOTIFICATION_REMIND_USER_CENTER,
+        ""
+    )
+    var startFrom by SharedPreferencesUtils(context(), SPConstants.START_FROM, "")
+    var new_user_red_packet by SharedPreferencesUtils(
+        context(),
+        SPConstants.NEW_USER_RED_PACKET,
+        0L
+    )
+    var is_today by SharedPreferencesUtils(context(), SPConstants.IS_TODAY, "")
+    var car_type by SharedPreferencesUtils(context(), SPConstants.CAR_TYPE, -1)
 
-    fun setShowNewUserRedPacket() {
-        SPUtils.getInstance().put(SPConstants.NEW_USER_RED_PACKET, System.currentTimeMillis())
-    }
-
-    val showNewUserRedPacket: Boolean
-        get() {
-            val content = SPUtils.getInstance().getLong(SPConstants.NEW_USER_RED_PACKET, 0L)
-            return TimeUtils.isToday(content)
-        }
-    var notificationRemindUserCenter: Boolean
-        get() = SPUtils.getInstance().getBoolean(SPConstants.NOTIFICATION_REMIND_USER_CENTER, false)
-        set(b) {
-            SPUtils.getInstance().put(SPConstants.NOTIFICATION_REMIND_USER_CENTER, b)
-        }
-    var carType: Int
-        get() = SPUtils.getInstance().getInt(SPConstants.CAR_TYPE, -1)
-        set(carType) {
-            SPUtils.getInstance().put(SPConstants.CAR_TYPE, carType)
-        }
-
-    //定位信息
-//    val location: String
-//        get() = if (MapLocationHelper.getLocationLatitude() !== 0 && MapLocationHelper.getLocationLongitude() !== 0) {
-//            MapLocationHelper.getLocationLongitude()
-//                .toString() + "," + MapLocationHelper.getLocationLatitude()
-//        } else {
-//            ""
-//        }
-//
-//    /**
-//     * @return 城市编码
-//     */
-//    val cityCode: String
-//        get() = if (MapLocationHelper.getAdCode() != null) {
-//            MapLocationHelper.getAdCode().replace(
-//                MapLocationHelper.getAdCode().substring(MapLocationHelper.getAdCode().length() - 2),
-//                "00"
-//            )
-//        } else {
-//            ""
-//        }
-//
-//    /**
-//     * @return 区域编码
-//     */
-//    val adCode: String
-//        get() = if (MapLocationHelper.getAdCode() != null) {
-//            MapLocationHelper.getAdCode()
-//        } else {
-//            ""
-//        }
 }
