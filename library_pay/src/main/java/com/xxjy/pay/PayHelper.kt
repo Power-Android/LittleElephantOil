@@ -16,17 +16,20 @@ import java.lang.ref.WeakReference
 
 class PayHelper {
     //微信配置
-     val WX_APP_ID = "wx3704434db8357ec1"
-     val WX_APP_SCRIPT = "787d5dcefab80f6bca272800e9bad139" //ab730ab00dd73986593da2ce6514ffe8     6b4edd26960e017c050f940210a99723
+    val WX_APP_ID = "wx3704434db8357ec1"
+    val WX_APP_SCRIPT =
+        "787d5dcefab80f6bca272800e9bad139" //ab730ab00dd73986593da2ce6514ffe8     6b4edd26960e017c050f940210a99723
     var msgApi: IWXAPI? = null
-    fun WexPay(context: Context?,
-               appId:String,
-               partnerId:String,
-               prepayId:String,
-               nonceStr:String,
-               timeStamp:String,
-               packageValue:String,
-               sign:String) {
+    fun WexPay(
+        context: Context?,
+        appId: String,
+        partnerId: String,
+        prepayId: String,
+        nonceStr: String,
+        timeStamp: String,
+        packageValue: String,
+        sign: String
+    ) {
         if (msgApi == null) {
             msgApi = WXAPIFactory.createWXAPI(context, null)
             msgApi?.registerApp(WX_APP_ID) // 将该app注册到微信
@@ -36,14 +39,14 @@ class PayHelper {
             Toast.makeText(context, "手机中没有安装微信客户端!", Toast.LENGTH_SHORT).show()
             return
         }
-            req.appId = appId
-            req.partnerId = partnerId
-            req.prepayId = prepayId
-            req.nonceStr = nonceStr
-            req.timeStamp = timeStamp
-            req.packageValue = packageValue
-            req.sign = sign
-            msgApi?.sendReq(req)
+        req.appId = appId
+        req.partnerId = partnerId
+        req.prepayId = prepayId
+        req.nonceStr = nonceStr
+        req.timeStamp = timeStamp
+        req.packageValue = packageValue
+        req.sign = sign
+        msgApi?.sendReq(req)
     }
 
     fun unionPay(context: Context?, payNo: String?) {

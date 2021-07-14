@@ -126,7 +126,7 @@ class MapLocationHelper private constructor() {
                     locationLatitude = location.getLatitude()
                     locationLongitude = location.getLongitude()
                     cityCode = location.getCityCode()
-                    adCode = location.getAdCode()
+                    adCode = location.adCode
                     city = location.getCity()
                     Log.i("定位",cityCode + "---" + location.getLatitude() + "---" + location.getLongitude())
                     aMapLocation = location
@@ -333,6 +333,7 @@ class MapLocationHelper private constructor() {
          */
         var locationLongitude = 0.0 //标记当前的经纬度
             private set
+
         private var mLastRefreshTime: Long = 0 //标记上次刷新的时间
         private var aMapLocation //保存当前的location
                 : AMapLocation? = null

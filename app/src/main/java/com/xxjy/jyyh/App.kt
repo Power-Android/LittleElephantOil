@@ -1,7 +1,9 @@
 package com.xxjy.jyyh
 
 import android.app.Application
+import android.content.Context
 import dagger.hilt.android.HiltAndroidApp
+import javax.inject.Inject
 
 /**
  * 创建日期：2021/7/6 10:29
@@ -10,7 +12,10 @@ import dagger.hilt.android.HiltAndroidApp
  * 包名： com.xxjy.jyyh
  * 类说明：
  */
-@HiltAndroidApp
-class MApplication: Application() {
+class App : Application(){
+
+    override fun onCreate() {
+        super.onCreate()
+    }
 
 }

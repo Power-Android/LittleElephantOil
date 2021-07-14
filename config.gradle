@@ -72,5 +72,6 @@ ext {
             "qmui_arch_compiler"                : "com.qmuiteam:arch-compiler:$qmui_arch_version",
             "hilt"                              : "com.google.dagger:hilt-android:2.36",
             "hilt_compiler"                     : "com.google.dagger:hilt-android-compiler:2.36",
+            "hotfix"                            : "com.aliyun.ams:alicloud-android-hotfix:3.2.18",
     ]
 }

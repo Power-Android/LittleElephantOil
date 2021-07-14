@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/colorPrimary"/>
+    <!--logo图片-->
+    <item
+        android:gravity="center_horizontal"
+        android:top="500dp">
+        <bitmap
+            android:gravity="top"
+            android:src="@drawable/splash_window_title_bg"
+            />
+    </item>
+    <!--logo下的文字图片-->
+    <item
+        android:gravity="center_horizontal"
+        android:top="205dp">
+        <bitmap
+            android:gravity="top"
+            android:src="@drawable/splash_window_content_bg"/>
+    </item>
+    <!--闪屏底部文字图片-->
+    <item
+        android:gravity="center_horizontal|bottom"
+        android:bottom="23dp">
+        <bitmap
+            android:gravity="bottom"
+            android:src="@drawable/splash_window_img_bg"/>
+    </item>
+</layer-list>

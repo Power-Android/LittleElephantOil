@@ -1,4 +1,4 @@
-package com.xxjy.common.util.sp
+package com.xxjy.common.util
 
 import android.content.Context
 import kotlin.properties.ReadWriteProperty

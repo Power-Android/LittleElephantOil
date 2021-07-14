@@ -1,7 +1,13 @@
 package com.xxjy.common.constants
 
-import com.xxjy.common.util.sp.MContext.context
-import com.xxjy.common.util.sp.SharedPreferencesUtils
+import android.annotation.SuppressLint
+import android.text.TextUtils
+import com.xxjy.common.provide.MContext.context
+import com.xxjy.common.util.SharedPreferencesUtils
+import com.xxjy.navigation.MapLocationHelper
+import com.xxjy.navigation.MapLocationHelper.Companion.adCode
+import com.xxjy.navigation.MapLocationHelper.Companion.locationLatitude
+import com.xxjy.navigation.MapLocationHelper.Companion.locationLongitude
 
 /**
  * @author power
@@ -9,6 +15,7 @@ import com.xxjy.common.util.sp.SharedPreferencesUtils
  * @project RunElephant
  * @description:
  */
+@SuppressLint("StaticFieldLeak")
 object UserConstants {
 
     var app_channel_key by SharedPreferencesUtils(context(), SPConstants.APP_CHANNEL_KEY, "")
@@ -54,5 +61,36 @@ object UserConstants {
     )
     var is_today by SharedPreferencesUtils(context(), SPConstants.IS_TODAY, "")
     var car_type by SharedPreferencesUtils(context(), SPConstants.CAR_TYPE, -1)
+
+    //定位信息
+    fun getLocation(): String {
+        return if (locationLatitude != 0.0 && locationLongitude != 0.0) {
+            "$locationLongitude,$locationLatitude"
+        } else {
+            ""
+        }
+    }
+
+    /**
+     * @return 城市编码
+     */
+    fun getCityCode(): String {
+        return if (!TextUtils.isEmpty(adCode)) {
+            adCode!!.replace(
+                adCode!!.substring(adCode!!.length - 2),
+                "00"
+            )
+        } else {
+            ""
+        }
+    }
+
+    /**
+     * @return 区域编码
+     */
+    fun getAdCode(): String {
+        return if (adCode != null) adCode as String else ""
+
+    }
 
 }

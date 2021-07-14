@@ -54,6 +54,7 @@ dependencies {
     androidTestApi 'androidx.test.ext:junit:1.1.2'
     androidTestApi 'androidx.test.espresso:espresso-core:3.3.0'
 
+    api project(path: ':library_navigation')
 
     api rootProject.ext.dependencies["gson"]
     api rootProject.ext.dependencies["glide"]
@@ -84,17 +85,15 @@ dependencies {
     api rootProject.ext.dependencies["activity"]
     api rootProject.ext.dependencies["fragment"]
     api rootProject.ext.dependencies["eventbus"]
-
     api rootProject.ext.dependencies["qmui"]
     api rootProject.ext.dependencies["qmui_arch"]
     kapt rootProject.ext.dependencies["qmui_arch_compiler"]
     api rootProject.ext.dependencies["hilt"]
     kapt rootProject.ext.dependencies["hilt_compiler"]
+    api rootProject.ext.dependencies["hotfix"]
+    api rootProject.ext.dependencies["multidex"]
 
     api rootProject.ext.support["room"]
-    api rootProject.ext.support["room_compiler"]
-    api rootProject.ext.support["coroutines_core"]
-    api rootProject.ext.support["coroutines_android"]
     api rootProject.ext.support["room_compiler"]
     api rootProject.ext.support["coroutines_core"]
     api rootProject.ext.support["coroutines_android"]

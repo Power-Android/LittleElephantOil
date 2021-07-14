@@ -1,4 +1,4 @@
-package com.xxjy.common.util.sp
+package com.xxjy.common.provide
 
 import android.content.Context
 
@@ -12,9 +12,11 @@ import android.content.Context
 
 object MContext{
     private lateinit var application : Context
+
      fun init(context : Context){
-        application= context
+        application = context
     }
+
     fun context() : Context{
         return application
     }

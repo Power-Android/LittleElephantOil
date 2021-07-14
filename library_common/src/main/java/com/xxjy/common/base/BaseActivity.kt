@@ -8,6 +8,7 @@ import com.blankj.utilcode.util.BarUtils
 import com.qmuiteam.qmui.arch.QMUIFragmentActivity
 import com.xxjy.common.R
 import com.xxjy.common.util.toastlib.MyToast
+import dagger.hilt.android.qualifiers.ApplicationContext
 import per.goweii.anylayer.AnyLayer
 import per.goweii.anylayer.Layer.AnimatorCreator
 import per.goweii.anylayer.dialog.DialogLayer
@@ -16,7 +17,6 @@ import per.goweii.anylayer.utils.AnimatorHelper
 abstract class BaseActivity : QMUIFragmentActivity() {
 
     private var mLoadingDialog: DialogLayer? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         BarUtils.setStatusBarLightMode(this, true)
