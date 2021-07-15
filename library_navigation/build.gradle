@@ -16,8 +16,15 @@ android {
             versionName rootProject.ext.android['versionName']
 
             testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        ndk {
+            abiFilters  "armeabi-v7a"
         }
-
+        }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
         buildTypes {
             release {
                 minifyEnabled false
@@ -45,5 +52,5 @@ android {
     }
     dependencies {
 
-        implementation files('libs\\AMap3DMap_7.6.0_AMapSearch_7.6.0_AMapLocation_5.2.0_20200915.jar')
+        api files('libs\\AMap3DMap_7.6.0_AMapSearch_7.6.0_AMapLocation_5.2.0_20200915.jar')
     }

@@ -10,3 +10,7 @@ include ':module_oil'
 include ':module_integral'
 rootProject.name = "LittleElephantOil_Kotlin"
 
+include ':module_web'
+include ':library_shumei'
+include ':library_push'
+include ':library_umeng'

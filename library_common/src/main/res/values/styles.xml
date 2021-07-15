@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!--dialog 的基类配置-->
     <style name="BaseDialog" parent="@android:style/Theme.Dialog">
         <!-- 没有标题栏 -->
@@ -15,7 +15,7 @@
         <!-- 对话框是否有遮盖 -->
         <item name="android:windowContentOverlay">@null</item>
         <!-- 对话框出现时背景是否变暗 -->
-        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimEnabled" tools:ignore="NewApi">true</item>
         <!-- 对话框的背景变暗的程度，值越大，背景就越暗 -->
         <item name="android:backgroundDimAmount">0.6</item>
         <!-- 背景颜色，因为windowBackground中的背景已经写死了，所以这里的设置无效 -->

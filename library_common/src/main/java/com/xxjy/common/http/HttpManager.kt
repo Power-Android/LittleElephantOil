@@ -94,7 +94,7 @@ object HttpManager {
      * @param p
      * @return 最终参数
      */
-    fun getCommonParams(p: Param<*>?): Map<String, String> {
+    fun getCommonParams(p: Param<*>?): MutableMap<String, String> {
         val finalParams: MutableMap<String, String> = HashMap()
         val t = System.currentTimeMillis().toString() + "" //时间戳
         // XIAOMI MI5 8.0

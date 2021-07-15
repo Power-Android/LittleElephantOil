@@ -98,4 +98,5 @@ dependencies {
     api rootProject.ext.support["coroutines_core"]
     api rootProject.ext.support["coroutines_android"]
     api rootProject.ext.support["viewmodel"]
+
 }

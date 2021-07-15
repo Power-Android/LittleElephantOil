@@ -11,7 +11,7 @@
         <!-- 去context实现 -->
         <provider
             android:name=".provide.ContextProvider"
-            android:authorities="${applicationId}.common.provider"
+            android:authorities="${applicationId}.provider"
             android:exported="false"
             android:multiprocess="true" />
     </application>

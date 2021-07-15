@@ -1,0 +1,68 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+}
+
+android {
+    publishNonDefault true
+    compileSdkVersion rootProject.ext.android['compileSdkVersion']
+    buildToolsVersion rootProject.ext.android['buildToolsVersion']
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.android['minSdkVersion']
+        targetSdkVersion rootProject.ext.android['targetSdkVersion']
+        versionCode rootProject.ext.android['versionCode']
+        versionName rootProject.ext.android['versionName']
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "WX_APP_ID", "\"wx3704434db8357ec1\"")
+        buildConfigField("String", "WX_APP_SCRIPT", "\"787d5dcefab80f6bca272800e9bad139\"")
+
+    }
+
+    buildTypes {
+        debug{
+            //日志打印
+            buildConfigField("boolean", "IS_DEBUG", "true")
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        release {
+            //日志打印
+            buildConfigField("boolean", "IS_DEBUG", "false")
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'src/main/AndroidManifest.xml'
+        }
+    }
+    buildFeatures {
+        viewBinding = true
+    }
+}
+
+dependencies {
+    implementation  'com.umeng.umsdk:common:9.4.0'//必选
+    implementation  'com.umeng.umsdk:asms:1.2.3'//必选
+    implementation  'com.umeng.umsdk:share-core:7.1.5'//分享核心库，必选
+    implementation  'com.umeng.umsdk:share-board:7.1.5'//分享面板功能，可选
+
+    implementation 'com.umeng.umsdk:share-wx:7.1.5' //微信完整版
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:6.7.0'//微信官方依
+    implementation rootProject.ext.dependencies["wechat"]
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+}
