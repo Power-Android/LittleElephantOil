@@ -18,14 +18,20 @@
         tools:targetApi="n"
         tools:replace="android:theme">
         <activity android:name=".WelcomeActivity"
-            tools:ignore="Instantiatable"/>
-        <activity android:name=".MainActivity"
-            tools:ignore="Instantiatable">
+            android:theme="@style/SplashActivityTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".MainActivity"
+            tools:ignore="Instantiatable">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
     </application>
 

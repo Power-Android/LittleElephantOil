@@ -20,7 +20,8 @@ object UserConstants {
 
     var app_channel_key by SharedPreferencesUtils(context(), SPConstants.APP_CHANNEL_KEY, "")
     var first_open by SharedPreferencesUtils(context(), SPConstants.FIRST_OPEN, "")
-    var agree_privacy by SharedPreferencesUtils(context(), SPConstants.AGREE_PRIVACY, "")
+    var agree_privacy by SharedPreferencesUtils(context(), SPConstants.AGREE_PRIVACY, false)
+    var splash_screen_ad by SharedPreferencesUtils(context(), SPConstants.SPLASH_SCREEN_AD, "")
     var login_status by SharedPreferencesUtils(context(), SPConstants.LOGIN_STATUS, false)
     var token by SharedPreferencesUtils(context(), SPConstants.APP_TOKEN, "")
     var user_type by SharedPreferencesUtils(context(), SPConstants.USER_TYPE, -1)

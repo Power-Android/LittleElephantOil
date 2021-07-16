@@ -8,9 +8,11 @@ import android.webkit.JavascriptInterface
 import android.widget.Toast
 import com.amap.api.location.AMapLocation
 import com.blankj.utilcode.constant.PermissionConstants
+import com.blankj.utilcode.util.GsonUtils
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.PermissionUtils
 import com.blankj.utilcode.util.ThreadUtils
+import com.umeng.socialize.bean.SHARE_MEDIA
 import com.xxjy.common.base.BaseActivity
 import com.xxjy.common.constants.Constants
 import com.xxjy.common.constants.SPConstants
@@ -18,8 +20,11 @@ import com.xxjy.common.constants.UserConstants
 import com.xxjy.common.http.HttpManager
 import com.xxjy.common.util.ImageUtils
 import com.xxjy.common.util.MapIntentUtils
+import com.xxjy.common.util.WXSdkManager
+import com.xxjy.jyyh.ui.web.WebViewActivity
 import com.xxjy.navigation.MapLocationHelper
-import com.xxjy.web.WebViewActivity
+import com.xxjy.umeng.UMengLoginWx
+import com.xxjy.web.jscalljava.jsbean.OrderBean
 import com.xxjy.web.jscalljava.jscallback.OnJsCallListener
 import org.json.JSONObject
 
@@ -28,7 +33,7 @@ import org.json.JSONObject
  */
 class JsOperation(activity: BaseActivity?) : JsOperationMethods {
     private var mActivity: BaseActivity?
-    private  var mListener: OnJsCallListener?=null
+    private var mListener: OnJsCallListener? = null
     fun setOnJsCallListener(listener: OnJsCallListener?) {
         mListener = listener
     }
@@ -75,29 +80,28 @@ class JsOperation(activity: BaseActivity?) : JsOperationMethods {
     override fun showSharedIcon(shardInfo: String?) {
         mActivity?.runOnUiThread(Runnable {
             if (mActivity is WebViewActivity) {
-//                    WebViewActivity webViewActivity = (WebViewActivity) mActivity;
-//                    webViewActivity.showSharedIcon(shardInfo);
+                (mActivity as WebViewActivity).showSharedIcon(shardInfo!!)
             }
         })
     }
 
     @JavascriptInterface
     override fun hideSharedIcon() {
-        mActivity?.runOnUiThread(Runnable {
-            //                if (mActivity instanceof WebViewActivity) {
-//                    WebViewActivity webViewActivity = (WebViewActivity) mActivity;
-//                    webViewActivity.hideSharedIcon();
-//                }
-        })
+        mActivity?.runOnUiThread {
+            if (mActivity is WebViewActivity) {
+                (mActivity as WebViewActivity).hideSharedIcon()
+            }
+        }
     }
 
     @JavascriptInterface
     override fun showHelpIcon(phoneNumber: String?) {
         mActivity?.runOnUiThread(Runnable {
-            //                if (mActivity instanceof WebViewActivity) {
-//                    WebViewActivity webViewActivity = (WebViewActivity) mActivity;
-//                    webViewActivity.showHelpIcon(phoneNumber);
-//                }
+            if (mActivity is WebViewActivity) {
+                if (mActivity is WebViewActivity) {
+                    (mActivity as WebViewActivity).showHelpIcon(phoneNumber!!)
+                }
+            }
         })
     }
 
@@ -132,8 +136,7 @@ class JsOperation(activity: BaseActivity?) : JsOperationMethods {
         mActivity?.runOnUiThread(Runnable {
 
             if (mActivity is WebViewActivity) {
-                val webViewActivity: WebViewActivity? = mActivity as WebViewActivity?
-//                webViewActivity.setShouldLoadUrl(true)
+                (mActivity as WebViewActivity).isShouldLoadUrl=true
             }
 //            UiUtils.toLoginActivity(mActivity, Constants.LOGIN_FINISH)
         })
@@ -150,7 +153,7 @@ class JsOperation(activity: BaseActivity?) : JsOperationMethods {
     @JavascriptInterface
     override fun toAppletPay(params: String?) {
         mActivity?.runOnUiThread(Runnable {
-            //                WXSdkManager.newInstance().useWXLaunchMiniProgram(mActivity, params);
+//                            WXSdkManager.newInstance().useWXLaunchMiniProgram(mActivity, params);
         })
     }
 
@@ -185,20 +188,18 @@ class JsOperation(activity: BaseActivity?) : JsOperationMethods {
     override fun changeToolBarState(bgColor: String?) {
         mActivity?.runOnUiThread(Runnable {
             if (mActivity is WebViewActivity) {
-                val webViewActivity: WebViewActivity? = mActivity as WebViewActivity?
-//                webViewActivity.changeToolBarState(false, bgColor)
+                (mActivity as WebViewActivity).changeToolBarState(false, bgColor!!)
             }
         })
     }
 
     @JavascriptInterface
     override fun changeToolBarDefault() {
-        mActivity?.runOnUiThread(Runnable {
+        mActivity?.runOnUiThread {
             if (mActivity is WebViewActivity) {
-                val webViewActivity: WebViewActivity? = mActivity as WebViewActivity?
-//                webViewActivity.changeToolBarState(true, "")
+                (mActivity as WebViewActivity).changeToolBarState(true, "")
             }
-        })
+        }
     }
 
     /**
@@ -209,18 +210,14 @@ class JsOperation(activity: BaseActivity?) : JsOperationMethods {
     @JavascriptInterface
     override fun goWeChatBuyEquityCard(parameter: String?) {
 //
-//        Log.e("goWeChatBuyEquityCard",parameter);
-//        Gson gson = new Gson();
-//        OrderBean orderEntity=gson.fromJson(parameter, OrderBean.class);
-//        Log.e("goWeChatBuyEquityCard","orderId="+orderEntity.getOrderId());
-//        if(mActivity instanceof WebViewActivity){
-//            mActivity.runOnUiThread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    WXSdkManager.newInstance().useWXLaunchMiniProgramToPay(mActivity,orderEntity.getOrderId());
-//                }
-//            });
-//        }
+        Log.e("goWeChatBuyEquityCard",parameter!!);
+         var orderEntity:OrderBean=GsonUtils.fromJson(parameter, OrderBean::class.java)
+        Log.e("goWeChatBuyEquityCard","orderId="+orderEntity.orderId)
+        if(mActivity is WebViewActivity){
+         mActivity?.runOnUiThread {
+//             WXSdkManager.newInstance().useWXLaunchMiniProgramToPay(mActivity, orderEntity.orderId);
+         };
+        }
     }
 
     @JavascriptInterface
@@ -301,22 +298,20 @@ class JsOperation(activity: BaseActivity?) : JsOperationMethods {
     //                    String accessToken = map.get("accessToken");
     @JavascriptInterface
     override fun getOpenId() {
-//        UMengLoginWx.getOpenIdForWX(mActivity, object : UMAuthAdapter() {
-//            fun onComplete(share_media: SHARE_MEDIA?, i: Int, map: Map<String?, String?>?) {
+        UMengLoginWx.getOpenIdForWX(mActivity, object : UMengLoginWx.UMAuthAdapter() {
+           override fun onComplete(share_media: SHARE_MEDIA?, i: Int, map: Map<String?, String?>?) {
 //                LogUtils.e(Gson().toJson(map))
-//                if (map != null && map.containsKey("openid")) {
-//                    val openId = map["openid"]
-//                    //                    String accessToken = map.get("accessToken");
-//                    if (mActivity is WebViewActivity) {
-//                        mActivity.runOnUiThread(Runnable {
-//                            val webViewActivity: WebViewActivity? =
-//                                mActivity as WebViewActivity?
-//                            webViewActivity.setOpenId(openId)
-//                        })
-//                    }
-//                }
-//            }
-//        })
+                if (map != null && map.containsKey("openid")) {
+                    val openId = map["openid"]
+                    //                    String accessToken = map.get("accessToken");
+                    if (mActivity is WebViewActivity) {
+                        mActivity?.runOnUiThread {
+                            (mActivity as WebViewActivity).setOpenId(openId!!)
+                        }
+                    }
+                }
+            }
+        })
     }
 
     @JavascriptInterface
@@ -448,7 +443,7 @@ class JsOperation(activity: BaseActivity?) : JsOperationMethods {
     @JavascriptInterface
     override fun getStatusBarHeight(): Int {
 //    return StatusBarUtil.getStatusBarHeight(mActivity)
-    return 0
+        return 0
     }
 
     @JavascriptInterface

@@ -2,7 +2,7 @@ package com.xxjy.push
 
 import android.content.Context
 import cn.jpush.android.api.JPushInterface
-import com.rxjava.BuildConfig
+import com.xxjy.push.BuildConfig
 
 /**
  * 极光推送的管理器

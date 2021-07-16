@@ -41,9 +41,9 @@ object Constants {
     const val WX_APP_SCRIPT =
         "787d5dcefab80f6bca272800e9bad139" //ab730ab00dd73986593da2ce6514ffe8     6b4edd26960e017c050f940210a99723
 
-    //微信支付回调地址
-    val HTTP_CALL_BACK_URL =
-        if (URL_IS_DEBUG) "https://tcore.qqgyhk.com" else "https://core.qqgyhk.com"
+    //微信支付回调地址\
+    @JvmField
+     val HTTP_CALL_BACK_URL = if (URL_IS_DEBUG) "https://tcore.qqgyhk.com" else "https://core.qqgyhk.com"
 
     //fragment
     const val CURRENT_FRAGMENT_KEY = "current_fragment"

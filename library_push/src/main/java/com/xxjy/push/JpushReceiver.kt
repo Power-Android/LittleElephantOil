@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import cn.jpush.android.api.JPushInterface
-import com.blankj.utilcode.util.ActivityUtils
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -119,18 +118,18 @@ class JpushReceiver : BroadcastReceiver() {
 //            MainActivity.stateFragment = Tool.LOGIN_TO_MY;
 //            context.startActivity(i);
 //        }
-        if (ActivityUtils.isActivityAlive(context)) {
+//        if (ActivityUtils.isActivityAlive(context)) {
             // TODO: 2021/7/15 跳转页面 
 //            val i = Intent(context, MainActivity::class.java) //自定义打开的界面
 //            i.putExtra("startFrom", 1)
 //            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
 //            context.startActivity(i)
-        } else {
+//        } else {
 //            Intent i = new Intent(context, WelcomeActivity.class);  //自定义打开的界面
 //            i.putExtra("startFrom", 1);
 //            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //            context.startActivity(i);
-        }
+//        }
     }
 
     companion object {

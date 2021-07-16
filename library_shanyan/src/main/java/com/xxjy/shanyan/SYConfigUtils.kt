@@ -16,12 +16,8 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.blankj.utilcode.util.SizeUtils
 import com.chuanglan.shanyan_sdk.listener.ShanYanCustomInterface
 import com.chuanglan.shanyan_sdk.tool.ShanYanUIConfig
-import com.xxjy.common.constants.Constants
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 object SYConfigUtils {
     private var invitationLayout: ConstraintLayout? = null
@@ -30,7 +26,7 @@ object SYConfigUtils {
     var phoneNum = ""
     //沉浸式竖屏样式
     fun getCJSConfig(
-        context: Context, relativeLayoutClick: ShanYanCustomInterface?,
+        context: Context, serviceAgreementUrl:String,privacyPolicyUrl:String,relativeLayoutClick: ShanYanCustomInterface?,
         thirdLoginClick: ShanYanCustomInterface?, invitationLayoutClick: ShanYanCustomInterface?
     ): ShanYanUIConfig {
         /************************************************自定义控件 */
@@ -69,7 +65,7 @@ object SYConfigUtils {
             ConstraintLayout.LayoutParams.MATCH_PARENT,
             ConstraintLayout.LayoutParams.WRAP_CONTENT
         )
-        invitationPrarms.setMargins(0, SizeUtils.dp2px(290f), 0, 0)
+        invitationPrarms.setMargins(0, DisplayUtil.dp2px(context,290f), 0, 0)
         invitationLayout!!.layoutParams = invitationPrarms
 
 //        ImageView iv = invitationLayout.findViewById(R.id.iv1);
@@ -119,7 +115,7 @@ object SYConfigUtils {
             RelativeLayout.LayoutParams.WRAP_CONTENT
         )
         otherParamsOther.addRule(RelativeLayout.CENTER_HORIZONTAL)
-        otherParamsOther.setMargins(0, SizeUtils.dp2px(400f), 0, 0)
+        otherParamsOther.setMargins(0, DisplayUtil.dp2px(context,400f), 0, 0)
         otherLoginLayout.layoutParams = otherParamsOther
 
 //        otherLoginLayout.setOnClickListener(new View.OnClickListener() {
@@ -177,8 +173,8 @@ object SYConfigUtils {
             .setLogBtnTextSize(15)
             .setLogBtnHeight(45)
             .setLogBtnWidth(getScreenWidth(context, true) - 56) //授权页隐私栏：
-            .setAppPrivacyOne("服务协议", Constants.USER_XIE_YI) //设置开发者隐私条款1名称和URL(名称，url)
-            .setAppPrivacyTwo("隐私政策", Constants.YINSI_ZHENG_CE) //设置开发者隐私条款2名称和URL(名称，url)
+            .setAppPrivacyOne("服务协议", serviceAgreementUrl) //设置开发者隐私条款1名称和URL(名称，url)
+            .setAppPrivacyTwo("隐私政策", privacyPolicyUrl) //设置开发者隐私条款2名称和URL(名称，url)
             .setPrivacySmhHidden(false)
             .setPrivacyTextSize(12)
             .setAppPrivacyColor(

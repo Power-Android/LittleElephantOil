@@ -5,7 +5,6 @@ import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import com.umeng.analytics.MobclickAgent
-import com.umeng.commonsdk.BuildConfig
 import com.umeng.commonsdk.UMConfigure
 import com.umeng.socialize.PlatformConfig
 

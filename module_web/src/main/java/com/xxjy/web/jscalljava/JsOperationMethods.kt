@@ -1,11 +1,6 @@
 package com.xxjy.web.jscalljava
 
 /**
- * 车主邦
- * ---------------------------
- *
- *
- * Created by zhaozh on 2018/5/13.
  * 添加供给 js 的调用方法接口 ,为了方便统计,在这里抽取 方法
  *
  *

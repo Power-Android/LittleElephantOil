@@ -107,4 +107,9 @@ object SPConstants {
      * 车型选择
      */
     const val CAR_TYPE = "car_type"
+
+    /**
+     * 闪屏广告
+     */
+    const val SPLASH_SCREEN_AD = "splash_screen_ad"
 }

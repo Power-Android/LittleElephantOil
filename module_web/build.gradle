@@ -12,5 +12,7 @@ android {
 dependencies {
     api project(path: ":library_common")
     api project(path:":library_navigation")
+    api project(path:":library_umeng")
+    api project(path:":library_pay")
     api rootProject.ext.dependencies['txx5']
 }

@@ -1,7 +1,7 @@
 package com.xxjy.shanyan
 
 import android.content.Context
-import com.blankj.utilcode.util.LogUtils
+import android.util.Log
 import com.chuanglan.shanyan_sdk.OneKeyLoginManager
 import com.chuanglan.shanyan_sdk.listener.GetPhoneInfoListener
 
@@ -54,7 +54,7 @@ object ShanYanManager {
             return
         }
         getPhoneInfo { code, result ->
-            LogUtils.d("初始化： code==$code   result==$result")
+            Log.d("ShanYanManager","初始化： code==$code   result==$result")
             isShanYanSupport = code == DEFAULT_SUCCESS_CODE
         }
     }
@@ -85,7 +85,7 @@ object ShanYanManager {
      */
     private fun initShanyanSDK(context: Context) {
         OneKeyLoginManager.getInstance().init(context, APP_ID) { code, result -> //闪验SDK初始化结果回调
-            LogUtils.w("初始化： code==$code   result==$result")
+            Log.d("ShanYanManager","初始化： code==$code   result==$result")
             initCode = code
         }
     }

@@ -46,7 +46,6 @@ object HttpManager {
             //                .addInterceptor(new RedirectInterceptor())
             //                  .addInterceptor(new TokenInterceptor())
             .build()
-
         //RxHttp初始化，自定义OkHttpClient对象，非必须
         RxHttp.init(client)
         RxHttp.setDebug(BuildConfig.DEBUG)

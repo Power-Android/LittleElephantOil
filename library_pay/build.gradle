@@ -54,9 +54,9 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
-    implementation files('libs\\alipaysdk-noutdid-15.8.02.210308182128.aar')
-    implementation files('libs\\qmf-ppplugin-android-3.1.1.aar')
-    implementation files('libs\\UPPayAssistEx.jar')
-    implementation files('libs\\UPPayPluginExPro.jar')
-    implementation rootProject.ext.dependencies["wechat"]
+    api files('libs\\alipaysdk-noutdid-15.8.02.210308182128.aar')
+    api files('libs\\qmf-ppplugin-android-3.1.1.aar')
+    api files('libs\\UPPayAssistEx.jar')
+    api files('libs\\UPPayPluginExPro.jar')
+    api rootProject.ext.dependencies["wechat"]
 }

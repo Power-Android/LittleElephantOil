@@ -51,5 +51,6 @@ dependencies {
     implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
     //闪验
     api files('libs/shanyan_sdk_v2.3.2.2.aar')
-    api project(path: ':library_common')
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+//    api project(path: ':library_common')
 }

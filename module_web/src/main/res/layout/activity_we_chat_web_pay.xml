@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_F5"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/color_F5"
+                android:elevation="@dimen/dp_0"
+                android:theme="@style/ToolbarTheme"
+                android:visibility="visible"
+                app:contentInsetStart="@dimen/dp_0">
+
+                <!--style="@style/Widget.AppCompat.Toolbar.Button.Navigation"-->
+                <!--android:background="?selectableItemBackgroundBorderless"-->
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|center_vertical"
+                    android:layout_marginLeft="@dimen/dp_3"
+                    android:paddingTop="@dimen/dp_1">
+
+                    <ImageView
+                        android:id="@+id/web_back"
+                        android:layout_width="@dimen/dp_30"
+                        android:layout_height="@dimen/dp_30"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:padding="@dimen/dp_6"
+                        android:src="@mipmap/arrow_back_black" />
+
+                    <ImageView
+                        android:id="@+id/web_close"
+                        android:layout_width="@dimen/dp_32"
+                        android:layout_height="@dimen/dp_32"
+                        android:padding="@dimen/dp_6"
+                        android:src="@mipmap/icon_tb_close_bg"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/web_pay_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:lines="1"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_23"
+                    android:textSize="@dimen/sp_18" />
+
+            </androidx.appcompat.widget.Toolbar>
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/line_progress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="3dip"
+            android:progressDrawable="@drawable/progress_line"
+            android:visibility="gone" />
+
+        <com.tencent.smtt.sdk.WebView
+            android:id="@+id/webview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
