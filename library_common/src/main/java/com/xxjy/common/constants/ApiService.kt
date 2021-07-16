@@ -9,19 +9,19 @@ import rxhttp.wrapper.annotation.DefaultDomain
  * @description: 网络请求专用
  */
 object ApiService {
-    //默认正式服务器url
-    const val CONFIG_RELEASE_URL = "https://m.qqgyhk.com/"
-    const val RELEASE_URL = CONFIG_RELEASE_URL + "server/"
-
     //默认测试服务器url
     const val CONFIG_DEBUG_URL = "https://tcore.qqgyhk.com/"
+    //默认正式服务器url
+    const val CONFIG_RELEASE_URL = "https://m.qqgyhk.com/"
 
-    //    public static final String CONFIG_DEBUG_URL = "https://ccore.qqgyhk.com/";
     const val DEBUG_URL = CONFIG_DEBUG_URL + "server/"
+    const val RELEASE_URL = CONFIG_RELEASE_URL + "server/"
 
-//    @DefaultDomain //默认域名
-     var BASE_URL = if (Constants.URL_IS_DEBUG) DEBUG_URL else RELEASE_URL
-     var CONFIG_BASE_URL = if (Constants.URL_IS_DEBUG) CONFIG_DEBUG_URL else CONFIG_RELEASE_URL
+    @JvmField
+    @DefaultDomain
+    var BASE_URL = if (Constants.URL_IS_DEBUG) DEBUG_URL else RELEASE_URL
+
+    var CONFIG_BASE_URL = if (Constants.URL_IS_DEBUG) CONFIG_DEBUG_URL else CONFIG_RELEASE_URL
 
     //获取验证码
     const val GET_CODE = "api/v1/wx/sendSmsCode"

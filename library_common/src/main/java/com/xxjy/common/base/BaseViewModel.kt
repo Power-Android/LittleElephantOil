@@ -10,46 +10,33 @@ import java.lang.reflect.ParameterizedType
  * @project RunElephant
  * @description:
  */
-open class BaseViewModel<M : BaseRepository?> constructor(application: Application) : AndroidViewModel(application),
+open class BaseViewModel<M : BaseRepository> constructor(application: Application) :
+    AndroidViewModel(application),
     LifecycleObserver {
 
-    var repository: M?
-        protected set
+    var mRespository: M = createModel()
 
-    init {
-        repository = createModel()
-    }
-
-    private fun createModel(): M? {
-        if (repository == null) {
-            val modelClass: Class<*>
-            val type = javaClass.genericSuperclass
-            modelClass = if (type is ParameterizedType) {
-                type.actualTypeArguments[0] as Class<*>
-            } else {
-                //如果没有指定泛型参数，则默认使用BaseModel
-                BaseRepository::class.java
-            }
-            try {
-                repository = modelClass.newInstance() as M
-            } catch (e: IllegalAccessException) {
-                e.printStackTrace()
-            } catch (e: InstantiationException) {
-                e.printStackTrace()
-            }
+    private fun createModel(): M {
+        val modelClass: Class<*>
+        val type = javaClass.genericSuperclass
+        modelClass = if (type is ParameterizedType) {
+            type.actualTypeArguments[0] as Class<*>
+        } else {
+            //如果没有指定泛型参数，则默认使用BaseModel
+            BaseRepository::class.java
         }
-        return repository
+        try {
+            mRespository = modelClass.newInstance() as M
+        } catch (e: IllegalAccessException) {
+            e.printStackTrace()
+        } catch (e: InstantiationException) {
+            e.printStackTrace()
+        }
+        return mRespository
     }
 
-    fun loadingView(): LiveData<Boolean>? =
-        repository?.isShowLoading
-
-
-    override fun onCleared() {
-        super.onCleared()
-        //ViewModel销毁时会执行，同时取消所有异步任务
-        repository?.unDisposable()
-    }
+    fun loadingView(): LiveData<Boolean> =
+        mRespository.isShowLoading()
 
     @OnLifecycleEvent(Lifecycle.Event.ON_ANY)
     fun onAny(owner: LifecycleOwner?, event: Lifecycle.Event?) {

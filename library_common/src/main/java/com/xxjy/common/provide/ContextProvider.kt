@@ -1,15 +1,9 @@
 package com.xxjy.common.provide
 
-import android.app.Application
 import android.content.ContentProvider
 import android.content.ContentValues
 import android.database.Cursor
 import android.net.Uri
-import com.blankj.utilcode.util.CrashUtils
-import com.blankj.utilcode.util.ToastUtils
-import com.qmuiteam.qmui.arch.QMUISwipeBackActivityManager
-import com.xxjy.common.BuildConfig
-import com.xxjy.common.http.HttpManager
 import com.xxjy.common.provide.MContext.init
 
 /**
@@ -19,24 +13,13 @@ import com.xxjy.common.provide.MContext.init
  * 包名： com.xxjy.common.util.sp
  * 类说明：
  */
-internal class ContextProvider : ContentProvider(){
+internal class ContextProvider : ContentProvider() {
 
     override fun onCreate(): Boolean {
         init(context!!)
-        //QMUI
-        QMUISwipeBackActivityManager.init(context!! as Application)
-
-        if (BuildConfig.DEBUG) {
-            CrashUtils.init { crashInfo: CrashUtils.CrashInfo? ->
-                ToastUtils.showLong(
-                    "崩溃日志已存储至目录！"
-                )
-            }
-        }
-        //网络请求Rxhttp
-        HttpManager.init(context!! as Application)
         return true
     }
+
     override fun insert(uri: Uri, values: ContentValues?): Uri? = null
 
     override fun query(

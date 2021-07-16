@@ -31,6 +31,8 @@ ext {
             "coroutines_core"   : "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.7",
             "coroutines_android": 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.7',
             "viewmodel"         : "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0",
+            "lifecycle"         : "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0",
+            "livedata"          : "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0",
     ]
 
     //第三方依赖配置
@@ -46,6 +48,7 @@ ext {
             "rxjava"                            : "io.reactivex.rxjava3:rxjava:3.0.6",
             "rxandroid"                         : "io.reactivex.rxjava3:rxandroid:3.0.0",
             "rxlife"                            : "com.ljx.rxlife3:rxlife-rxjava:3.0.0",
+            "rxlife_coroutine"                  : "com.ljx.rxlife:rxlife-coroutine:2.0.1",
             "PersistentCookieJar"               : "com.github.franmontiel:PersistentCookieJar:v1.0.1",
             "refresh_layout"                    : "com.scwang.smart:refresh-layout-kernel:2.0.3",
             "refresh_header_classics"           : "com.scwang.smart:refresh-header-classics:2.0.3",

@@ -17,6 +17,16 @@ android {
             testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         }
 
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [
+                        //使用asXxx方法时必须，告知RxHttp你依赖的rxjava版本，可传入rxjava2、rxjava3
+                        rxhttp_rxjava: 'rxjava3',
+                        rxhttp_package: 'rxhttp'   //非必须，指定RxHttp类包名
+                ]
+            }
+        }
+
         buildTypes {
             release {
                 minifyEnabled false
@@ -55,6 +65,7 @@ dependencies {
     androidTestApi 'androidx.test.espresso:espresso-core:3.3.0'
 
     api project(path: ':library_navigation')
+    api project(path: ':library_pay')
 
     api rootProject.ext.dependencies["gson"]
     api rootProject.ext.dependencies["glide"]
@@ -66,6 +77,7 @@ dependencies {
     api rootProject.ext.dependencies["rxjava"]
     api rootProject.ext.dependencies["rxandroid"]
     api rootProject.ext.dependencies["rxlife"]
+    api rootProject.ext.dependencies["rxlife_coroutine"]
     api rootProject.ext.dependencies["PersistentCookieJar"]
     api rootProject.ext.dependencies["refresh_layout"]
     api rootProject.ext.dependencies["refresh_header_classics"]
@@ -98,4 +110,6 @@ dependencies {
     api rootProject.ext.support["coroutines_core"]
     api rootProject.ext.support["coroutines_android"]
     api rootProject.ext.support["viewmodel"]
+    api rootProject.ext.support["lifecycle"]
+    api rootProject.ext.support["livedata"]
 }

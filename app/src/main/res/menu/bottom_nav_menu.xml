@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:enabled="true"
+        android:icon="@drawable/selector_home"
+        android:title="首页"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/navigation_oil"
+        android:enabled="true"
+        android:icon="@drawable/selector_oil"
+        android:title="加油省钱"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/navigation_car_serve"
+        android:enabled="true"
+        android:icon="@drawable/selector_car_serve"
+        android:title="特惠洗车"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/navigation_integral"
+        android:enabled="true"
+        android:icon="@drawable/selector_integral"
+        android:title="积分权益"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/navigation_mine"
+        android:enabled="true"
+        android:icon="@drawable/selector_mine"
+        android:title="我的"
+        app:showAsAction="ifRoom" />
+</menu>

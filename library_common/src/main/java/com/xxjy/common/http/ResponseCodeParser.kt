@@ -18,8 +18,8 @@ import java.lang.reflect.Type
  */
 @Parser(name = "CodeResponse")
 open class ResponseCodeParser<T> : AbstractParser<Response<T>> {
-    protected constructor() : super() {}
-    constructor(type: Type?) : super(type!!) {}
+    protected constructor() : super()
+    constructor(type: Type?) : super(type!!)
 
     @Throws(IOException::class)
     override fun onParse(response: okhttp3.Response): Response<T> {
@@ -28,7 +28,7 @@ open class ResponseCodeParser<T> : AbstractParser<Response<T>> {
         if (data.code != 1) {
             MyToast.showWarning(
                 MContext.context(),
-                if (data?.msg != null) data.msg else "网络请求错误"
+                if (data.msg != null) data.msg else "网络请求错误"
             )
             throw ParseException(String.valueOf(data.code), data.msg, response)
         }
