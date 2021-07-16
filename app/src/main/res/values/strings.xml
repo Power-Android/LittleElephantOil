@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">小象加油</string>
+
+    <string name="double_click_exit_toast">再按一次退出</string>
 </resources>

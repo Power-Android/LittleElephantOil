@@ -1,0 +1,9 @@
+{
+  "BusUtilsClass": "com.blankj.utilcode.util.BusUtils",
+  "rightBus": {
+    "event_change_fragment": [
+      "{ desc: com.xxjy.jyyh.MainActivity#onEvent(com.xxjy.common.entity.EventEntity event), sticky: true }"
+    ]
+  },
+  "wrongBus": {}
+}

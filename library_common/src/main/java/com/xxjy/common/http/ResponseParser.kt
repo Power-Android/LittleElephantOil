@@ -17,12 +17,12 @@ import java.lang.reflect.Type
  * Time: 13:49
 </T> */
 @Parser(name = "Response")
-open class ResponseParser<T> : AbstractParser<T?> {
-    protected constructor() : super() {}
-    constructor(type: Type?) : super(type!!) {}
+open class ResponseParser<T> : AbstractParser<T> {
+    protected constructor() : super()
+    constructor(type: Type) : super(type)
 
     @Throws(IOException::class)
-    override fun onParse(response: okhttp3.Response): T? {
+    override fun onParse(response: okhttp3.Response): T {
         val type: Type = ParameterizedTypeImpl[Response::class.java, mType] //获取泛型类型
         val data: Response<T> = convert(response, type)
         var t = data.data //获取data字段
@@ -35,7 +35,7 @@ open class ResponseParser<T> : AbstractParser<T?> {
             if (data.code == 1) {
                 data.msg = "暂无数据"
             }
-            t = data.msg as T?
+            t = data.msg as T
         }
         if (data.code != 1) {
             if (data.code == 1007) {
@@ -43,10 +43,10 @@ open class ResponseParser<T> : AbstractParser<T?> {
             }
             MyToast.showWarning(
                 MContext.context(),
-                if (data != null && data.msg != null) data.msg else "网络请求错误"
+                if (data.msg != null) data.msg else "网络请求错误"
             )
             throw ParseException(String.valueOf(data.code), data.msg, response)
         }
-        return t
+        return t!!
     }
 }

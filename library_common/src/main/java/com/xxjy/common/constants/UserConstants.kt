@@ -21,7 +21,7 @@ object UserConstants {
     var app_channel_key by SharedPreferencesUtils(context(), SPConstants.APP_CHANNEL_KEY, "")
     var first_open by SharedPreferencesUtils(context(), SPConstants.FIRST_OPEN, "")
     var agree_privacy by SharedPreferencesUtils(context(), SPConstants.AGREE_PRIVACY, "")
-    var login_status by SharedPreferencesUtils(context(), SPConstants.LOGIN_STATUS, "")
+    var login_status by SharedPreferencesUtils(context(), SPConstants.LOGIN_STATUS, false)
     var token by SharedPreferencesUtils(context(), SPConstants.APP_TOKEN, "")
     var user_type by SharedPreferencesUtils(context(), SPConstants.USER_TYPE, -1)
     var mobile by SharedPreferencesUtils(context(), SPConstants.MOBILE, "")
@@ -41,17 +41,17 @@ object UserConstants {
     var notification_remind by SharedPreferencesUtils(
         context(),
         SPConstants.NOTIFICATION_REMIND,
-        ""
+        false
     )
     var notification_remind_version by SharedPreferencesUtils(
         context(),
         SPConstants.NOTIFICATION_REMIND_VERSION,
-        ""
+        false
     )
     var notification_remind_user_center by SharedPreferencesUtils(
         context(),
         SPConstants.NOTIFICATION_REMIND_USER_CENTER,
-        ""
+        false
     )
     var startFrom by SharedPreferencesUtils(context(), SPConstants.START_FROM, "")
     var new_user_red_packet by SharedPreferencesUtils(

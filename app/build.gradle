@@ -1,7 +1,9 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'com.blankj.bus'
 }
+
 android {
     compileSdkVersion rootProject.ext.android['compileSdkVersion']
     buildToolsVersion rootProject.ext.android['buildToolsVersion']

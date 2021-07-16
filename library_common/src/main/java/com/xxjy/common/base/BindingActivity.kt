@@ -17,9 +17,9 @@ import java.lang.reflect.Method
 import java.lang.reflect.ParameterizedType
 
 abstract class BindingActivity<V : ViewBinding, VM : BaseViewModel<*>> : BaseActivity(),
-    NetworkUtils.OnNetworkStatusChangedListener{
-    protected var mBinding: V? = null
-    protected var mViewModel: VM? = null
+    NetworkUtils.OnNetworkStatusChangedListener {
+    protected lateinit var mBinding: V
+    protected lateinit var mViewModel: VM
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +29,7 @@ abstract class BindingActivity<V : ViewBinding, VM : BaseViewModel<*>> : BaseAct
             initListener()
             //页面事件监听的方法，一般用于ViewModel层转到View层的事件注册
             dataObservable()
-        }else {
+        } else {
             initNoNetWorkView()
         }
         checkNetwork()
@@ -85,20 +85,18 @@ abstract class BindingActivity<V : ViewBinding, VM : BaseViewModel<*>> : BaseAct
             mBinding = (type.actualTypeArguments[0] as Class<V>)
                 .getMethod("inflate", LayoutInflater::class.java)
                 .invoke(null, layoutInflater) as V
-            setContentView(mBinding?.root)
+            setContentView(mBinding.root)
         }
-        if (mViewModel == null) {
-            val modelClass = if (type is ParameterizedType) {
-                type.actualTypeArguments[1] as Class<VM>
-            } else {
-                //如果没有指定泛型参数，则默认使用BaseViewModel
-                BaseViewModel::class.java as Class<VM>
-            }
-            mViewModel = ViewModelProvider(this).get(modelClass)
+        val modelClass = if (type is ParameterizedType) {
+            type.actualTypeArguments[1] as Class<VM>
+        } else {
+            //如果没有指定泛型参数，则默认使用BaseViewModel
+            BaseViewModel::class.java as Class<VM>
+        }
+        mViewModel = ViewModelProvider(this).get(modelClass)
 
-        }
         //让ViewModel绑定View的生命周期
-        lifecycle.addObserver(mViewModel!!)
+        lifecycle.addObserver(mViewModel)
     }
 
     /**
@@ -123,7 +121,6 @@ abstract class BindingActivity<V : ViewBinding, VM : BaseViewModel<*>> : BaseAct
 
     override fun onDestroy() {
         super.onDestroy()
-        mBinding = null
         NetworkUtils.unregisterNetworkStatusChangedListener(this)
     }
 

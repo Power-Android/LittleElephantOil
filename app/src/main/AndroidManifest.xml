@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.xxjy.jyyh">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:name=".SophixStubApplication"
         android:allowBackup="true"
@@ -13,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-        tools:targetApi="n">
+        tools:targetApi="n"
+        tools:replace="android:theme">
         <activity android:name=".WelcomeActivity"
             tools:ignore="Instantiatable"/>
         <activity android:name=".MainActivity"
