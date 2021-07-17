@@ -20,7 +20,6 @@ import com.xxjy.common.entity.BannerBean
 import com.xxjy.common.util.GlideUtils
 import com.xxjy.common.weight.MyCountDownTime
 import com.xxjy.jyyh.databinding.ActivityWelcomeBinding
-import com.xxjy.navigation.MapLocationHelper
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.ObservableEmitter
@@ -226,7 +225,7 @@ class WelcomeActivity : BaseActivity(),
     }
 
     private operator fun next() {
-        MapLocationHelper.refreshLocation(this)
+//        MapLocationHelper.refreshLocation(this)
         mEmitter?.onNext(MSG_WHAT_TRY_SHOW_GUIDE)
     }
 

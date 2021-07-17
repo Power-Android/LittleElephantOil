@@ -1,3 +1,4 @@
+rootProject.name = "LittleElephantOil_Kotlin"
 include ':library_pay'
 include ':library_navigation'
 include ':library_shanyan'
@@ -8,8 +9,6 @@ include ':module_personal'
 include ':module_carservice'
 include ':module_oil'
 include ':module_integral'
-rootProject.name = "LittleElephantOil_Kotlin"
-
 include ':module_web'
 include ':library_shumei'
 include ':library_push'

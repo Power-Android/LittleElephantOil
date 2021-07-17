@@ -63,6 +63,11 @@ object SPConstants {
      */
     const val CITY_CODE = "city_code"
 
+    /**
+     * 区码
+     */
+    const val AD_CODE = "ad_code"
+
     //app引导guide版本标识
     const val SP_APP_SHOW_GUIDE_VERSION = "guide_version"
 

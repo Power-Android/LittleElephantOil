@@ -4,10 +4,6 @@ import android.annotation.SuppressLint
 import android.text.TextUtils
 import com.xxjy.common.provide.MContext.context
 import com.xxjy.common.util.SharedPreferencesUtils
-import com.xxjy.navigation.MapLocationHelper
-import com.xxjy.navigation.MapLocationHelper.Companion.adCode
-import com.xxjy.navigation.MapLocationHelper.Companion.locationLatitude
-import com.xxjy.navigation.MapLocationHelper.Companion.locationLongitude
 
 /**
  * @author power
@@ -30,7 +26,8 @@ object UserConstants {
     var longitude by SharedPreferencesUtils(context(), SPConstants.LONGITUDE, "0")
     var latitude by SharedPreferencesUtils(context(), SPConstants.LATITUDE, "0")
     var openId by SharedPreferencesUtils(context(), SPConstants.OPEN_ID, "")
-    var city_code by SharedPreferencesUtils(context(), SPConstants.CITY_CODE, "")
+    var city_code by SharedPreferencesUtils(context(), SPConstants.AD_CODE, "")
+    var ad_code by SharedPreferencesUtils(context(), SPConstants.CITY_CODE, "")
     var guide_version by SharedPreferencesUtils(
         context(),
         SPConstants.SP_APP_SHOW_GUIDE_VERSION,
@@ -65,8 +62,8 @@ object UserConstants {
 
     //定位信息
     fun getLocation(): String {
-        return if (locationLatitude != 0.0 && locationLongitude != 0.0) {
-            "$locationLongitude,$locationLatitude"
+        return if (latitude?.toDouble() != 0.0 && longitude?.toDouble() != 0.0) {
+            "$longitude,$latitude"
         } else {
             ""
         }
@@ -76,9 +73,9 @@ object UserConstants {
      * @return 城市编码
      */
     fun getCityCode(): String {
-        return if (!TextUtils.isEmpty(adCode)) {
-            adCode!!.replace(
-                adCode!!.substring(adCode!!.length - 2),
+        return if (!TextUtils.isEmpty(ad_code)) {
+            ad_code!!.replace(
+                ad_code!!.substring(ad_code!!.length - 2),
                 "00"
             )
         } else {
@@ -90,7 +87,7 @@ object UserConstants {
      * @return 区域编码
      */
     fun getAdCode(): String {
-        return if (adCode != null) adCode as String else ""
+        return if (ad_code != null) ad_code as String else ""
 
     }
 

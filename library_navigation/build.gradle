@@ -19,6 +19,7 @@ android {
         ndk {
             abiFilters  "armeabi-v7a"
         }
+
         }
     sourceSets {
         main {
@@ -53,4 +54,5 @@ android {
     dependencies {
 
         api files('libs\\AMap3DMap_7.6.0_AMapSearch_7.6.0_AMapLocation_5.2.0_20200915.jar')
+        api project(path:":library_common")
     }

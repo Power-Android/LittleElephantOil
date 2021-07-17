@@ -8,7 +8,13 @@ android {
         if(singleModule.toBoolean()){
             applicationId "com.xxjy.integral"
         }
+        kapt {
+            arguments {
+                arg("AROUTER_MODULE_NAME", project.getName())
+            }
+        }
     }
+
 }
 
 dependencies {
@@ -16,5 +22,6 @@ dependencies {
 
 
     api project(path: ':library_common')
+    kapt rootProject.ext.dependencies["arouter_compiler"]
 
 }

@@ -5,6 +5,11 @@ android {
         if (singleModule.toBoolean()) {
             applicationId "com.xxjy.web"
         }
+        kapt {
+            arguments {
+                arg("AROUTER_MODULE_NAME", project.getName())
+            }
+        }
     }
 
 }
@@ -15,4 +20,5 @@ dependencies {
     api project(path:":library_umeng")
     api project(path:":library_pay")
     api rootProject.ext.dependencies['txx5']
+    kapt rootProject.ext.dependencies["arouter_compiler"]
 }

@@ -16,6 +16,7 @@ android {
         versionName rootProject.ext.android['versionName']
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
     }
 
     buildTypes {
@@ -51,7 +52,6 @@ dependencies {
         implementation project(path: ':module_personal')
     }
 }
-
 configurations {
     all*.exclude group: 'com.google.guava', module: 'listenablefuture'
 }

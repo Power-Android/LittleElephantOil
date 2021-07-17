@@ -6,8 +6,9 @@ import com.amap.api.location.AMapLocation
 import com.amap.api.location.AMapLocationClient
 import com.amap.api.location.AMapLocationClientOption
 import com.amap.api.location.AMapLocationListener
+import com.xxjy.common.constants.UserConstants
 
-/**
+ /**
  * 车主邦
  * ---------------------------
  *
@@ -129,15 +130,16 @@ class MapLocationHelper private constructor() {
                     mLastRefreshTime = System.currentTimeMillis()
                     locationLatitude = location.getLatitude()
                     locationLongitude = location.getLongitude()
-                    cityCode = location.getCityCode()
+                    cityCode = location.cityCode
                     adCode = location.adCode
-                    city = location.getCity()
+                    city = location.city
                     Log.i("定位",cityCode + "---" + location.getLatitude() + "---" + location.getLongitude())
                     aMapLocation = location
                     isHasLocationPermission = true
-                    // TODO: 2021/7/7
-                    //                    UserConstants.setLongitude(location.getLongitude().toString())
-                    //                    UserConstants.setLatitude(location.getLatitude().toString())
+                    UserConstants.longitude=location.longitude.toString()
+                    UserConstants.latitude=location.latitude.toString()
+                    UserConstants.ad_code = location.adCode
+                    UserConstants.city_code = location.cityCode
                     if (mLocationResult != null) {
                         mLocationResult!!.locationSuccess(location)
                     }
@@ -328,7 +330,6 @@ class MapLocationHelper private constructor() {
          */
         //            private static final long LOCATION_VALID_TIME = 1000;
         var locationLatitude = 0.0
-            private set
 
         /**
          * 获取经度
@@ -336,7 +337,6 @@ class MapLocationHelper private constructor() {
          * @return
          */
         var locationLongitude = 0.0 //标记当前的经纬度
-            private set
 
         private var mLastRefreshTime: Long = 0 //标记上次刷新的时间
         var aMapLocation //保存当前的location

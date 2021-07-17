@@ -1,5 +1,5 @@
 apply from: "../module.build.gradle"
-apply plugin: 'kotlin-android'
+//apply plugin: 'kotlin-android'
 //apply plugin: 'kotlin-kapt'
 //apply plugin: 'dagger.hilt.android.plugin'
 
@@ -7,6 +7,11 @@ android {
     defaultConfig {
         if(singleModule.toBoolean()){
             applicationId "com.xxjy.home"
+        }
+        kapt {
+            arguments {
+                arg("AROUTER_MODULE_NAME", project.getName())
+            }
         }
     }
 }
@@ -17,4 +22,6 @@ dependencies {
     implementation 'com.google.android.material:material:1.2.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+//    api rootProject.ext.dependencies["arouter_api"]
+    kapt rootProject.ext.dependencies["arouter_compiler"]
 }

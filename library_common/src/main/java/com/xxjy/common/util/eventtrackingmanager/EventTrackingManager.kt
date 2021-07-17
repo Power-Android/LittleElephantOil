@@ -6,11 +6,7 @@ import com.blankj.utilcode.util.TimeUtils
 import com.xxjy.common.base.BaseActivity
 import com.xxjy.common.constants.Constants
 import com.xxjy.common.constants.UserConstants
-import com.xxjy.navigation.MapLocationHelper
-import dagger.Module
-import io.reactivex.rxjava3.functions.Consumer
 import java.util.*
-import javax.inject.Inject
 
 /**
  * @author power
@@ -93,7 +89,7 @@ class EventTrackingManager private constructor() {
     private fun setParams(activity: BaseActivity?) {
         mTrackingEntity = TrackingEntity()
         mTrackingEntity.requestUriCaPlatform = "1"
-        mTrackingEntity.requestUriCity = MapLocationHelper.adCode.toString()
+        mTrackingEntity.requestUriCity = UserConstants.ad_code
         mTrackingEntity.requestUriSid = TimeUtils.getNowMills().toString()
         // 0：应用ICON 1：Push消息 2：页面外链唤起（运营页面、微信） 3：第三方APP
         mTrackingEntity.requestUriStartupFrom = UserConstants.startFrom
@@ -113,7 +109,7 @@ class EventTrackingManager private constructor() {
     fun getParams(activity: BaseActivity?, pvId: String): Map<String, String> {
         val map: MutableMap<String, String> = HashMap()
         map["requestUriCaPlatform"] = "1"
-        map["requestUriCity"] = MapLocationHelper.adCode.toString()
+        map["requestUriCity"] = UserConstants.ad_code
         map["requestUriSid"] = TimeUtils.getNowMills().toString()
         map["requestUriStartupFrom"] = UserConstants.startFrom
         map["lon"] = UserConstants.longitude

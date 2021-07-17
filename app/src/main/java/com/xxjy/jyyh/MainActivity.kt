@@ -7,6 +7,7 @@ import android.text.TextUtils
 import android.view.View
 import androidx.activity.viewModels
 import androidx.fragment.app.FragmentTransaction
+import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.BusUtils
 import com.blankj.utilcode.util.BusUtils.Bus
 import com.xxjy.carservice.CarServeFragment
@@ -26,9 +27,9 @@ import com.xxjy.home.HomeFragment
 import com.xxjy.integral.IntegralFragment
 import com.xxjy.jyyh.databinding.ActivityMainBinding
 import com.xxjy.oil.OilFragment
-import com.xxjy.pay.PayListenerUtils
 import com.xxjy.personal.MineFragment
 import com.xxjy.personal.viewmodel.AboutUsViewModel
+
 
 class MainActivity : BindingActivity<ActivityMainBinding, MainViewModel>() {
     private var mLastFgIndex = -1
@@ -132,6 +133,7 @@ class MainActivity : BindingActivity<ActivityMainBinding, MainViewModel>() {
                         TrackingConstant.CF_PAGE_HOME,
                         TrackingEventConstant.CF_EVENT_ICON
                     )
+                    ARouter.getInstance().build("/home/home/HomeActivity").navigation()
                 }
                 R.id.navigation_integral -> showFragment(Constants.TYPE_INTEGRAL)
                 R.id.navigation_mine -> {
@@ -375,13 +377,13 @@ class MainActivity : BindingActivity<ActivityMainBinding, MainViewModel>() {
                  * tn —— 订单号
                  */
 //            msg = "云闪付支付成功";
-                PayListenerUtils.instance?.addSuccess()
+//                PayListenerUtils.instance?.addSuccess()
             } else if (str.equals("fail", ignoreCase = true)) {
 //            msg = "云闪付支付失败！";
-                PayListenerUtils.instance?.addFail()
+//                PayListenerUtils.instance?.addFail()
             } else if (str.equals("cancel", ignoreCase = true)) {
 //            msg = "用户取消了云闪付支付";
-                PayListenerUtils.instance?.addCancel()
+//                PayListenerUtils.instance?.addCancel()
             }
         }
     }
