@@ -17,9 +17,9 @@ object UMengManager {
      *
      * @param context
      */
-    fun init(context: Context,wxAppId:String,wxAppScript:String,providerPath:String) {
+    fun init(context: Context,providerPath:String) {
         //友盟分享
-        PlatformConfig.setWeixin(wxAppId, wxAppScript)
+        PlatformConfig.setWeixin(BuildConfig.WX_APP_ID, BuildConfig.WX_APP_SCRIPT)
         PlatformConfig.setWXFileProvider(providerPath)
         UMConfigure.init(context, UMConfigure.DEVICE_TYPE_PHONE, null)
 
