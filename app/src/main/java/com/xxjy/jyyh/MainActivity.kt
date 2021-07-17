@@ -7,6 +7,7 @@ import android.text.TextUtils
 import android.view.View
 import androidx.activity.viewModels
 import androidx.fragment.app.FragmentTransaction
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.BusUtils
 import com.blankj.utilcode.util.BusUtils.Bus
@@ -18,6 +19,7 @@ import com.xxjy.common.constants.EventConstants
 import com.xxjy.common.constants.UserConstants
 import com.xxjy.common.dialog.VersionUpDialog
 import com.xxjy.common.entity.EventEntity
+import com.xxjy.common.router.RoutePathConstants
 import com.xxjy.common.util.NotificationsUtils
 import com.xxjy.common.util.Util
 import com.xxjy.common.util.eventtrackingmanager.EventTrackingManager
@@ -30,7 +32,7 @@ import com.xxjy.oil.OilFragment
 import com.xxjy.personal.MineFragment
 import com.xxjy.personal.viewmodel.AboutUsViewModel
 
-
+@Route(path = RoutePathConstants.Main.A_MAIN)
 class MainActivity : BindingActivity<ActivityMainBinding, MainViewModel>() {
     private var mLastFgIndex = -1
     private var clickTime: Long = 0
@@ -133,7 +135,7 @@ class MainActivity : BindingActivity<ActivityMainBinding, MainViewModel>() {
                         TrackingConstant.CF_PAGE_HOME,
                         TrackingEventConstant.CF_EVENT_ICON
                     )
-                    ARouter.getInstance().build("/home/home/HomeActivity").navigation()
+                    ARouter.getInstance().build(RoutePathConstants.Home.A_HOME).navigation()
                 }
                 R.id.navigation_integral -> showFragment(Constants.TYPE_INTEGRAL)
                 R.id.navigation_mine -> {

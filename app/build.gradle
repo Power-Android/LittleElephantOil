@@ -2,8 +2,8 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'com.blankj.bus'
+    id 'kotlin-kapt'
 }
-
 android {
     compileSdkVersion rootProject.ext.android['compileSdkVersion']
     buildToolsVersion rootProject.ext.android['buildToolsVersion']
@@ -16,7 +16,11 @@ android {
         versionName rootProject.ext.android['versionName']
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
+        kapt {
+            arguments {
+                arg("AROUTER_MODULE_NAME", project.getName())
+            }
+        }
     }
 
     buildTypes {
@@ -43,7 +47,7 @@ android {
 }
 
 dependencies {
-    implementation project(path: ':library_common')
+    api project(path: ':library_common')
     if (!singleModule.toBoolean()) {
         implementation project(path: ':module_home')
         implementation project(path: ':module_oil')
@@ -51,6 +55,7 @@ dependencies {
         implementation project(path: ':module_integral')
         implementation project(path: ':module_personal')
     }
+    kapt rootProject.ext.dependencies["arouter_compiler"]
 }
 configurations {
     all*.exclude group: 'com.google.guava', module: 'listenablefuture'
