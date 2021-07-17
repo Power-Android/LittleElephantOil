@@ -5,19 +5,17 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
+import androidx.activity.viewModels
 import androidx.fragment.app.FragmentTransaction
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.blankj.utilcode.util.BusUtils
 import com.blankj.utilcode.util.BusUtils.Bus
-import com.blankj.utilcode.util.LogUtils
 import com.xxjy.carservice.CarServeFragment
 import com.xxjy.common.base.BaseActivity
 import com.xxjy.common.base.BindingActivity
-import com.xxjy.common.constants.BannerPositionConstants
 import com.xxjy.common.constants.Constants
 import com.xxjy.common.constants.EventConstants
 import com.xxjy.common.constants.UserConstants
+import com.xxjy.common.dialog.VersionUpDialog
 import com.xxjy.common.entity.EventEntity
 import com.xxjy.common.util.NotificationsUtils
 import com.xxjy.common.util.Util
@@ -30,6 +28,7 @@ import com.xxjy.jyyh.databinding.ActivityMainBinding
 import com.xxjy.oil.OilFragment
 import com.xxjy.pay.PayListenerUtils
 import com.xxjy.personal.MineFragment
+import com.xxjy.personal.viewmodel.AboutUsViewModel
 
 class MainActivity : BindingActivity<ActivityMainBinding, MainViewModel>() {
     private var mLastFgIndex = -1
@@ -41,8 +40,10 @@ class MainActivity : BindingActivity<ActivityMainBinding, MainViewModel>() {
     private var mMineFragment: MineFragment? = null
     private var mTransaction: FragmentTransaction? = null
     private var isNewUser = -1 //新用户，未满3单跳油站列表，老用户满3单跳首页
-//    private var aboutUsViewModel: AboutUsViewModel? = null
-//    private var bannerViewModel: BannerViewModel? = null
+
+    private val aboutUsViewModel: AboutUsViewModel by viewModels()
+//    private val bannerViewModel: BannerViewModel by viewModels()
+
     @Bus(tag = EventConstants.EVENT_CHANGE_FRAGMENT, sticky = true)
     fun onEvent(event: EventEntity) {
         if (TextUtils.equals(event.event, EventConstants.EVENT_CHANGE_FRAGMENT)) {
@@ -68,42 +69,41 @@ class MainActivity : BindingActivity<ActivityMainBinding, MainViewModel>() {
         disPathIntentMessage(intent)
 
         //积分权益隐藏判断
-//        mViewModel.getOsOverAll().observe(this) { b ->
-//            if (!b) {
-//                UserConstants.gone_integral = true
-//                mBinding.navView.getMenu().removeItem(R.id.navigation_home)
-//                mBinding.navView.getMenu().removeItem(R.id.navigation_integral)
-//            } else {
-//                UserConstants.gone_integral = false
-//            }
-//        }
+        mViewModel.osOver().observe(this, {
+            if (!it) {
+                UserConstants.gone_integral = true
+                mBinding.navView.menu.removeItem(R.id.navigation_home)
+                mBinding.navView.menu.removeItem(R.id.navigation_integral)
+            } else {
+                UserConstants.gone_integral = false
+            }
+        })
+
         initNavigationView()
-        val state: Int = getIntent().getIntExtra("jumpState", -1)
+        val state: Int = intent.getIntExtra("jumpState", -1)
         showDiffFragment(state)
-//        aboutUsViewModel = ViewModelProvider(this).get(AboutUsViewModel::class.java)
-//        bannerViewModel = ViewModelProvider(this).get(BannerViewModel::class.java)
         if (state == -1) {
             checkVersion()
             //新老用户展示tab判断 新客户展示油站列表
-//            mViewModel.getIsNewUser().observe(this) { aBoolean ->
-//                isNewUser = if (aBoolean) {
-//                    1
-//                } else {
-//                    if (UserConstants.getGoneIntegral()) {
-//                        1
-//                    } else {
-//                        0
-//                    }
-//                }
-//                if (TextUtils.isEmpty(Constants.HUNTER_GAS_ID)) { //猎人码绑定油站
-//                    showDiffFragment(isNewUser)
-//                }
-//            }
+            mViewModel.isNewUser().observe(this) {
+                isNewUser = if (it) {
+                    1
+                } else {
+                    if (UserConstants.gone_integral) {
+                        1
+                    } else {
+                        0
+                    }
+                }
+                if (TextUtils.isEmpty(Constants.HUNTER_GAS_ID)) { //猎人码绑定油站
+                    showDiffFragment(isNewUser)
+                }
+            }
         } else {
             showNewUserDialog()
         }
-        UserConstants.notification_remind_user_center = !NotificationsUtils.isNotificationEnabled(this)
-        //        newUserStatus();
+        UserConstants.notification_remind_user_center =
+            !NotificationsUtils.isNotificationEnabled(this)
     }
 
     private fun showDiffFragment(position: Int) {
@@ -239,24 +239,20 @@ class MainActivity : BindingActivity<ActivityMainBinding, MainViewModel>() {
     override fun initListener() {}
     override fun onViewClicked(view: View?) {}
     override fun dataObservable() {
-//        aboutUsViewModel.checkVersionLiveData.observe(this) { data ->
-//            val compare: Int = Util.compareVersion(data.getLastVersion(), Util.versionName)
-//            if (compare == 1) {
-//                //是否强制更新，0：否，1：是
-//                val checkVersionDialog = VersionUpDialog(this, data)
-//                checkVersionDialog.setOnDismissListener { dialog -> newUserStatus() }
-//                checkVersionDialog.show()
-//            } else {
-//                newUserStatus()
-//            }
-//        }
-        mViewModel.osOver().observe(this, {
-            LogUtils.e(it)
-        })
+        aboutUsViewModel.checkVersionLiveData.observe(this) {
+            val compare: Int = Util.compareVersion(it.lastVersion, Util.versionName)
+            if (compare == 1) {
+                //是否强制更新，0：否，1：是
+                val checkVersionDialog = VersionUpDialog(this, it,true)
+                checkVersionDialog.setOnDismissListener { newUserStatus() }
+                checkVersionDialog.show()
+            } else {
+                newUserStatus()
+            }
+        }
     }
 
-    private val adData: Unit
-        get() {
+    private fun adData() {
 //            bannerViewModel.getBannerOfPostion(BannerPositionConstants.APP_OPEN_AD)
 //                .observe(this) { data ->
 //                    if (data != null && data.size() > 0) {
@@ -267,23 +263,23 @@ class MainActivity : BindingActivity<ActivityMainBinding, MainViewModel>() {
 //                        showNotification()
 //                    }
 //                }
-        }
+    }
 
     //新人礼包
     private fun newUserStatus() {
         if (UserConstants.login_status) {
-//            mViewModel.newUserStatus().observe(this) { data ->
-//                if (data != null && data.getStatus() === 1) {
+            mViewModel.newUserStatus().observe(this) {
+                if (it != null && it.status == 1) {
 //                    val homeNewUserDialog: HomeNewUserDialog = HomeNewUserDialog.getInstance()
-//                    homeNewUserDialog.setData(this, data)
-//                    homeNewUserDialog.show(mBinding.getRoot())
-//                    homeNewUserDialog.setOnItemClickedListener { view -> adData }
-//                } else {
-//                    adData
-//                }
-//            }
+//                    homeNewUserDialog.setData(this, it)
+//                    homeNewUserDialog.show(mBinding.root)
+//                    homeNewUserDialog.setOnItemClickedListener { view -> adData() }
+                } else {
+                    adData()
+                }
+            }
         } else {
-            adData
+            adData()
         }
     }
 
@@ -308,7 +304,7 @@ class MainActivity : BindingActivity<ActivityMainBinding, MainViewModel>() {
         }
     }
 
-    fun showNewUserDialog() {
+    private fun showNewUserDialog() {
         if (UserConstants.login_status) {
 //            mViewModel.newUserStatus().observe(this) { data ->
 //                if (data != null && data.getStatus() === 1) {
@@ -333,7 +329,7 @@ class MainActivity : BindingActivity<ActivityMainBinding, MainViewModel>() {
     }
 
     private fun jump(intent: Intent) {
-        var intent: Intent? = intent
+        var intent: Intent = intent
         if (intent == null) {
             intent = getIntent()
         }
@@ -355,7 +351,7 @@ class MainActivity : BindingActivity<ActivityMainBinding, MainViewModel>() {
     }
 
     private fun checkVersion() {
-//        aboutUsViewModel.checkVersion()
+        aboutUsViewModel.checkVersion()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

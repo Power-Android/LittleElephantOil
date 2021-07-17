@@ -19,7 +19,7 @@ import kotlinx.coroutines.CoroutineScope
 open class BaseRepository {
     //管理RxJava，主要针对RxJava异步操作造成的内存泄漏
     private val loadingLiveData: MutableLiveData<Boolean> = MutableLiveData()
-    protected val rxLifeScope: RxLifeScope = RxLifeScope()
+    val mRxLifeScope: RxLifeScope = RxLifeScope()
 
     /**
      * 请求
@@ -30,7 +30,7 @@ open class BaseRepository {
         block: suspend CoroutineScope.() -> Unit,
         isLoading: Boolean = false
     ){
-        rxLifeScope.launch(
+        mRxLifeScope.launch(
             {
                 block()
             },

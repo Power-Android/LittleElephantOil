@@ -3,19 +3,20 @@ package com.xxjy.common.http
 import android.annotation.SuppressLint
 import android.app.Application
 import android.text.TextUtils
-import androidx.viewbinding.BuildConfig
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.DeviceUtils
+import com.xxjy.common.BuildConfig
 import com.xxjy.common.constants.ApiService
 import com.xxjy.common.constants.Constants
 import com.xxjy.common.constants.UserConstants
 import okhttp3.OkHttpClient
+import rxhttp.RxHttp
 import rxhttp.RxHttpPlugins
 import rxhttp.wrapper.cahce.CacheMode
+import rxhttp.wrapper.callback.Function
 import rxhttp.wrapper.cookie.CookieStore
 import rxhttp.wrapper.param.Method
 import rxhttp.wrapper.param.Param
-import rxhttp.wrapper.param.RxHttp
 import rxhttp.wrapper.ssl.HttpsUtils
 import java.io.File
 import java.util.*
@@ -52,39 +53,36 @@ object HttpManager {
 
         //设置缓存策略，非必须
         val cacheFile = File(context.externalCacheDir, "RxHttpCache")
-        RxHttpPlugins.setCache(
-            cacheFile,
-            (1000 * 100).toLong(),
-            CacheMode.REQUEST_NETWORK_FAILED_READ_CACHE
-        )
-        RxHttpPlugins.setExcludeCacheKeys("time") //设置一些key，不参与cacheKey的组拼
 
+        //RxHttp初始化，自定义OkHttpClient对象，非必须
+        RxHttpPlugins.init(client)
+            .setDebug(BuildConfig.DEBUG)
+            .setCache(cacheFile, 1000 * 100, CacheMode.REQUEST_NETWORK_FAILED_READ_CACHE)
+            .setExcludeCacheKeys("time")//设置一些key，不参与cacheKey的组拼
+            .setOnParamAssembly {
+                //设置公共参数，非必须
+                /*根据不同请求添加不同参数，子线程执行，每次发送请求前都会被回调
+                 *如果希望部分请求不回调这里，发请求前调用Param.setAssemblyEnabled(false)即可
+                 */
+                val method: Method = it.method
+                if (method.isGet) { //Get请求
+                } else if (method.isPost) { //Post请求
+                }
+                val token: String = UserConstants.token
+                if (!TextUtils.isEmpty(token)) {
+                    //添加公共请求头
+                    it.setHeader("Authorization", "Bearer $token")
+                }
+                it.setHeader("User-Agent", "android")
+
+                //添加公共参数
+                it.setAllHeader(getCommonParams(it))
+            }
         //设置数据解密/解码器，非必须
 //        RxHttp.setResultDecoder(s -> s);
 
         //设置全局的转换器，非必须
 //        RxHttp.setConverter(FastJsonConverter.create());
-
-        //设置公共参数，非必须
-        RxHttp.setOnParamAssembly { p ->
-            /*根据不同请求添加不同参数，子线程执行，每次发送请求前都会被回调
-            如果希望部分请求不回调这里，发请求前调用Param.setAssemblyEnabled(false)即可
-             */
-            val method: Method = p.getMethod()
-            if (method.isGet) { //Get请求
-            } else if (method.isPost) { //Post请求
-            }
-            val token: String = UserConstants.token
-            if (!TextUtils.isEmpty(token)) {
-                //添加公共请求头
-                p.addHeader("Authorization", "Bearer $token")
-            }
-            p.removeAllHeader("User-Agent")
-            p.addHeader("User-Agent", "android")
-            //添加公共参数
-            p.addAll(getCommonParams(p))
-            p
-        }
     }
 
     /**

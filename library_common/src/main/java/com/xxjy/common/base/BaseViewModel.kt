@@ -14,7 +14,7 @@ open class BaseViewModel<M : BaseRepository> constructor(application: Applicatio
     AndroidViewModel(application),
     LifecycleObserver {
 
-    var mRespository: M = createModel()
+    var mRepository: M = createModel()
 
     private fun createModel(): M {
         val modelClass: Class<*>
@@ -26,17 +26,22 @@ open class BaseViewModel<M : BaseRepository> constructor(application: Applicatio
             BaseRepository::class.java
         }
         try {
-            mRespository = modelClass.newInstance() as M
+            mRepository = modelClass.newInstance() as M
         } catch (e: IllegalAccessException) {
             e.printStackTrace()
         } catch (e: InstantiationException) {
             e.printStackTrace()
         }
-        return mRespository
+        return mRepository
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        mRepository.mRxLifeScope.close()
     }
 
     fun loadingView(): LiveData<Boolean> =
-        mRespository.isShowLoading()
+        mRepository.isShowLoading()
 
     @OnLifecycleEvent(Lifecycle.Event.ON_ANY)
     fun onAny(owner: LifecycleOwner?, event: Lifecycle.Event?) {

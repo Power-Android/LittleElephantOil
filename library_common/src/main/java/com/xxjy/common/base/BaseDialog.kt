@@ -75,7 +75,7 @@ abstract class BaseDialog protected constructor(
      *
      * @param layoutParams
      */
-    protected fun initLayout(layoutParams: WindowManager.LayoutParams?) {
+    protected open fun initLayout(layoutParams: WindowManager.LayoutParams?) {
         //todo default is :layoutParams.width = WindowManager.LayoutParams.WRAP_CONTENT;
         //todo default is :layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
         //todo can use :layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
