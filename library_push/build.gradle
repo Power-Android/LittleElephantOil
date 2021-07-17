@@ -9,6 +9,7 @@ android {
     buildToolsVersion rootProject.ext.android['buildToolsVersion']
 
     defaultConfig {
+
         minSdkVersion rootProject.ext.android['minSdkVersion']
         targetSdkVersion rootProject.ext.android['targetSdkVersion']
         versionCode rootProject.ext.android['versionCode']
@@ -21,11 +22,17 @@ android {
             // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
         }
 
-        manifestPlaceholders = [
-                JPUSH_PKGNAME : packageName,
-                JPUSH_APPKEY : "f15e95ad502672d3a7b0f2b5", //JPush 上注册的包名对应的 Appkey.
-                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
-        ]
+//        manifestPlaceholders = [
+//                JPUSH_PKGNAME : "com.xxjy.jyyh",
+//                JPUSH_APPKEY : "f15e95ad502672d3a7b0f2b5", //JPush 上注册的包名对应的 Appkey.
+//                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+//        ]
+
+        sourceSets {
+            main {
+                jniLibs.srcDirs = ['libs']
+            }
+        }
     }
 
     buildTypes {

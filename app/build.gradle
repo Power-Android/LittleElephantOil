@@ -21,6 +21,12 @@ android {
                 arg("AROUTER_MODULE_NAME", project.getName())
             }
         }
+        manifestPlaceholders = [
+                JPUSH_PKGNAME : applicationId,
+                JPUSH_APPKEY : "f15e95ad502672d3a7b0f2b5", //JPush 上注册的包名对应的 Appkey.
+                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+        ]
+
     }
 
     buildTypes {
@@ -48,6 +54,7 @@ android {
 
 dependencies {
     api project(path: ':library_common')
+    api project(path: ':library_push')
     if (!singleModule.toBoolean()) {
         implementation project(path: ':module_home')
         implementation project(path: ':module_oil')

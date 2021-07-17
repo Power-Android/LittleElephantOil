@@ -3,6 +3,7 @@ package com.xxjy.jyyh
 import android.app.Application
 import android.content.Context
 import com.xxjy.common.router.ARouterManager
+import com.xxjy.push.JPushManager
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 
@@ -18,6 +19,7 @@ class App : Application(){
     override fun onCreate() {
         super.onCreate()
         ARouterManager.init(this)
+        JPushManager.initJPush(this)
     }
 
 }
