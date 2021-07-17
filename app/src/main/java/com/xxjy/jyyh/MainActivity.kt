@@ -14,23 +14,33 @@ import com.blankj.utilcode.util.BusUtils.Bus
 import com.xxjy.carservice.CarServeFragment
 import com.xxjy.common.base.BaseActivity
 import com.xxjy.common.base.BindingActivity
+import com.xxjy.common.constants.BannerPositionConstants
 import com.xxjy.common.constants.Constants
 import com.xxjy.common.constants.EventConstants
 import com.xxjy.common.constants.UserConstants
+import com.xxjy.common.dialog.HomeAdDialog
+import com.xxjy.common.dialog.HomeNewUserDialog
+import com.xxjy.common.dialog.NoticeTipsDialog
 import com.xxjy.common.dialog.VersionUpDialog
 import com.xxjy.common.entity.EventEntity
 import com.xxjy.common.router.RoutePathConstants
+import com.xxjy.common.util.AppManager
 import com.xxjy.common.util.NotificationsUtils
 import com.xxjy.common.util.Util
 import com.xxjy.common.util.eventtrackingmanager.EventTrackingManager
 import com.xxjy.common.util.eventtrackingmanager.TrackingConstant
 import com.xxjy.common.util.eventtrackingmanager.TrackingEventConstant
+import com.xxjy.common.vm.BannerViewModel
 import com.xxjy.home.HomeFragment
 import com.xxjy.integral.IntegralFragment
 import com.xxjy.jyyh.databinding.ActivityMainBinding
 import com.xxjy.oil.OilFragment
 import com.xxjy.personal.MineFragment
 import com.xxjy.personal.viewmodel.AboutUsViewModel
+import com.xxjy.push.JPushManager
+import com.xxjy.shanyan.ShanYanManager
+import com.xxjy.shumei.SmAntiFraudManager
+import com.xxjy.umeng.UMengManager
 
 @Route(path = RoutePathConstants.Main.A_MAIN)
 class MainActivity : BindingActivity<ActivityMainBinding, MainViewModel>() {
@@ -45,7 +55,7 @@ class MainActivity : BindingActivity<ActivityMainBinding, MainViewModel>() {
     private var isNewUser = -1 //新用户，未满3单跳油站列表，老用户满3单跳首页
 
     private val aboutUsViewModel: AboutUsViewModel by viewModels()
-//    private val bannerViewModel: BannerViewModel by viewModels()
+    private val bannerViewModel: BannerViewModel by viewModels()
 
     @Bus(tag = EventConstants.EVENT_CHANGE_FRAGMENT, sticky = true)
     fun onEvent(event: EventEntity) {
@@ -62,7 +72,26 @@ class MainActivity : BindingActivity<ActivityMainBinding, MainViewModel>() {
 
     }
 
+    private fun initSdk() {
+        Thread {
+            appChannel = UserConstants.app_channel_key
+            if (TextUtils.isEmpty(appChannel)) {
+                appChannel = AppManager.appMetaChannel.toString()
+                UserConstants.app_channel_key = appChannel
+            }
+            //初始化闪验sdk
+            ShanYanManager.initShanYnaSdk(this)
+            //极光推送配置
+            JPushManager.initJPush(this)
+            //友盟统计
+            UMengManager.init(this)
+            //数美风控
+            SmAntiFraudManager.initSdk(this)
+        }.start()
+    }
+
     override fun initView() {
+        initSdk()
         BusUtils.register(this)
         mHomeFragment = null
         mOilFragment = null
@@ -135,7 +164,6 @@ class MainActivity : BindingActivity<ActivityMainBinding, MainViewModel>() {
                         TrackingConstant.CF_PAGE_HOME,
                         TrackingEventConstant.CF_EVENT_ICON
                     )
-                    ARouter.getInstance().build(RoutePathConstants.Home.A_HOME).navigation()
                 }
                 R.id.navigation_integral -> showFragment(Constants.TYPE_INTEGRAL)
                 R.id.navigation_mine -> {
@@ -247,7 +275,7 @@ class MainActivity : BindingActivity<ActivityMainBinding, MainViewModel>() {
             val compare: Int = Util.compareVersion(it.lastVersion, Util.versionName)
             if (compare == 1) {
                 //是否强制更新，0：否，1：是
-                val checkVersionDialog = VersionUpDialog(this, it,true)
+                val checkVersionDialog = VersionUpDialog(this, it, true)
                 checkVersionDialog.setOnDismissListener { newUserStatus() }
                 checkVersionDialog.show()
             } else {
@@ -257,31 +285,32 @@ class MainActivity : BindingActivity<ActivityMainBinding, MainViewModel>() {
     }
 
     private fun adData() {
-//            bannerViewModel.getBannerOfPostion(BannerPositionConstants.APP_OPEN_AD)
-//                .observe(this) { data ->
-//                    if (data != null && data.size() > 0) {
-//                        val homeAdDialog = HomeAdDialog(this, data.get(0))
-//                        homeAdDialog.show(mBinding.getRoot())
-//                        homeAdDialog.setOnItemClickedListener { view -> showNotification() }
-//                    } else {
-//                        showNotification()
-//                    }
-//                }
+        bannerViewModel.bannerOfPosition(BannerPositionConstants.APP_OPEN_AD)
+            .observe(this) {
+                if (it != null && it.isNotEmpty()) {
+                    val homeAdDialog = HomeAdDialog(this, it[0])
+                    homeAdDialog.show(mBinding.root)
+                    homeAdDialog.setOnItemClickedListener { showNotification() }
+                } else {
+                    showNotification()
+                }
+            }
     }
 
     //新人礼包
     private fun newUserStatus() {
         if (UserConstants.login_status) {
-            mViewModel.newUserStatus().observe(this) {
-                if (it != null && it.status == 1) {
-//                    val homeNewUserDialog: HomeNewUserDialog = HomeNewUserDialog.getInstance()
-//                    homeNewUserDialog.setData(this, it)
-//                    homeNewUserDialog.show(mBinding.root)
-//                    homeNewUserDialog.setOnItemClickedListener { view -> adData() }
-                } else {
-                    adData()
+            mViewModel.newUserStatus()
+                .observe(this) {
+                    if (it != null && it.status == 1) {
+                        val homeNewUserDialog: HomeNewUserDialog = HomeNewUserDialog.instance
+                        homeNewUserDialog.setData(this, it)
+                        homeNewUserDialog.show(mBinding.root)
+                        homeNewUserDialog.setOnItemClickedListener { adData() }
+                    } else {
+                        adData()
+                    }
                 }
-            }
         } else {
             adData()
         }
@@ -291,17 +320,18 @@ class MainActivity : BindingActivity<ActivityMainBinding, MainViewModel>() {
         if (!UserConstants.notification_remind_version) {
             if (!UserConstants.notification_remind) {
                 if (!NotificationsUtils.isNotificationEnabled(this)) {
-//                    val noticeTipsDialog = NoticeTipsDialog(this)
-//                    noticeTipsDialog.show(mBinding.fragmentGroup)
-//                    noticeTipsDialog.setOnItemClickedListener(object : OnItemClickedListener() {
-//                        fun onQueryClick() {
-//                            NotificationsUtils.requestNotify(this@MainActivity)
-//                        }
-//
-//                        fun onNoOpen() {
-//                            UserConstants.notification_remind_version = true
-//                        }
-//                    })
+                    val noticeTipsDialog = NoticeTipsDialog(this)
+                    noticeTipsDialog.show(mBinding.fragmentGroup)
+                    noticeTipsDialog.setOnItemClickedListener(object :
+                        NoticeTipsDialog.OnItemClickedListener {
+                        override fun onQueryClick() {
+                            NotificationsUtils.requestNotify(this@MainActivity)
+                        }
+
+                        override fun onNoOpen() {
+                            UserConstants.notification_remind_version = true
+                        }
+                    })
                     UserConstants.notification_remind = true
                 }
             }
@@ -310,14 +340,14 @@ class MainActivity : BindingActivity<ActivityMainBinding, MainViewModel>() {
 
     private fun showNewUserDialog() {
         if (UserConstants.login_status) {
-//            mViewModel.newUserStatus().observe(this) { data ->
-//                if (data != null && data.getStatus() === 1) {
-//                    val homeNewUserDialog: HomeNewUserDialog = HomeNewUserDialog.getInstance()
-//                    homeNewUserDialog.setData(this, data)
-//                    homeNewUserDialog.show(mBinding.getRoot())
-//                    homeNewUserDialog.setOnItemClickedListener { view -> adData }
-//                }
-//            }
+            mViewModel.newUserStatus().observe(this) {
+                if (it != null && it.status == 1) {
+                    val homeNewUserDialog: HomeNewUserDialog = HomeNewUserDialog.instance
+                    homeNewUserDialog.setData(this, it)
+                    homeNewUserDialog.show(mBinding.root)
+                    homeNewUserDialog.setOnItemClickedListener { adData() }
+                }
+            }
         }
     }
 
@@ -333,11 +363,7 @@ class MainActivity : BindingActivity<ActivityMainBinding, MainViewModel>() {
     }
 
     private fun jump(intent: Intent) {
-        var intent: Intent = intent
-        if (intent == null) {
-            intent = getIntent()
-        }
-        val state = intent!!.getIntExtra("jumpState", -1)
+        val state = intent.getIntExtra("jumpState", -1)
         showDiffFragment(state)
     }
 
@@ -350,44 +376,13 @@ class MainActivity : BindingActivity<ActivityMainBinding, MainViewModel>() {
         UserConstants.startFrom = startFrom.toString()
         val intentInfo = intent.getStringExtra(TAG_FLAG_INTENT_VALUE_INFO)
         if (TextUtils.isEmpty(intentInfo)) return
+            //TODO LATE
 //        NaviActivityInfo.disPathIntentFromUrl(this, intentInfo)
         intent.removeExtra(TAG_FLAG_INTENT_VALUE_INFO)
     }
 
     private fun checkVersion() {
         aboutUsViewModel.checkVersion()
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        /*
-         * 支付控件返回字符串:success、fail、cancel 分别代表支付成功，支付失败，支付取消
-         */if (data == null) {
-            return
-        }
-        val str = data.extras!!.getString("pay_result")
-        if (!TextUtils.isEmpty(str)) {
-            if (str.equals("success", ignoreCase = true)) {
-                //如果想对结果数据校验确认，直接去商户后台查询交易结果，
-                //校验支付结果需要用到的参数有sign、data、mode(测试或生产)，sign和data可以在result_data获取到
-                /**
-                 * result_data参数说明：
-                 * sign —— 签名后做Base64的数据
-                 * data —— 用于签名的原始数据
-                 * data中原始数据结构：
-                 * pay_result —— 支付结果success，fail，cancel
-                 * tn —— 订单号
-                 */
-//            msg = "云闪付支付成功";
-//                PayListenerUtils.instance?.addSuccess()
-            } else if (str.equals("fail", ignoreCase = true)) {
-//            msg = "云闪付支付失败！";
-//                PayListenerUtils.instance?.addFail()
-            } else if (str.equals("cancel", ignoreCase = true)) {
-//            msg = "用户取消了云闪付支付";
-//                PayListenerUtils.instance?.addCancel()
-            }
-        }
     }
 
     companion object {

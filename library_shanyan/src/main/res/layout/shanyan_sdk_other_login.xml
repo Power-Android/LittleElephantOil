@@ -6,7 +6,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/sp_13"
+        android:textSize="13sp"
         android:padding="3dp"
         android:layout_gravity="center_horizontal"
         android:text="其它号码登录"

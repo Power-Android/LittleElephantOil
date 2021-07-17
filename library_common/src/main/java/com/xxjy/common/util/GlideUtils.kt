@@ -83,8 +83,8 @@ object GlideUtils : AppGlideModule() {
      * @param context   当前Activity的上下文对象
      * @param imageView
      */
-    fun loadImage(context: Context?, url: String?, imageView: ImageView?) {
-        Glide.with(context!!).load(url)
+    fun loadImage(context: Context, url: String?, imageView: ImageView?) {
+        Glide.with(context).load(url)
             .error(R.drawable.default_img_bg)
             .apply(RequestOptions().error(R.drawable.default_img_bg))
             .into(imageView!!)

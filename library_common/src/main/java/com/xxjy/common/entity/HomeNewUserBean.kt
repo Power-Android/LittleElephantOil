@@ -1,13 +1,14 @@
-package com.xxjy.home.entity
+package com.xxjy.common.entity
 
 /**
  * @author power
- * @date 2021/7/16 1:55 下午
+ * @date 2021/7/17 3:48 下午
  * @project LittleElephantOil_Kotlin
  * @description:
  */
 data class HomeNewUserBean(
-    var activityId: Long = 0,
+
+    var activityId: Long = 0L,
     var amount: String,
     var newUrl: String,
     var linkUrl: String,

@@ -17,10 +17,10 @@ object UMengManager {
      *
      * @param context
      */
-    fun init(context: Context,providerPath:String) {
+    fun init(context: Context) {
         //友盟分享
         PlatformConfig.setWeixin(BuildConfig.WX_APP_ID, BuildConfig.WX_APP_SCRIPT)
-        PlatformConfig.setWXFileProvider(providerPath)
+        PlatformConfig.setWXFileProvider("com.xxjy.jyyh.file.provider")
         UMConfigure.init(context, UMConfigure.DEVICE_TYPE_PHONE, null)
 
         //使用auto模式不再需要Activity中的代码埋点

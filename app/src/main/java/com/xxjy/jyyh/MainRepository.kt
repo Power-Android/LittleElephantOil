@@ -1,10 +1,9 @@
 package com.xxjy.jyyh
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.xxjy.common.base.BaseRepository
 import com.xxjy.common.constants.ApiService
-import com.xxjy.home.entity.HomeNewUserBean
+import com.xxjy.common.entity.HomeNewUserBean
 import rxhttp.RxHttp
 import rxhttp.toResponse
 

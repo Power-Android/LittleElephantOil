@@ -3,11 +3,8 @@ package com.xxjy.jyyh
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.rxLifeScope
-import androidx.lifecycle.viewModelScope
 import com.xxjy.common.base.BaseViewModel
-import com.xxjy.home.entity.HomeNewUserBean
-import kotlinx.coroutines.launch
+import com.xxjy.common.entity.HomeNewUserBean
 
 /**
  * @author power

@@ -2,6 +2,7 @@ package com.xxjy.common.constants
 
 import android.annotation.SuppressLint
 import android.text.TextUtils
+import com.blankj.utilcode.util.TimeUtils
 import com.xxjy.common.provide.MContext.context
 import com.xxjy.common.util.SharedPreferencesUtils
 
@@ -57,7 +58,11 @@ object UserConstants {
         SPConstants.NEW_USER_RED_PACKET,
         0L
     )
-    var is_today by SharedPreferencesUtils(context(), SPConstants.IS_TODAY, "")
+
+    fun isNewUserRedPacket(): Boolean{
+        return TimeUtils.isToday(new_user_red_packet)
+    }
+
     var car_type by SharedPreferencesUtils(context(), SPConstants.CAR_TYPE, -1)
 
     //定位信息
