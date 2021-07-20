@@ -2,8 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.xxjy.personal">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application>
         <activity android:name=".PersonalActivity">
+        </activity>
+        <activity android:name=".LoginActivity">
+        </activity>
+        <activity android:name=".MobileLoginActivity">
+        </activity>
+        <activity android:name=".InputAutoActivity">
+        </activity>
+        <activity android:name=".WeChatBindingPhoneActivity">
         </activity>
     </application>
 

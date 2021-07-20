@@ -1,62 +1,59 @@
-package com.xxjy.common.weight.autocodeedittextview;
+package com.xxjy.common.weight.autocodeedittextview
 
-import androidx.annotation.ColorRes;
+import androidx.annotation.ColorRes
 
 /**
  * 填写验证码支持的Action
  * Created by yj on 2017/5/11.
  */
-
-public interface VerificationAction {
-
+interface VerificationAction {
     /**
      * 设置位数
      */
-    void setFigures(int figures);
+    fun setFigures(figures: Int)
 
     /**
      * 设置验证码之间的间距
      */
-    void setVerCodeMargin(int margin);
+    fun setVerCodeMargin(margin: Int)
 
     /**
      * 设置底部选中状态的颜色
      */
-    void setBottomSelectedColor(@ColorRes int bottomSelectedColor);
+    fun setBottomSelectedColor(@ColorRes bottomSelectedColor: Int)
 
     /**
      * 设置底部未选中状态的颜色
      */
-    void setBottomNormalColor(@ColorRes int bottomNormalColor);
+    fun setBottomNormalColor(@ColorRes bottomNormalColor: Int)
 
     /**
      * 设置选择的背景色
      */
-    void setSelectedBackgroundColor(@ColorRes int selectedBackground);
+    fun setSelectedBackgroundColor(@ColorRes selectedBackground: Int)
 
     /**
      * 设置底线的高度
      */
-    void setBottomLineHeight(int bottomLineHeight);
+    fun setBottomLineHeight(bottomLineHeight: Int)
 
     /**
      * 设置当验证码变化时候的监听器
      */
-    void setOnVerificationCodeChangedListener(OnVerificationCodeChangedListener listener);
+    fun setOnVerificationCodeChangedListener(listener: OnVerificationCodeChangedListener?)
 
     /**
      * 验证码变化时候的监听事件
      */
     interface OnVerificationCodeChangedListener {
-
         /**
          * 当验证码变化的时候
          */
-        void onVerCodeChanged(CharSequence s, int start, int before, int count);
+        fun onVerCodeChanged(s: CharSequence?, start: Int, before: Int, count: Int)
 
         /**
          * 输入完毕后的回调
          */
-        void onInputCompleted(CharSequence s);
+        fun onInputCompleted(s: CharSequence?)
     }
 }

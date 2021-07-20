@@ -1,6 +1,8 @@
 package com.xxjy.common.util
 
 import android.content.Context
+import android.os.Build
+import androidx.annotation.RequiresApi
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
@@ -19,6 +21,7 @@ class SharedPreferencesUtils<T>(
     override fun getValue(thisRef: Any?, property: KProperty<*>): T =
         findPreference(findProperName(property))
 
+    @RequiresApi(Build.VERSION_CODES.GINGERBREAD)
     override fun setValue(thisRef: Any?, property: KProperty<*>, value: T) =
         putPreference(findProperName(property), value)
 
@@ -33,6 +36,7 @@ class SharedPreferencesUtils<T>(
         else -> throw IllegalArgumentException("Unsupported type.")
     } as T
 
+    @RequiresApi(Build.VERSION_CODES.GINGERBREAD)
     private fun putPreference(key: String, value: T) {
         val edit = prefs.edit().apply {
             when (value) {

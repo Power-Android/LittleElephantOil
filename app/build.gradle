@@ -61,6 +61,7 @@ dependencies {
         implementation project(path: ':module_carservice')
         implementation project(path: ':module_integral')
         implementation project(path: ':module_personal')
+        implementation project(path: ':module_web')
     }
     kapt rootProject.ext.dependencies["arouter_compiler"]
 }
