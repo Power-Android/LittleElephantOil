@@ -26,7 +26,7 @@ abstract class BindingFragment<V : ViewBinding, VM : BaseViewModel<*>> : BaseFra
     private var contentView: View? = null
 
     //是否首次显示
-    private var mIsFirstVisile = true
+    private var mIsFirstVisible = true
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -83,11 +83,11 @@ abstract class BindingFragment<V : ViewBinding, VM : BaseViewModel<*>> : BaseFra
 
     override fun onResume() {
         super.onResume()
-        if (mIsFirstVisile) {
-            mIsFirstVisile = false
+        if (mIsFirstVisible) {
+            mIsFirstVisible = false
             onFirstVisible()
             onVisible()
-        } else if (isVisible()) {
+        } else if (isVisible) {
             onNotFirstVisible()
             onVisible()
         } else {
@@ -98,43 +98,43 @@ abstract class BindingFragment<V : ViewBinding, VM : BaseViewModel<*>> : BaseFra
     /**
      * 该界面首次可见
      */
-    protected fun onFirstVisible() {}
+    open fun onFirstVisible() {}
 
     /**
      * 该界面可见，单并非首次可见
      */
-    protected fun onNotFirstVisible() {}
+    open fun onNotFirstVisible() {}
 
     /**
      * 该界面可见
      */
-    protected fun onVisible() {}
+     open fun onVisible() {}
 
     /**
      * 该界面不可见
      */
-    protected fun onInvisible() {}
+    open fun onInvisible() {}
 
     /**
      * 页面数据初始化方法
      */
-    protected abstract fun initView()
+     abstract fun initView()
 
     /**
      * 初始化监听
      */
-    protected abstract fun initListener()
+     abstract fun initListener()
 
     /**
      * @param view
      * 处理点击事件
      */
-    protected fun onViewClicked(view: View?) {}
+    open fun onViewClicked(view: View) {}
 
     /**
      * 处理网络请求回调
      */
-    protected fun dataObservable() {}
+    open fun dataObservable() {}
 
     override fun onDestroyView() {
         super.onDestroyView()

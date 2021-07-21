@@ -179,8 +179,8 @@ class EventTrackingManager private constructor() {
     }
 
     companion object {
-        private var mInstance: EventTrackingManager? = null
-        val instance: EventTrackingManager?
+        private lateinit var mInstance: EventTrackingManager
+        val instance: EventTrackingManager
             get() {
                 if (mInstance == null) {
                     synchronized(EventTrackingManager::class.java) {

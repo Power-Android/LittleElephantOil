@@ -1,7 +1,9 @@
 package com.xxjy.common.util
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.widget.Toast
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.LogUtils
 import com.xxjy.common.base.BaseActivity
@@ -22,7 +24,7 @@ object MapIntentUtils {
     const val TENCENT_PKG = "com.tencent.map" //腾讯地图的包名
 
     //参考高德地图app路径规划: https://lbs.amap.com/api/amap-mobile/guide/android/route
-    fun openGaoDe(context: BaseActivity, latitude: Double, longitude: Double, endName: String) {
+    fun openGaoDe(context: Context, latitude: Double, longitude: Double, endName: String) {
         //这个是直接导航的
 //        String uriStr = "androidamap://navi?sourceApplication=tuanyoubao&lat=" + latitude + "&lon=" + longitude + "&dev=0&style=2";
         //这个是进行路径规划的
@@ -35,7 +37,7 @@ object MapIntentUtils {
     }
 
     //参考百度地图app路径导航: http://lbsyun.baidu.com/index.php?title=uri/api/android
-    fun openBaidu(context: BaseActivity, latitude: Double, longitude: Double, endName: String) {
+    fun openBaidu(context: Context, latitude: Double, longitude: Double, endName: String) {
         val i1 = Intent()
         //这是直接导航的
 //        String uriStr = "baidumap://map/navi?location=" + latitude + "," + longitude + "&src=andr.czb.tuanyoubao";
@@ -47,7 +49,7 @@ object MapIntentUtils {
     }
 
     //参考腾讯地图调用app路径规划: http://lbs.qq.com/uri_v1/guide-mobile-navAndRoute.html
-    fun openTencent(context: BaseActivity, latitude: Double, longitude: Double, endName: String) {
+    fun openTencent(context: Context, latitude: Double, longitude: Double, endName: String) {
         val uriStr = "qqmap://map/routeplan?type=drive&from=我的位置&to=" + endName + "&tocoord=" +
                 latitude + "," + longitude + "&referer=com.xxjy.jyyh"
         val i1 = Intent()
@@ -56,7 +58,7 @@ object MapIntentUtils {
     }
 
     //参考高德地图调用h5路径规划: https://lbs.amap.com/api/uri-api/guide/travel/route
-    fun openGaoDeWeb(context: BaseActivity, latitude: Double, longitude: Double, endName: String) {
+    fun openGaoDeWeb(context: Context, latitude: Double, longitude: Double, endName: String) {
         val uriStr = "https://uri.amap.com/navigation?to=" + longitude + "," + latitude + "," +
                 endName + "&mode=car&src=tuanyoubao&callnative=0"
         val uri = Uri.parse(uriStr)
@@ -85,12 +87,12 @@ object MapIntentUtils {
      * @param context
      * @param intent
      */
-    private fun startMapActivityForIntent(context: BaseActivity, intent: Intent) {
+    private fun startMapActivityForIntent(context: Context, intent: Intent) {
         try {
             context.startActivity(intent)
         } catch (e: Exception) {
             LogUtils.e(e.message)
-            context.showToastError("打开软件失败,请您自行打开您的地图软件进行导航或者选择其他地图进行导航")
+           Toast.makeText(context,"打开软件失败,请您自行打开您的地图软件进行导航或者选择其他地图进行导航",Toast.LENGTH_SHORT).show()
         }
     }
 

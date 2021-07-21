@@ -39,11 +39,14 @@ interface RouteConstants {
 
     object Web {
         const val A_WEB = "/web/WebViewActivity"
-        const val A_CHAT_OR_PAY = "/web/WeChatWebPayActivity"
+        const val A_WECHAT_WEB_PAY = "/web/WeChatWebPayActivity"
     }
     object ParameterKey{
         const val JUMP_STATE="jumpState"
         const val URL = "url"
+        const val INVITE = "invite"
+        const val LOGIN_STATE = "loginState"
+        const val PAY_JS = "payJs"
     }
 
 
