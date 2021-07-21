@@ -15,7 +15,7 @@ import com.xxjy.umeng.UMengManager
  */
 object LoginHelper {
     var callBack: CallBack? = null
-    fun login(context: Context, loginCallBack: CallBack?) {
+    fun login(loginCallBack: CallBack?) {
         if (!UserConstants.login_status) {
             callBack = loginCallBack
          ARouterManager.navigation(RouteConstants.Personal.A_LOGIN).navigation()
