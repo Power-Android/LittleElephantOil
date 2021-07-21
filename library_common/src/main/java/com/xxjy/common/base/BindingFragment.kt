@@ -20,9 +20,9 @@ import java.lang.reflect.ParameterizedType
  * @description:
  */
 abstract class BindingFragment<V : ViewBinding, VM : BaseViewModel<*>> : BaseFragment() {
-    protected var mBinding: V? = null
-    protected var mViewModel: VM? = null
-    protected var mContext: Context? = null
+    protected lateinit var mBinding: V
+    protected lateinit var mViewModel: VM
+    protected lateinit var mContext: Context
     private var contentView: View? = null
 
     //是否首次显示
@@ -43,11 +43,11 @@ abstract class BindingFragment<V : ViewBinding, VM : BaseViewModel<*>> : BaseFra
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         if (contentView == null) {
-            contentView = mBinding!!.root
+            contentView = mBinding.root
         }
-        return contentView
+        return contentView as View
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -68,16 +68,15 @@ abstract class BindingFragment<V : ViewBinding, VM : BaseViewModel<*>> : BaseFra
                 .getMethod("inflate", LayoutInflater::class.java)
                 .invoke(null, layoutInflater) as V
         }
-        if (mViewModel == null) {
-            val modelClass = if (type is ParameterizedType) {
-                type.actualTypeArguments[1] as Class<VM>
-            } else {
-                //如果没有指定泛型参数，则默认使用BaseViewModel
-                BaseViewModel::class.java as Class<VM>
-            }
-            mViewModel = ViewModelProvider(this).get(modelClass)
 
+        val modelClass = if (type is ParameterizedType) {
+            type.actualTypeArguments[1] as Class<VM>
+        } else {
+            //如果没有指定泛型参数，则默认使用BaseViewModel
+            BaseViewModel::class.java as Class<VM>
         }
+        mViewModel = ViewModelProvider(this).get(modelClass)
+
         //让ViewModel绑定View的生命周期
         lifecycle.addObserver(mViewModel!!)
     }
@@ -138,7 +137,6 @@ abstract class BindingFragment<V : ViewBinding, VM : BaseViewModel<*>> : BaseFra
     protected fun dataObservable() {}
 
     override fun onDestroyView() {
-        mBinding = null
         super.onDestroyView()
     }
 }
