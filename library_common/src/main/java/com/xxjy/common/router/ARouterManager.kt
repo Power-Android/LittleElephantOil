@@ -29,11 +29,14 @@ object ARouterManager {
     }
 
 
-    fun  clearTaskNavigation(path:String): Postcard {
+    fun  navigationClearTask(path:String): Postcard {
        return ARouter.getInstance().build(path).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
     }
     fun  navigation(path:String): Postcard {
        return ARouter.getInstance().build(path)
+    }
+    fun  navigationNoParameter(path:String) {
+        ARouter.getInstance().build(path).navigation()
     }
 
 }
