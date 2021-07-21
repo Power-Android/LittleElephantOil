@@ -16,6 +16,8 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
+import com.alibaba.android.arouter.facade.annotation.Autowired
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.alipay.sdk.app.H5PayCallback
 import com.alipay.sdk.app.PayTask
 import com.alipay.sdk.util.H5PayResultModel
@@ -31,6 +33,7 @@ import com.umeng.socialize.bean.SHARE_MEDIA
 import com.xxjy.common.base.BindingActivity
 import com.xxjy.common.constants.UserConstants
 import com.xxjy.common.entity.SharedInfoBean
+import com.xxjy.common.router.RouteConstants
 import com.xxjy.common.util.StringUtils
 import com.xxjy.umeng.SharedInfoManager
 import com.xxjy.umeng.SharedInfoManager.OnSharedAllResultListener
@@ -40,7 +43,7 @@ import com.xxjy.web.databinding.ActivityWebviewBinding
 import com.xxjy.web.jscalljava.JsOperation
 import com.xxjy.web.jscalljava.jsbean.ToolBarStateBean
 import com.xxjy.web.jscalljava.jscallback.OnJsCallListener
-
+@Route(path = RouteConstants.Web.A_WEB)
 class WebViewActivity : BindingActivity<ActivityWebviewBinding, WebViewViewModel>(), View.OnClickListener, OnJsCallListener {
     private var mToolbar: Toolbar? = null
     private var mWebTitle: TextView? = null
@@ -55,6 +58,7 @@ class WebViewActivity : BindingActivity<ActivityWebviewBinding, WebViewViewModel
     private var shared //分享的信息
             : SharedInfoBean? = null
     private var mJsOperation: JsOperation? = null
+    @Autowired
     private var url: String? = null
     var isShouldLoadUrl = false
     private var mCallPhoneNumber = ""
@@ -74,7 +78,7 @@ class WebViewActivity : BindingActivity<ActivityWebviewBinding, WebViewViewModel
         INSTENCE = this
 //        StatusBarUtil.setHeightAndPadding(this, mToolbar)
         BarUtils.addMarginTopEqualStatusBarHeight(mToolbar!!)
-        url = intent.getStringExtra("url")
+//        url = intent.getStringExtra("url")
         initListener()
         mJsOperation = JsOperation(this)
         mJsOperation?.setOnJsCallListener(this)

@@ -22,12 +22,12 @@ import com.chuanglan.shanyan_sdk.tool.ShanYanUIConfig
 object SYConfigUtils {
     private var invitationLayout: ConstraintLayout? = null
     private const val isDown = false
-    var inviteCode = ""
-    var phoneNum = ""
+    var inviteCode:String = ""
+    var phoneNum :String= ""
     //沉浸式竖屏样式
     fun getCJSConfig(
-        context: Context, serviceAgreementUrl:String,privacyPolicyUrl:String,relativeLayoutClick: ShanYanCustomInterface?,
-        thirdLoginClick: ShanYanCustomInterface?, invitationLayoutClick: ShanYanCustomInterface?
+        context: Context, serviceAgreementUrl:String,privacyPolicyUrl:String,relativeLayoutClick: ShanYanCustomInterface,
+        thirdLoginClick: ShanYanCustomInterface, invitationLayoutClick: ShanYanCustomInterface
     ): ShanYanUIConfig {
         /************************************************自定义控件 */
         val backgruond: Drawable = ColorDrawable(Color.WHITE)
@@ -237,7 +237,5 @@ object SYConfigUtils {
         return screenWidth
     }
 
-    class ShanYanResultBean {
-        var token: String? = null
-    }
+    data class ShanYanResultBean( var token: String)
 }

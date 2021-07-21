@@ -7,7 +7,7 @@ package com.xxjy.common.router
  * 包名： com.xxjy.common.router
  * 类说明：
  */
-interface RoutePathConstants {
+interface RouteConstants {
     object Main {
         const val A_MAIN = "/main/MianAcivity"
     }
@@ -31,11 +31,19 @@ interface RoutePathConstants {
 
     object Personal {
         const val F_MIEN = "/personal/MineFragment"
+        const val A_LOGIN = "/personal/LoginActivity"
+        const val A_INPUT_AUTO = "/personal/InputAutoActivity"
+        const val A_MOBILE_LOGIN = "/personal/MobileLoginActivity"
+        const val A_WECHAT_BINGING_PHONE = "/personal/WeChatBindingPhoneActivity"
     }
 
     object Web {
         const val A_WEB = "/web/WebViewActivity"
         const val A_CHAT_OR_PAY = "/web/WeChatWebPayActivity"
+    }
+    object ParameterKey{
+        const val JUMP_STATE="jumpState"
+        const val URL = "url"
     }
 
 

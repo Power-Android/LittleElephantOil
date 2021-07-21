@@ -8,7 +8,6 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.fragment.app.FragmentTransaction
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.BusUtils
 import com.blankj.utilcode.util.BusUtils.Bus
 import com.xxjy.carservice.CarServeFragment
@@ -23,7 +22,7 @@ import com.xxjy.common.dialog.HomeNewUserDialog
 import com.xxjy.common.dialog.NoticeTipsDialog
 import com.xxjy.common.dialog.VersionUpDialog
 import com.xxjy.common.entity.EventEntity
-import com.xxjy.common.router.RoutePathConstants
+import com.xxjy.common.router.RouteConstants
 import com.xxjy.common.util.AppManager
 import com.xxjy.common.util.NotificationsUtils
 import com.xxjy.common.util.Util
@@ -42,7 +41,7 @@ import com.xxjy.shanyan.ShanYanManager
 import com.xxjy.shumei.SmAntiFraudManager
 import com.xxjy.umeng.UMengManager
 
-@Route(path = RoutePathConstants.Main.A_MAIN)
+@Route(path = RouteConstants.Main.A_MAIN)
 class MainActivity : BindingActivity<ActivityMainBinding, MainViewModel>() {
     private var mLastFgIndex = -1
     private var clickTime: Long = 0

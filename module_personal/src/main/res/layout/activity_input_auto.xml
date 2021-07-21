@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:autocode="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <LinearLayout
+        android:id="@+id/root_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/transparent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center_vertical"
+                android:layout_marginLeft="@dimen/dp_3"
+                android:paddingTop="@dimen/dp_1">
+
+                <ImageView
+                    android:id="@+id/close"
+                    android:layout_width="@dimen/dp_32"
+                    android:layout_height="@dimen/dp_32"
+                    android:padding="@dimen/dp_6"
+                    android:src="@mipmap/back_black_icon" />
+            </LinearLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_22"
+            android:layout_marginTop="@dimen/dp_33"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="输入验证码"
+                android:textColor="#212121"
+                android:textSize="@dimen/sp_22"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/dp_14">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/sp_12"
+                    android:text="6位验证码已发送至"
+                    android:textColor="#999999" />
+
+                <TextView
+                    android:id="@+id/send_sms_phone_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/sp_12"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:text=""
+                    android:textColor="#414141" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_22"
+            android:layout_marginTop="@dimen/dp_47"
+            android:layout_marginRight="@dimen/dp_22">
+
+            <TextView
+                android:id="@+id/auto_code_show_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sp_12"
+                android:visibility="gone"
+                android:layout_gravity="center_vertical"
+                android:text="6位数字验证码"
+                android:textColor="#999999" />
+
+            <TextView
+                android:id="@+id/input_auto_code_get"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sp_11"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:padding="@dimen/dp_5"
+                android:text="重新发送"
+                android:textColor="@color/colorAccent" />
+        </FrameLayout>
+
+        <com.xxjy.common.weight.autocodeedittextview.VerCodeEditText
+            android:id="@+id/input_auto_code_text_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_25"
+            android:layout_marginTop="@dimen/dp_12"
+            android:layout_marginRight="@dimen/dp_25"
+            android:cursorVisible="true"
+            android:inputType="number"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/sp_16"
+            android:visibility="gone"
+            autocode:backgroundRadios="@dimen/dp_5"
+            autocode:bottomLineHeight="@dimen/dp_0"
+            autocode:figures="6"
+            autocode:normalBackgroundColor="@color/color_F5"
+            autocode:selectedBackgroundColor="@color/color_F5"
+            autocode:verCodeMargin="@dimen/dp_10" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_15">
+
+            <com.xxjy.common.weight.autocodeedittextview.VerificationCodeInput
+                android:id="@+id/input_auto_code_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="@dimen/dp_7"
+                android:gravity="center"
+                autocode:box="6"
+                autocode:box_bg_focus="@drawable/verification_edit_bg_focus"
+                autocode:box_bg_normal="@drawable/verification_edit_bg_unfocus"
+                autocode:child_h_padding="@dimen/dp_7"
+                autocode:child_height="@dimen/dp_47"
+                autocode:child_width="@dimen/dp_48"
+                autocode:inputType="number" />
+        </FrameLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -58,8 +58,8 @@ class WelcomeActivity : BaseActivity(),
 
       fun initView() {
         BarUtils.setNavBarVisibility(this, false)
-        mWelcomeAd = findViewById(R.id.welcome_ad) as ImageView?
-        mWelcomeAdTv = findViewById(R.id.welcome_ad_tv) as TextView?
+        mWelcomeAd = findViewById<ImageView>(R.id.welcome_ad)
+        mWelcomeAdTv = findViewById<TextView>(R.id.welcome_ad_tv)
         val startFrom: Int = getIntent().getIntExtra("startFrom", 0)
         UserConstants.startFrom=startFrom.toString()
         mAlphaAnimation =

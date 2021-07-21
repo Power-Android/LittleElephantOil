@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/transparent">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|center_vertical"
+                    android:layout_marginLeft="@dimen/dp_3"
+                    android:paddingTop="@dimen/dp_1">
+
+                    <ImageView
+                        android:id="@+id/close"
+                        android:layout_width="@dimen/dp_32"
+                        android:layout_height="@dimen/dp_32"
+                        android:padding="@dimen/dp_6"
+                        android:src="@mipmap/back_black_icon" />
+                </LinearLayout>
+            </androidx.appcompat.widget.Toolbar>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_22"
+                android:layout_marginTop="@dimen/dp_30"
+                android:text="绑定手机号"
+                android:textColor="#212121"
+                android:textSize="@dimen/sp_22"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_23"
+                android:layout_marginTop="@dimen/dp_14"
+                android:textSize="@dimen/sp_12"
+                android:text="为了方便进行联系，请输入您的常用手机号码"
+                android:textColor="#999999" />
+        </LinearLayout>
+
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:overScrollMode="never">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_21"
+                        android:layout_marginTop="@dimen/dp_50"
+                        android:layout_marginRight="@dimen/dp_21"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="请输入手机号"
+
+                            app:errorEnabled="false"
+                            app:hintTextAppearance="@style/login_editText_hintTextAppearance">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/user_phone_number"
+                                style="@style/login_input_edit_text_style"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/dp_55"
+                                android:background="@null"
+                                android:gravity="center_vertical"
+                                android:inputType="number"
+                                android:maxLength="11"
+                                android:paddingLeft="@dimen/dp_0"
+                                android:paddingTop="@dimen/dp_22"
+                                android:paddingBottom="@dimen/dp_7"
+                                android:textColor="@color/color_34"
+                                android:textColorHint="#BBBBBB"
+                                android:textSize="@dimen/sp_14" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!--                        <EditText-->
+                        <!--                            android:id="@+id/user_phone_number"-->
+                        <!--                            style="@style/v6_login_input_edit_text_style"-->
+                        <!--                            android:background="@null"-->
+                        <!--                            android:gravity="center_vertical"-->
+                        <!--                            android:hint="请输入手机号"-->
+                        <!--                            android:inputType="number"-->
+                        <!--                            android:maxLength="11"-->
+                        <!--                            android:paddingLeft="0dp"-->
+                        <!--                            android:paddingTop="@dimen/dp_7"-->
+                        <!--                            android:paddingBottom="@dimen/dp_7"-->
+                        <!--                            android:textColor="@color/font_color_black0"-->
+                        <!--                            android:textColorHint="#C6C6C6"-->
+                        <!--                            android:textSize="@dimen/sp_14" />-->
+
+                        <ImageView
+                            android:id="@+id/register_user_clear_phone"
+                            android:layout_width="@dimen/dp_45"
+                            android:layout_height="@dimen/dp_45"
+                            android:layout_gravity="bottom"
+                            android:padding="@dimen/dp_15"
+                            android:src="@mipmap/icon_input_clear_bg"
+                            android:visibility="invisible" />
+                    </LinearLayout>
+                    <View
+                        android:id="@+id/user_phone_number_line"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginLeft="@dimen/dp_21"
+                        android:layout_marginTop="@dimen/dp_6"
+                        android:layout_marginRight="@dimen/dp_21"
+                        android:background="#EBEBEB" />
+                    <LinearLayout
+                        android:id="@+id/user_invite_number_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/dp_22"
+                        android:layout_marginTop="@dimen/dp_7"
+                        android:orientation="horizontal"
+                        android:paddingTop="@dimen/dp_4"
+                        android:paddingBottom="@dimen/dp_4">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/sp_11"
+                            android:text="邀请人(选填)"
+                            android:textColor="#414141" />
+
+                        <ImageView
+                            android:id="@+id/user_invite_number_img_state"
+                            android:layout_width="@dimen/dp_7"
+                            android:layout_height="@dimen/dp_7"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="@dimen/dp_7"
+                            android:src="@mipmap/login_invite_number_close" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/invitation_ll"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_22"
+                        android:layout_marginRight="@dimen/dp_22"
+                        android:visibility="gone"
+                        android:layout_marginTop="@dimen/dp_7"
+                        android:orientation="vertical">
+                        <EditText
+                            android:id="@+id/invitation_et"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_25"
+                            android:background="@null"
+                            android:hint="请输入邀请码"
+                            android:visibility="visible"
+                            android:textSize="@dimen/sp_11"
+                            android:layout_marginTop="@dimen/dp_5"
+                            android:textColor="#BBBBBB"
+                            android:singleLine="true"
+                            app:layout_constraintTop_toBottomOf="@+id/tv1"
+                            app:layout_constraintStart_toStartOf="@+id/tv1"/>
+                        <View
+                            android:id="@+id/iv2"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_0_5"
+                            android:background="#EBEBEB"
+                            android:visibility="visible"
+                            android:layout_marginTop="@dimen/dp_5"
+                            app:layout_constraintTop_toBottomOf="@+id/invitation_et"/>
+                    </LinearLayout>
+
+
+
+                    <TextView
+                        android:id="@+id/login_get_code"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_35"
+                        android:layout_marginLeft="@dimen/dp_29"
+                        android:layout_marginTop="@dimen/dp_80"
+                        android:layout_marginRight="@dimen/dp_29"
+                        android:layout_marginBottom="@dimen/dp_5"
+                        android:gravity="center"
+                        android:background="@drawable/selector_btn_login_one_key_bg_state"
+                        android:enabled="false"
+                        android:text="下一步"
+                        android:textColor="@color/selector_btn_login_in_enabled_text_color"
+                        android:textSize="@dimen/sp_13" />
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

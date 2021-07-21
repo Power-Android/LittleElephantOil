@@ -2,8 +2,10 @@ package com.xxjy.common.router
 
 import android.app.Activity
 import android.app.Application
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import com.alibaba.android.arouter.facade.Postcard
 import com.alibaba.android.arouter.launcher.ARouter
 import com.xxjy.common.BuildConfig
 
@@ -24,6 +26,14 @@ object ARouterManager {
         }
         ARouter.init(app)
 
+    }
+
+
+    fun  clearTaskNavigation(path:String): Postcard {
+       return ARouter.getInstance().build(path).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+    }
+    fun  navigation(path:String): Postcard {
+       return ARouter.getInstance().build(path)
     }
 
 }
