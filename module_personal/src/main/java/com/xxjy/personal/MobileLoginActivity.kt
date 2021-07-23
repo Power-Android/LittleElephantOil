@@ -303,7 +303,7 @@ class MobileLoginActivity : BindingActivity<ActivityMobileLoginBinding, LoginVie
                     finish()
                     return@observe
                 }
-                ARouterManager.clearTaskNavigation(RouteConstants.Main.A_MAIN).navigation()
+                ARouterManager.navigationClearTask(RouteConstants.Main.A_MAIN).navigation()
             } else if (!TextUtils.isEmpty(openId) && !TextUtils.isEmpty(unionId)) {
                 showToast("关联微信成功,请您绑定手机号")
                 InputAutoActivity.TAG_LOGIN_WXOPENID = openId
@@ -316,7 +316,7 @@ class MobileLoginActivity : BindingActivity<ActivityMobileLoginBinding, LoginVie
         mViewModel.specStationLiveData.observe(this) { data ->
             if (!TextUtils.isEmpty(data.data)) {
 //                BusUtils.postSticky(EventConstants.EVENT_CHANGE_FRAGMENT, new EventEntity(EventConstants.EVENT_TO_HOME_FRAGMENT));
-                ARouterManager.clearTaskNavigation(RouteConstants.Main.A_MAIN).withInt(RouteConstants.ParameterKey.JUMP_STATE,0).navigation()
+                ARouterManager.navigationClearTask(RouteConstants.Main.A_MAIN).withInt(RouteConstants.ParameterKey.JUMP_STATE,0).navigation()
                 BusUtils.postSticky(EventConstants.EVENT_JUMP_HUNTER_CODE, data.data)
             }
             ActivityUtils.finishActivity(LoginActivity::class.java)

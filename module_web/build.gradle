@@ -1,9 +1,15 @@
-apply from: "../module.build.gradle"
+apply from:"../module.build.gradle"
+apply plugin: 'kotlin-android'
 android {
 
     defaultConfig {
         if (singleModule.toBoolean()) {
             applicationId "com.xxjy.web"
+            manifestPlaceholders = [
+                    JPUSH_PKGNAME : "com.xxjy.jyyh",
+                    JPUSH_APPKEY : "f15e95ad502672d3a7b0f2b5", //JPush 上注册的包名对应的 Appkey.
+                    JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+            ]
         }
         kapt {
             arguments {
@@ -11,13 +17,12 @@ android {
             }
         }
     }
-
 }
 
 dependencies {
     api project(path:":library_common")
     api project(path:":library_navigation")
-    api project(path:":library_umeng")
+//    api project(path:":library_umeng")
     api project(path:":library_pay")
     api rootProject.ext.dependencies['txx5']
     kapt rootProject.ext.dependencies["arouter_compiler"]

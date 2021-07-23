@@ -19,19 +19,19 @@ android {
         versionName rootProject.ext.android.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         //阿里路由框架配置
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = [AROUTER_MODULE_NAME: project.getName()]
-//                includeCompileClasspath = true
+//        javaCompileOptions {
+//            annotationProcessorOptions {
+//                arguments = [AROUTER_MODULE_NAME: project.getName()]
+//            }
+//        }
+        //阿里路由框架配置
+        kapt {
+            arguments {
+                arg("AROUTER_MODULE_NAME", project.getName())
             }
         }
 //        ndk {
 //            abiFilters 'armeabi-v7a'
-//        }
-//        kapt {
-//            arguments {
-//                arg("AROUTER_MODULE_NAME", project.getName())
-//            }
 //        }
     }
     kotlinOptions {

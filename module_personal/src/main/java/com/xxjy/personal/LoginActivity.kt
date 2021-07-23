@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
 import cn.jpush.android.api.JPushInterface
+import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.*
 import com.chuanglan.shanyan_sdk.OneKeyLoginManager
@@ -23,15 +24,28 @@ import com.xxjy.shanyan.SYConfigUtils
 import com.xxjy.shanyan.ShanYanManager
 import com.xxjy.umeng.UMengLoginWx
 import com.xxjy.umeng.UMengManager
+import kotlin.properties.Delegates
+
 @Route(path = RouteConstants.Personal.A_LOGIN)
 class LoginActivity : BindingActivity<ActivityLoginBinding, LoginViewModel>() {
     private var isOpenAuth = false //是否已经调起了登录
     private var isDown = false
     private var isInputHunterCode = false //食肉输入猎人码
-     override fun initView() {
+
+    @Autowired
+    @JvmField
+    var invite=false
+
+    @Autowired(name = "loginState")
+    @JvmField
+    var mLoginState=-1
+
+    override fun initView() {
 //        StatusBarUtil.setHeightAndPadding(this, mBinding.toolbar)
         BarUtils.addMarginTopEqualStatusBarHeight( mBinding.toolbar)
-        isInvite = getIntent().getBooleanExtra("invite", false)
+//        isInvite = getIntent().getBooleanExtra("invite", false)
+        loginState = mLoginState;
+        isInvite = invite;
         tryOpenLoginActivity()
     }
 
@@ -72,7 +86,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding, LoginViewModel>() {
                     finish()
                     return@observe
                 }
-                ARouterManager.clearTaskNavigation(RouteConstants.Main.A_MAIN).navigation()
+                ARouterManager.navigationClearTask(RouteConstants.Main.A_MAIN).navigation()
             } else if (!TextUtils.isEmpty(openId) && !TextUtils.isEmpty(unionId)) {
                 showToast("关联微信成功,请您绑定手机号")
                 InputAutoActivity.TAG_LOGIN_WXOPENID = openId
@@ -84,7 +98,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding, LoginViewModel>() {
         }
         mViewModel.specStationLiveData.observe(this) { data ->
             if (!TextUtils.isEmpty(data.data)) {
-                ARouterManager.clearTaskNavigation(RouteConstants.Main.A_MAIN).withInt(RouteConstants.ParameterKey.JUMP_STATE,0).navigation()
+                ARouterManager.navigationClearTask(RouteConstants.Main.A_MAIN).withInt(RouteConstants.ParameterKey.JUMP_STATE,0).navigation()
                 BusUtils.postSticky(EventConstants.EVENT_JUMP_HUNTER_CODE, data.data)
             }
             ActivityUtils.finishActivity(LoginActivity::class.java)

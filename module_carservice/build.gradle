@@ -8,11 +8,11 @@ android {
         if(singleModule.toBoolean()){
             applicationId "com.xxjy.carservice"
         }
-        kapt {
-            arguments {
-                arg("AROUTER_MODULE_NAME", project.getName())
-            }
-        }
+//        kapt {
+//            arguments {
+//                arg("AROUTER_MODULE_NAME", project.getName())
+//            }
+//        }
     }
 }
 

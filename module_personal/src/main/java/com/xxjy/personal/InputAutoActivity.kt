@@ -84,7 +84,7 @@ class InputAutoActivity : BindingActivity<ActivityInputAutoBinding, LoginViewMod
                 UMengManager.onProfileSignIn("userID")
                 //        Tool.postJPushdata();
                 if (TextUtils.isEmpty(INVITE_CODE)) {
-                    ARouterManager.clearTaskNavigation(RouteConstants.Main.A_MAIN).navigation()
+                    ARouterManager.navigationClearTask(RouteConstants.Main.A_MAIN).navigation()
                 } else {
                     mViewModel.getSpecOil(INVITE_CODE!!)
                 }
@@ -105,7 +105,7 @@ class InputAutoActivity : BindingActivity<ActivityInputAutoBinding, LoginViewMod
         mViewModel.specStationLiveData.observe(this) { data ->
             ActivityUtils.finishActivity(WeChatBindingPhoneActivity::class.java)
             if (!TextUtils.isEmpty(data.data)) {
-                ARouterManager.clearTaskNavigation(RouteConstants.Main.A_MAIN).withInt(
+                ARouterManager.navigationClearTask(RouteConstants.Main.A_MAIN).withInt(
                     RouteConstants.ParameterKey.JUMP_STATE,0).navigation()
                 BusUtils.postSticky(EventConstants.EVENT_JUMP_HUNTER_CODE, data.data)
             }

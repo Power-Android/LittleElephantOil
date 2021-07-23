@@ -11,6 +11,8 @@ import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.ViewGroup
+import com.alibaba.android.arouter.facade.annotation.Autowired
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.LogUtils
 import com.tencent.smtt.export.external.interfaces.JsResult
 import com.tencent.smtt.sdk.WebChromeClient
@@ -18,13 +20,15 @@ import com.tencent.smtt.sdk.WebView
 import com.tencent.smtt.sdk.WebViewClient
 import com.xxjy.common.base.BindingActivity
 import com.xxjy.common.constants.Constants
-import com.xxjy.web.WeChatWebPayActivity
+import com.xxjy.common.router.RouteConstants
 import com.xxjy.web.databinding.ActivityWeChatWebPayBinding
 import com.xxjy.web.jscalljava.JsOperation
+import com.xxjy.web.viewmodel.WebViewViewModel
 import java.net.URISyntaxException
 import java.net.URLDecoder
 import java.util.*
 
+@Route(path = RouteConstants.Web.A_WECHAT_WEB_PAY)
 class WeChatWebPayActivity : BindingActivity<ActivityWeChatWebPayBinding, WebViewViewModel>() {
     private var mPayLoadJs: String? = null
     private var instence: WeChatWebPayActivity? = null
@@ -32,12 +36,21 @@ class WeChatWebPayActivity : BindingActivity<ActivityWeChatWebPayBinding, WebVie
     private var isFirstUse = true
     private var isFirstWriteJs = true
     private val HTTP_URL = Constants.HTTP_CALL_BACK_URL
+
+    @Autowired(name = "payJs")
+    @JvmField
+    var resultJs = ""
+
+
     override fun initView() {
         instence = this
         //        StatusBarUtil.setHeightAndPadding(this, mBinding.toolbar);
 //        UiUtils.initWebView(mBinding!!.webview)
         val intent = intent
-        val resultJs = intent.getStringExtra(TAG_PAY_LOAD_JS)
+        if (TextUtils.isEmpty(resultJs)) {
+            resultJs = intent.getStringExtra(TAG_PAY_LOAD_JS).toString()
+        }
+
         //        mPayLoadJs = intent.getStringExtra(TAG_PAY_LOAD_JS);
         val first = "<script type=\"text/javascript\">location.href=\""
         val second = "\"</script>"
@@ -270,7 +283,7 @@ class WeChatWebPayActivity : BindingActivity<ActivityWeChatWebPayBinding, WebVie
 
     companion object {
         private const val BAR_TITLE = "现代支付界面"
-        private const val TAG_PAY_LOAD_JS = "load_js"
+        private const val TAG_PAY_LOAD_JS = "payJs"
         fun parseExtras(uri: Uri): Bundle? {
             var extras: Bundle? = null
             val queryParameterNames = uri.queryParameterNames

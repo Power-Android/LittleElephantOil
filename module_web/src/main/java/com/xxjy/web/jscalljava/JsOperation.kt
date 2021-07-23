@@ -1,5 +1,7 @@
 package com.xxjy.web.jscalljava
 
+import android.content.ActivityNotFoundException
+import android.content.ComponentName
 import android.content.Intent
 import android.net.Uri
 import android.text.TextUtils
@@ -8,22 +10,25 @@ import android.webkit.JavascriptInterface
 import android.widget.Toast
 import com.amap.api.location.AMapLocation
 import com.blankj.utilcode.constant.PermissionConstants
-import com.blankj.utilcode.util.GsonUtils
-import com.blankj.utilcode.util.LogUtils
-import com.blankj.utilcode.util.PermissionUtils
-import com.blankj.utilcode.util.ThreadUtils
+import com.blankj.utilcode.util.*
 import com.umeng.socialize.bean.SHARE_MEDIA
 import com.xxjy.common.base.BaseActivity
 import com.xxjy.common.constants.Constants
 import com.xxjy.common.constants.SPConstants
 import com.xxjy.common.constants.UserConstants
+import com.xxjy.common.dialog.CustomerServiceDialog
+import com.xxjy.common.dialog.NavigationDialog
 import com.xxjy.common.http.HttpManager
+import com.xxjy.common.router.ARouterManager
+import com.xxjy.common.router.RouteConstants
 import com.xxjy.common.util.ImageUtils
 import com.xxjy.common.util.MapIntentUtils
 import com.xxjy.common.util.WXSdkManager
-import com.xxjy.jyyh.ui.web.WebViewActivity
+import com.xxjy.common.util.eventtrackingmanager.EventTrackingManager
+import com.xxjy.common.util.toastlib.Toasty
 import com.xxjy.navigation.MapLocationHelper
 import com.xxjy.umeng.UMengLoginWx
+import com.xxjy.web.WebViewActivity
 import com.xxjy.web.jscalljava.jsbean.OrderBean
 import com.xxjy.web.jscalljava.jscallback.OnJsCallListener
 import org.json.JSONObject
@@ -54,12 +59,10 @@ class JsOperation(activity: BaseActivity?) : JsOperationMethods {
 
     @JavascriptInterface
     override fun getEventTracking(): String {
-//            val params: Map<String, String> = EventTrackingManager.getInstance()
-//                .getParams(mActivity, java.lang.String.valueOf(++Constants.PV_ID))
-//            val jsonObject = JSONObject(params)
-//            Log.e("getEventTracking", jsonObject.toString())
-//            return jsonObject.toString()
-        return ""
+            val params: Map<String, String> = EventTrackingManager.instance.getParams(mActivity, java.lang.String.valueOf(++Constants.PV_ID))
+            val jsonObject = JSONObject(params)
+            Log.e("getEventTracking", jsonObject.toString())
+            return jsonObject.toString()
     }
 
     // 调起分享
@@ -139,6 +142,7 @@ class JsOperation(activity: BaseActivity?) : JsOperationMethods {
                 (mActivity as WebViewActivity).isShouldLoadUrl=true
             }
 //            UiUtils.toLoginActivity(mActivity, Constants.LOGIN_FINISH)
+            ARouterManager.navigation(RouteConstants.Personal.A_LOGIN).withInt(RouteConstants.ParameterKey.LOGIN_STATE, Constants.LOGIN_FINISH).navigation()
         })
     }
 
@@ -146,7 +150,7 @@ class JsOperation(activity: BaseActivity?) : JsOperationMethods {
     override fun toWechatPay(url: String?) {
         LogUtils.e("支付参数：", url)
         mActivity?.runOnUiThread(Runnable {
-//            WeChatWebPayActivity.openWebPayAct(mActivity, url)
+            ARouterManager.navigation(RouteConstants.Web.A_WECHAT_WEB_PAY).withString(RouteConstants.ParameterKey.PAY_JS,url).navigation()
         })
     }
 
@@ -177,9 +181,7 @@ class JsOperation(activity: BaseActivity?) : JsOperationMethods {
     override fun toAliPay(intentInfo: String?) {
         mActivity?.runOnUiThread(Runnable {
             if (mActivity is WebViewActivity) {
-//                    LogUtils.e(intentInfo);
-                val webViewActivity: WebViewActivity? = mActivity as WebViewActivity?
-//                webViewActivity.startAliPay(intentInfo)
+                (mActivity as WebViewActivity).startAliPay(intentInfo)
             }
         })
     }
@@ -209,13 +211,12 @@ class JsOperation(activity: BaseActivity?) : JsOperationMethods {
      */
     @JavascriptInterface
     override fun goWeChatBuyEquityCard(parameter: String?) {
-//
         Log.e("goWeChatBuyEquityCard",parameter!!);
          var orderEntity:OrderBean=GsonUtils.fromJson(parameter, OrderBean::class.java)
         Log.e("goWeChatBuyEquityCard","orderId="+orderEntity.orderId)
         if(mActivity is WebViewActivity){
          mActivity?.runOnUiThread {
-//             WXSdkManager.newInstance().useWXLaunchMiniProgramToPay(mActivity, orderEntity.orderId);
+             WXSdkManager.newInstance().useWXLaunchMiniProgramToPay(mActivity!!, orderEntity.orderId!!);
          };
         }
     }
@@ -248,7 +249,7 @@ class JsOperation(activity: BaseActivity?) : JsOperationMethods {
         Log.e("shareImageToWeChat", "data==>$data")
         if (mActivity is WebViewActivity) {
             mActivity?.runOnUiThread(Runnable {
-//                WXSdkManager.newInstance().shareWX(mActivity, data)
+                WXSdkManager.newInstance().shareWX(mActivity!!, data)
             })
         }
     }
@@ -258,15 +259,18 @@ class JsOperation(activity: BaseActivity?) : JsOperationMethods {
         if (mActivity is WebViewActivity) {
             mActivity?.runOnUiThread(Runnable {
 //                UiUtils.jumpToHome(mActivity, Constants.TYPE_OIL)
+                ARouterManager.navigationClearTask(RouteConstants.Main.A_MAIN).withInt(RouteConstants.ParameterKey.JUMP_STATE,Constants.TYPE_OIL).navigation()
             })
         }
     }
 
     @JavascriptInterface
     override fun toHomePage() {
+
         if (mActivity is WebViewActivity) {
             mActivity?.runOnUiThread(Runnable {
-//                UiUtils.jumpToHome(mActivity, Constants.TYPE_HOME)
+
+                ARouterManager.navigationClearTask(RouteConstants.Main.A_MAIN).withInt(RouteConstants.ParameterKey.JUMP_STATE,Constants.TYPE_HOME).navigation()
             })
         }
     }
@@ -275,10 +279,7 @@ class JsOperation(activity: BaseActivity?) : JsOperationMethods {
     override fun toCarServePage() {
         if (mActivity is WebViewActivity) {
             mActivity?.runOnUiThread(Runnable {
-//                UiUtils.jumpToHome(
-//                    mActivity,
-//                    Constants.TYPE_CAR_SERVE
-//                )
+                ARouterManager.navigationClearTask(RouteConstants.Main.A_MAIN).withInt(RouteConstants.ParameterKey.JUMP_STATE,Constants.TYPE_CAR_SERVE).navigation()
             })
         }
     }
@@ -287,10 +288,7 @@ class JsOperation(activity: BaseActivity?) : JsOperationMethods {
     override fun toIntegralHomePage() {
         if (mActivity is WebViewActivity) {
             mActivity?.runOnUiThread(Runnable {
-//                UiUtils.jumpToHome(
-//                    mActivity,
-//                    Constants.TYPE_INTEGRAL
-//                )
+                ARouterManager.navigationClearTask(RouteConstants.Main.A_MAIN).withInt(RouteConstants.ParameterKey.JUMP_STATE,Constants.TYPE_INTEGRAL).navigation()
             })
         }
     }
@@ -330,10 +328,10 @@ class JsOperation(activity: BaseActivity?) : JsOperationMethods {
     override fun toLoginByInviteFriends() {
         mActivity?.runOnUiThread(Runnable {
             if (mActivity is WebViewActivity) {
-                val webViewActivity: WebViewActivity? = mActivity as WebViewActivity?
-//                webViewActivity.setShouldLoadUrl(true)
+                (mActivity as WebViewActivity).isShouldLoadUrl=true
             }
 //            UiUtils.toLoginActivity(mActivity, Constants.LOGIN_FINISH, true)
+            ARouterManager.navigation(RouteConstants.Personal.A_LOGIN).withBoolean(RouteConstants.ParameterKey.INVITE,true).withInt(RouteConstants.ParameterKey.LOGIN_STATE, Constants.LOGIN_FINISH).navigation()
         })
     }
 
@@ -342,6 +340,7 @@ class JsOperation(activity: BaseActivity?) : JsOperationMethods {
         if (mActivity is WebViewActivity) {
             mActivity?.runOnUiThread(Runnable {
 //                UiUtils.jumpToHome(mActivity, Constants.TYPE_MINE)
+                ARouterManager.navigationClearTask(RouteConstants.Main.A_MAIN).withInt(RouteConstants.ParameterKey.JUMP_STATE,Constants.TYPE_MINE).navigation()
             })
         }
     }
@@ -364,12 +363,12 @@ class JsOperation(activity: BaseActivity?) : JsOperationMethods {
     override fun showCustomerService() {
         if (mActivity is WebViewActivity) {
             mActivity?.runOnUiThread(Runnable {
-//                try {
-//                    val customerServiceDialog = CustomerServiceDialog(mActivity)
-//                    customerServiceDialog.show(mActivity.getWindow().getDecorView())
-//                } catch (e: Exception) {
-//                    e.printStackTrace()
-//                }
+                try {
+                    val customerServiceDialog = CustomerServiceDialog(mActivity!!)
+                    customerServiceDialog.show(mActivity?.window?.decorView)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             })
         }
     }
@@ -378,15 +377,15 @@ class JsOperation(activity: BaseActivity?) : JsOperationMethods {
     override fun toNavigation(longitude: String?, latitude: String?, destination: String?) {
         if (mActivity is WebViewActivity) {
             mActivity?.runOnUiThread(Runnable {
-//                if (MapIntentUtils.isPhoneHasMapNavigation()) {
-//                    val navigationDialog = NavigationDialog(
-//                        mActivity, latitude!!.toDouble(), longitude!!.toDouble(),
-//                        destination
-//                    )
-//                    navigationDialog.show()
-//                } else {
-//                    mActivity.showToastWarning("您当前未安装地图软件，请先安装")
-//                }
+                if (MapIntentUtils.isPhoneHasMapNavigation) {
+                    val navigationDialog = NavigationDialog(
+                        mActivity!!, latitude!!.toDouble(), longitude!!.toDouble(),
+                        destination!!
+                    )
+                    navigationDialog.show()
+                } else {
+                    Toast.makeText(mActivity,"您当前未安装地图软件，请先安装",Toast.LENGTH_SHORT).show()
+                }
             })
         }
     }
@@ -435,28 +434,23 @@ class JsOperation(activity: BaseActivity?) : JsOperationMethods {
     override fun goBack() {
         if (mActivity is WebViewActivity) {
             mActivity?.runOnUiThread(Runnable {
-//                (mActivity as WebViewActivity?).onBackClick()
+                (mActivity as WebViewActivity)?.onBackClick()
             })
         }
     }
 
     @JavascriptInterface
     override fun getStatusBarHeight(): Int {
-//    return StatusBarUtil.getStatusBarHeight(mActivity)
-        return 0
+    return BarUtils.getStatusBarHeight()
     }
 
     @JavascriptInterface
     override fun showImmersiveToolBar(isShow: Boolean) {
-//        if(mActivity instanceof WebViewActivity){
-//            mActivity.runOnUiThread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    ((WebViewActivity) mActivity).showImmersiveToolBar(isShow);
-//                }
-//            });
-//
-//        }
+        if(mActivity is WebViewActivity){
+            mActivity?.runOnUiThread{
+//                ( mActivity as WebViewActivity)?.showImmersiveToolBar(isShow);
+            }
+        }
     }
 
     @JavascriptInterface
@@ -476,27 +470,28 @@ class JsOperation(activity: BaseActivity?) : JsOperationMethods {
     override fun changeToolBarState(isDefault: Boolean, bgColor: String?) {
         if (mActivity is WebViewActivity) {
             mActivity?.runOnUiThread(Runnable {
-//                (mActivity as WebViewActivity?).changeToolBarState(
-//                    isDefault,
-//                    bgColor
-//                )
+                (mActivity as WebViewActivity)?.changeToolBarState(
+                    isDefault,
+                    bgColor!!
+                )
             })
         }
     }
 
     @JavascriptInterface
     override fun goWeChat() {
-//        try {
-//            val intent = Intent(Intent.ACTION_MAIN)
-//            val cmp = ComponentName("com.tencent.mm", "com.tencent.mm.ui.LauncherUI")
-//            intent.addCategory(Intent.CATEGORY_LAUNCHER)
-//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//            intent.setComponent(cmp)
-//            mActivity.startActivity(intent)
-//        } catch (e: ActivityNotFoundException) {
-//            e.printStackTrace()
-//            mActivity.runOnUiThread(Runnable { Toasty.error(mActivity, "启动微信失败，请手动打开微信").show() })
-//        }
+        try {
+            val intent = Intent(Intent.ACTION_MAIN)
+            val cmp = ComponentName("com.tencent.mm", "com.tencent.mm.ui.LauncherUI")
+            intent.addCategory(Intent.CATEGORY_LAUNCHER)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            intent.setComponent(cmp)
+            mActivity?.startActivity(intent)
+        } catch (e: ActivityNotFoundException) {
+            e.printStackTrace()
+            mActivity?.runOnUiThread(Runnable { Toast.makeText(mActivity, "启动微信失败，请手动打开微信",Toast.LENGTH_LONG).show() })
+
+        }
     }
 
     @JavascriptInterface
@@ -509,20 +504,18 @@ class JsOperation(activity: BaseActivity?) : JsOperationMethods {
     @JavascriptInterface
     fun addCalendar(result: String?) {
         mActivity?.runOnUiThread(Runnable {
-            //                if (mActivity instanceof WebViewActivity) {
-//                    WebViewActivity webViewActivity = (WebViewActivity) mActivity;
-//                    webViewActivity.addToCalendar(result);
-//                }
+            if (mActivity is WebViewActivity) {
+                (mActivity as WebViewActivity).addToCalendar(result);
+            }
         })
     }
 
     @JavascriptInterface
     fun cancelCalendar(result: String?) {
         mActivity?.runOnUiThread(Runnable {
-            //                if (mActivity instanceof WebViewActivity) {
-//                    WebViewActivity webViewActivity = (WebViewActivity) mActivity;
-//                    webViewActivity.deleteFromCalendar(result);
-//                }
+                            if (mActivity is WebViewActivity) {
+                                (mActivity as WebViewActivity).deleteFromCalendar(result);
+                }
         })
     }
 

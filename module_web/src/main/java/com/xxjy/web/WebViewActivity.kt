@@ -1,5 +1,6 @@
 package com.xxjy.web
 
+import android.Manifest
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
@@ -8,7 +9,6 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.net.Uri
 import android.text.TextUtils
-import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.ViewGroup
@@ -18,12 +18,8 @@ import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.alipay.sdk.app.H5PayCallback
 import com.alipay.sdk.app.PayTask
-import com.alipay.sdk.util.H5PayResultModel
-import com.blankj.utilcode.util.BarUtils
-import com.blankj.utilcode.util.GsonUtils
-import com.blankj.utilcode.util.LogUtils
+import com.blankj.utilcode.util.*
 import com.tencent.smtt.export.external.interfaces.JsPromptResult
 import com.tencent.smtt.export.external.interfaces.JsResult
 import com.tencent.smtt.sdk.WebChromeClient
@@ -35,35 +31,34 @@ import com.xxjy.common.constants.UserConstants
 import com.xxjy.common.entity.SharedInfoBean
 import com.xxjy.common.router.RouteConstants
 import com.xxjy.common.util.StringUtils
-import com.xxjy.umeng.SharedInfoManager
+import com.xxjy.push.JPushManager
 import com.xxjy.umeng.SharedInfoManager.OnSharedAllResultListener
-import com.xxjy.web.R
-import com.xxjy.web.WebViewViewModel
+import com.xxjy.web.viewmodel.WebViewViewModel
 import com.xxjy.web.databinding.ActivityWebviewBinding
 import com.xxjy.web.jscalljava.JsOperation
 import com.xxjy.web.jscalljava.jsbean.ToolBarStateBean
 import com.xxjy.web.jscalljava.jscallback.OnJsCallListener
 @Route(path = RouteConstants.Web.A_WEB)
 class WebViewActivity : BindingActivity<ActivityWebviewBinding, WebViewViewModel>(), View.OnClickListener, OnJsCallListener {
-    private var mToolbar: Toolbar? = null
-    private var mWebTitle: TextView? = null
-    private var mWebShared: ImageView? = null
-    private var mWebCallHelp: ImageView? = null
-    private var mWebBack: ImageView? = null
-    private var mWebClose: ImageView? = null
-    private var webView: WebView? = null
-    private var progressBar: ProgressBar? = null
-    private var INSTENCE: WebViewActivity? = null
+    private lateinit var mToolbar: Toolbar
+    private lateinit var mWebTitle: TextView
+    private lateinit var mWebShared: ImageView
+    private lateinit var mWebCallHelp: ImageView
+    private lateinit var mWebBack: ImageView
+    private lateinit var mWebClose: ImageView
+    private lateinit var webView: WebView
+    private lateinit var progressBar: ProgressBar
+    private lateinit var INSTENCE: WebViewActivity
     private var isShared = false //标记该界面是否可以分享
     private var shared //分享的信息
             : SharedInfoBean? = null
-    private var mJsOperation: JsOperation? = null
+    private lateinit var mJsOperation: JsOperation
     @Autowired
-    private var url: String? = null
+    lateinit var url: String
     var isShouldLoadUrl = false
     private var mCallPhoneNumber = ""
-    private var mLastShowTitle: String? = null
-    private val mOrderNo: String? = null
+    private  var mLastShowTitle:String =""
+    private lateinit var mOrderNo: String
     private val mIsOpenVip = false
     private var defaultToolBarBgColor = 0
     private var defaultTitleColor //默认的背景颜色和title颜色
@@ -74,20 +69,21 @@ class WebViewActivity : BindingActivity<ActivityWebviewBinding, WebViewViewModel
 
     //是否需要展示确认弹窗
     private val shouldShowSureDialog = false
-    protected fun initData() {
+     private fun initData() {
         INSTENCE = this
 //        StatusBarUtil.setHeightAndPadding(this, mToolbar)
         BarUtils.addMarginTopEqualStatusBarHeight(mToolbar!!)
 //        url = intent.getStringExtra("url")
+         LogUtils.d("url=:$url")
         initListener()
         mJsOperation = JsOperation(this)
-        mJsOperation?.setOnJsCallListener(this)
+        mJsOperation.setOnJsCallListener(this)
         initWebViewSettings()
         initPayWebViewSettings()
         initSharedInfo(url!!)
         initDefaultColor()
         webView!!.loadUrl(url)
-        LogUtils.d("url=:$url")
+
     }
 
     private fun initDefaultColor() {
@@ -108,7 +104,20 @@ class WebViewActivity : BindingActivity<ActivityWebviewBinding, WebViewViewModel
         mWebCallHelp = mBinding.webHelp
         mWebBack = mBinding.webBack
         mWebClose = mBinding.webClose
-        initData()
+        PermissionUtils.permission(
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        )
+            .callback(object : PermissionUtils.SimpleCallback {
+                override fun onGranted() {
+                    initData()
+                }
+
+                override fun onDenied() {
+                }
+            })
+            .request()
+
     }
 
     override fun initListener() {
@@ -185,7 +194,7 @@ class WebViewActivity : BindingActivity<ActivityWebviewBinding, WebViewViewModel
      */
     fun hideSharedIcon() {
         isShared = false
-        mWebShared!!.visibility = View.GONE
+        mWebShared.visibility = View.GONE
     }
 
     /**
@@ -374,17 +383,17 @@ class WebViewActivity : BindingActivity<ActivityWebviewBinding, WebViewViewModel
     //    }
     private fun initWebViewSettings() {
         progressBar = findViewById<ProgressBar>(R.id.line_progress)
-//        UiUtils.initWebView(this, webView)
-        webView!!.addJavascriptInterface(mJsOperation, JsOperation.JS_USE_NAME)
-        webView!!.webChromeClient = object : WebChromeClient() {
+        X5WebManager.initWebView(this@WebViewActivity, webView)
+        webView.addJavascriptInterface(mJsOperation, JsOperation.JS_USE_NAME)
+        webView.webChromeClient = object : WebChromeClient() {
             //获得网页的加载进度，显示在右上角的TextView控件中
             override fun onProgressChanged(webView: WebView, progress: Int) {
                 super.onProgressChanged(webView, progress)
                 if (progress == 100) {
-                    progressBar!!.visibility = View.GONE //加载完网页进度条消失
+                    progressBar.visibility = View.GONE //加载完网页进度条消失
                 } else {
-                    progressBar!!.visibility = View.VISIBLE //开始加载网页时显示进度条
-                    progressBar!!.progress = progress //设置进度值
+                    progressBar.visibility = View.VISIBLE //开始加载网页时显示进度条
+                    progressBar.progress = progress //设置进度值
                 }
             }
 
@@ -393,12 +402,12 @@ class WebViewActivity : BindingActivity<ActivityWebviewBinding, WebViewViewModel
             //因此建议当触发onReceiveError时，不要使用获取到的title
             override fun onReceivedTitle(webView: WebView, s: String) {
                 super.onReceivedTitle(webView, s)
-                mWebTitle!!.text = s
+                mWebTitle.text = s
                 if (!TextUtils.isEmpty(s)) {
                     if (!TextUtils.isEmpty(mLastShowTitle)) {
-//                        JPushManager.onPageEnd(INSTENCE, mLastShowTitle)
+                        JPushManager.onPageEnd(INSTENCE, mLastShowTitle)
                     }
-//                    JPushManager.onPageStart(INSTENCE, s)
+                    JPushManager.onPageStart(INSTENCE, s)
                     mLastShowTitle = s
                 }
             }
@@ -418,7 +427,6 @@ class WebViewActivity : BindingActivity<ActivityWebviewBinding, WebViewViewModel
                 // 不需要绑定按键事件
                 // 屏蔽keycode等于84之类的按键
                 builder.setOnKeyListener { dialog, keyCode, event ->
-                    Log.v("onJsAlert", "keyCode==" + keyCode + "event=" + event)
                     true
                 }
                 // 禁止响应按back键的事件
@@ -447,7 +455,7 @@ class WebViewActivity : BindingActivity<ActivityWebviewBinding, WebViewViewModel
                 return true
             }
         }
-        webView!!.webViewClient = object : WebViewClient() {
+        webView.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
                 if (url.startsWith("weixin://wap/pay?")) {
                     try {
@@ -687,7 +695,7 @@ class WebViewActivity : BindingActivity<ActivityWebviewBinding, WebViewViewModel
         })
     }
 
-    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             onBackClick()
             return true
@@ -702,7 +710,7 @@ class WebViewActivity : BindingActivity<ActivityWebviewBinding, WebViewViewModel
         clearWebView(mBinding.webview)
         clearWebView(mBinding.payWebview)
         if (!TextUtils.isEmpty(mLastShowTitle)) {
-//            JPushManager.onPageEnd(INSTENCE, mLastShowTitle)
+            JPushManager.onPageEnd(INSTENCE, mLastShowTitle)
         }
         super.onDestroy()
     }

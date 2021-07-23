@@ -15,18 +15,15 @@ android {
             ]
 
         }
-        kapt {
-            arguments {
-                arg("AROUTER_MODULE_NAME", project.getName())
-            }
-        }
+//        kapt {
+//            arguments {
+//                arg("AROUTER_MODULE_NAME", project.getName())
+//            }
+//        }
     }
 }
 
 dependencies {
-
-
-
     api project(path: ':library_common')
     api project(path:":library_shanyan")
     api project(path:":library_push")
