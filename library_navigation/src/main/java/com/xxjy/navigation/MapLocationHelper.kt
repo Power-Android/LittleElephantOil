@@ -1,4 +1,4 @@
- package com.xxjy.navigation
+package com.xxjy.navigation
 
 import android.content.Context
 import android.util.Log
@@ -8,7 +8,7 @@ import com.amap.api.location.AMapLocationClientOption
 import com.amap.api.location.AMapLocationListener
 import com.xxjy.common.constants.UserConstants
 
- /**
+/**
  * 车主邦
  * ---------------------------
  *
@@ -52,25 +52,25 @@ class MapLocationHelper private constructor() {
     //主动刷新设备wifi模块，获取到最新鲜的wifi列表
 //         setWifiActiveScan(true);
     private fun getSignInOption(): AMapLocationClientOption {
-            val mOption = AMapLocationClientOption()
-            mOption.apply {
-                locationPurpose = AMapLocationClientOption.AMapLocationPurpose.SignIn
-                locationMode = AMapLocationClientOption.AMapLocationMode.Hight_Accuracy
-                //获取一次定位结果：
-                isOnceLocation = true
-                //获取最近3s内精度最高的一次定位结果：
-                isOnceLocationLatest = true
-                //设置是否返回地址信息（默认返回地址信息）
-                isNeedAddress = true
-                //单位是毫秒，默认30000毫秒，建议超时时间不要低于8000毫秒。
-                httpTimeOut = 20000
-                //可选，设置是否使用缓存定位，默认为true
-                isLocationCacheEnable = true
-            }
-            //主动刷新设备wifi模块，获取到最新鲜的wifi列表
+        val mOption = AMapLocationClientOption()
+        mOption.apply {
+            locationPurpose = AMapLocationClientOption.AMapLocationPurpose.SignIn
+            locationMode = AMapLocationClientOption.AMapLocationMode.Hight_Accuracy
+            //获取一次定位结果：
+            isOnceLocation = true
+            //获取最近3s内精度最高的一次定位结果：
+            isOnceLocationLatest = true
+            //设置是否返回地址信息（默认返回地址信息）
+            isNeedAddress = true
+            //单位是毫秒，默认30000毫秒，建议超时时间不要低于8000毫秒。
+            httpTimeOut = 20000
+            //可选，设置是否使用缓存定位，默认为true
+            isLocationCacheEnable = true
+        }
+        //主动刷新设备wifi模块，获取到最新鲜的wifi列表
 //        mOption.setWifiActiveScan(true);
-            return mOption
-        }//设置定位模式为高精度模式，Battery_Saving为低功耗模式，Device_Sensors是仅设备模式
+        return mOption
+    }//设置定位模式为高精度模式，Battery_Saving为低功耗模式，Device_Sensors是仅设备模式
     //可选，设置是否gps优先，只在高精度模式下有效。默认关闭
     //可选，设置网络请求超时时间。默认为30秒。在仅设备模式下无效
     //可选，设置定位间隔。默认为2秒
@@ -88,35 +88,35 @@ class MapLocationHelper private constructor() {
      * @since 2.8.0
      */
     private fun getDefaultOption(): AMapLocationClientOption {
-            val mOption = AMapLocationClientOption()
+        val mOption = AMapLocationClientOption()
 
-            mOption.apply {
-                //设置定位模式为高精度模式，Battery_Saving为低功耗模式，Device_Sensors是仅设备模式
-                 locationMode = AMapLocationClientOption.AMapLocationMode.Hight_Accuracy
-                //可选，设置是否gps优先，只在高精度模式下有效。默认关闭
-                 isGpsFirst = false
-                //可选，设置网络请求超时时间。默认为30秒。在仅设备模式下无效
-                 httpTimeOut = 20000
-                //可选，设置定位间隔。默认为2秒
-                 interval = 2000
-                //可选，设置是否返回逆地理地址信息。默认是true
-                 isNeedAddress = true
-                //可选，设置是否只定位一次,默认为false
-                 isOnceLocation = true
-                //可选，设置是否等待wifi刷新，默认为false.如果设置为true,会自动变为单次定位，持续定位时不要使用 ,获取最近3s内精度最高的一次定位结果
-                mOption.isOnceLocationLatest = true
+        mOption.apply {
+            //设置定位模式为高精度模式，Battery_Saving为低功耗模式，Device_Sensors是仅设备模式
+            locationMode = AMapLocationClientOption.AMapLocationMode.Hight_Accuracy
+            //可选，设置是否gps优先，只在高精度模式下有效。默认关闭
+            isGpsFirst = false
+            //可选，设置网络请求超时时间。默认为30秒。在仅设备模式下无效
+            httpTimeOut = 20000
+            //可选，设置定位间隔。默认为2秒
+            interval = 2000
+            //可选，设置是否返回逆地理地址信息。默认是true
+            isNeedAddress = true
+            //可选，设置是否只定位一次,默认为false
+            isOnceLocation = true
+            //可选，设置是否等待wifi刷新，默认为false.如果设置为true,会自动变为单次定位，持续定位时不要使用 ,获取最近3s内精度最高的一次定位结果
+            mOption.isOnceLocationLatest = true
 
-                //可选，设置是否使用传感器。默认是false
-                mOption.isSensorEnable = false
-                //可选，设置是否开启wifi扫描。默认为true，如果设置为false会同时停止主动刷新，停止以后完全依赖于系统刷新，定位位置可能存在误差
-                mOption.isWifiScan = true
-                //可选，设置是否使用缓存定位，默认为true
-                mOption.isLocationCacheEnable = true
-            }
-            //可选， 设置网络请求的协议。可选HTTP或者HTTPS。默认为HTTP
-            AMapLocationClientOption.setLocationProtocol(AMapLocationClientOption.AMapLocationProtocol.HTTP)
-            return mOption
+            //可选，设置是否使用传感器。默认是false
+            mOption.isSensorEnable = false
+            //可选，设置是否开启wifi扫描。默认为true，如果设置为false会同时停止主动刷新，停止以后完全依赖于系统刷新，定位位置可能存在误差
+            mOption.isWifiScan = true
+            //可选，设置是否使用缓存定位，默认为true
+            mOption.isLocationCacheEnable = true
         }
+        //可选， 设置网络请求的协议。可选HTTP或者HTTPS。默认为HTTP
+        AMapLocationClientOption.setLocationProtocol(AMapLocationClientOption.AMapLocationProtocol.HTTP)
+        return mOption
+    }
 
     /**
      * 定位监听
@@ -133,11 +133,14 @@ class MapLocationHelper private constructor() {
                     cityCode = location.cityCode
                     adCode = location.adCode
                     city = location.city
-                    Log.i("定位",cityCode + "---" + location.getLatitude() + "---" + location.getLongitude())
+                    Log.i(
+                        "定位",
+                        cityCode + "---" + location.getLatitude() + "---" + location.getLongitude()
+                    )
                     aMapLocation = location
                     isHasLocationPermission = true
-                    UserConstants.longitude=location.longitude.toString()
-                    UserConstants.latitude=location.latitude.toString()
+                    UserConstants.longitude = location.longitude.toString()
+                    UserConstants.latitude = location.latitude.toString()
                     UserConstants.ad_code = location.adCode
                     UserConstants.city_code = location.cityCode
                     if (mLocationResult != null) {
@@ -267,7 +270,7 @@ class MapLocationHelper private constructor() {
                 //解析定位结果，
                 val result = sb.toString()
                 //                LogUtils.e("定位", result)
-                Log.d("定位",result)
+                Log.d("定位", result)
             } else {
                 if (mLocationResult != null) {
                     mLocationResult!!.locationFiler()
@@ -276,14 +279,14 @@ class MapLocationHelper private constructor() {
         }
 
     interface LocationResult {
-        fun locationSuccess(location: AMapLocation?)
+        fun locationSuccess(location: AMapLocation)
         fun locationFiler()
     }
 
     /**
      * 获取位置
      */
-    fun getLocation(context: Context,locationResult: LocationResult?) {
+    fun getLocation(context: Context, locationResult: LocationResult?) {
         mLocationResult = locationResult
         if (mLocationClient == null) {
             initLocationClient(context)
@@ -304,16 +307,16 @@ class MapLocationHelper private constructor() {
      */
     private fun stopInnerLocation() {
         mLocationResult = null
-            mLocationClient?.stopLocation()
+        mLocationClient?.stopLocation()
     }
 
     /**
      * 内部不在定位了
      */
     private fun onInnerDestory() {
-            mLocationClient?.unRegisterLocationListener(locationListener)
-            mLocationClient?.onDestroy()
-            mLocationClient = null
+        mLocationClient?.unRegisterLocationListener(locationListener)
+        mLocationClient?.onDestroy()
+        mLocationClient = null
     }
 
 
@@ -369,7 +372,7 @@ class MapLocationHelper private constructor() {
          * @return
          */
         // 单例对象
-        fun getInstance(): MapLocationHelper?{
+        fun getInstance(): MapLocationHelper? {
             if (mInstance == null) {
                 synchronized(MapLocationHelper::class.java) {
                     if (mInstance == null) {
@@ -384,8 +387,9 @@ class MapLocationHelper private constructor() {
          * 刷新位置
          */
         fun refreshLocation(context: Context) {
-            mInstance?.getLocation(context,null)
+            mInstance?.getLocation(context, null)
         }
+
         /**
          * 停止定位
          */

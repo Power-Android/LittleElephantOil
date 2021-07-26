@@ -60,8 +60,7 @@ object Constants {
     var LOGIN_FINISH = 1 //finish掉
 
     //猎人码油站id
-    var HUNTER_GAS_ID //finish掉
-            : String? = null
+    var HUNTER_GAS_ID: String = ""
 
     //是否点击关闭定位权限授权
     var OPEN_LOCATION_VISIBLE = true //finish掉

@@ -68,7 +68,6 @@ class MainActivity : BindingActivity<ActivityMainBinding, MainViewModel>() {
         } else if (TextUtils.equals(event.event, EventConstants.EVENT_TO_CAR_FRAGMENT)) {
             mBinding.navView.selectedItemId = R.id.navigation_car_serve
         }
-
     }
 
     private fun initSdk() {
@@ -399,7 +398,6 @@ class MainActivity : BindingActivity<ActivityMainBinding, MainViewModel>() {
             val intent = Intent(activity, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             activity.startActivity(intent)
-            //        ActivityUtils.startHomeActivity();
         }
 
         /**
@@ -412,7 +410,6 @@ class MainActivity : BindingActivity<ActivityMainBinding, MainViewModel>() {
             intent.putExtra("jumpState", jumpCode)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             activity.startActivity(intent)
-            //        ActivityUtils.startHomeActivity();
         }
     }
 }

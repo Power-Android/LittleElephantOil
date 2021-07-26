@@ -1,6 +1,5 @@
 package com.xxjy.common.util
 
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import com.xxjy.common.constants.UserConstants
 import com.xxjy.common.router.ARouterManager
@@ -15,7 +14,7 @@ import com.xxjy.umeng.UMengManager
  */
 object LoginHelper {
     var callBack: CallBack? = null
-    fun login(loginCallBack: CallBack?) {
+    fun login(loginCallBack: () -> Unit) {
         if (!UserConstants.login_status) {
             callBack = loginCallBack
          ARouterManager.navigation(RouteConstants.Personal.A_LOGIN).navigation()

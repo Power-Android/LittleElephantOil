@@ -1,0 +1,734 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_F5">
+
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:id="@+id/refresh_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:srlEnableLoadMore="true"
+        app:srlEnableOverScrollDrag="true">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible">
+
+                    <com.youth.banner.Banner
+                        android:id="@+id/top_banner"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_240"
+                        android:background="@color/transparent"
+                        app:banner_auto_loop="true"
+                        app:banner_indicator_gravity="center"
+                        app:banner_indicator_height="@dimen/dp_2"
+                        app:banner_indicator_margin="@dimen/dp_3"
+                        app:banner_indicator_normal_color="#2D2D2D"
+                        app:banner_indicator_normal_width="@dimen/dp_9"
+                        app:banner_indicator_selected_color="@color/color_76FF"
+                        app:banner_indicator_selected_width="@dimen/dp_9"
+                        app:banner_loop_time="5000"
+                        app:banner_radius="@dimen/dp_8" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_35"
+                        android:layout_alignBottom="@+id/top_banner"
+                        android:layout_marginStart="@dimen/dp_12"
+                        android:layout_marginEnd="@dimen/dp_12"
+                        android:layout_marginBottom="@dimen/dp_12"
+                        android:background="@drawable/shape_white_top_9radius"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/location_iv"
+                            android:layout_width="@dimen/dp_9"
+                            android:layout_height="@dimen/dp_12"
+                            android:layout_marginStart="@dimen/common_margin"
+                            android:src="@drawable/home_location_iv"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/address_tv"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_5"
+                            android:layout_marginEnd="@dimen/dp_20"
+                            android:ellipsize="end"
+                            android:includeFontPadding="false"
+                            android:singleLine="true"
+                            android:text="暂无定位"
+                            android:textColor="#464749"
+                            android:textSize="@dimen/sp_12"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/sign_in_iv"
+                            app:layout_constraintStart_toEndOf="@+id/location_iv"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/title_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/app_name"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/sp_16"
+                            android:visibility="invisible"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/search_iv"
+                            android:layout_width="@dimen/dp_24"
+                            android:layout_height="@dimen/dp_24"
+                            android:layout_marginEnd="@dimen/common_margin"
+                            android:src="@drawable/home_search_icon"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/sign_in_iv"
+                            android:layout_width="@dimen/dp_23"
+                            android:layout_height="@dimen/dp_23"
+                            android:layout_marginEnd="@dimen/dp_15"
+                            android:src="@drawable/sign_in_iv"
+                            android:visibility="visible"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/search_iv"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/top_banner"
+                        android:layout_marginTop="@dimen/dp_m_12"
+                        android:background="@drawable/shape_f5_14radius"
+                        android:paddingBottom="@dimen/dp_5">
+
+                        <net.lucode.hackware.magicindicator.MagicIndicator
+                            android:id="@+id/indicator"
+                            android:layout_width="@dimen/dp_170"
+                            android:layout_height="@dimen/dp_40"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_5"
+                            android:layout_marginEnd="@dimen/dp_29"
+                            android:text="小象加油根据您当前的位置智能优选"
+                            android:textColor="@color/color_76FF"
+                            android:textSize="@dimen/sp_10"
+                            app:layout_constraintBottom_toBottomOf="@+id/indicator"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/indicator" />
+
+                        <com.xxjy.common.weight.NoScrollViewPager
+                            android:id="@+id/view_pager"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_205"
+                            android:layout_marginStart="@dimen/dp_8"
+                            android:layout_marginTop="@dimen/dp_2"
+                            android:layout_marginEnd="@dimen/dp_8"
+                            android:background="@drawable/home_card_bg"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/indicator" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </RelativeLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/often_oil_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/home_quick_oil_rl"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/dp_15"
+                    android:layout_marginEnd="@dimen/dp_15"
+                    android:minHeight="@dimen/dp_20"
+                    android:paddingStart="@dimen/dp_10"
+                    android:paddingEnd="@dimen/dp_10"
+                    android:paddingBottom="@dimen/dp_5"
+                    android:visibility="gone"
+                    android:layout_marginTop="@dimen/dp_m_5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/often_car_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/home_quick_oil_rl"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/dp_15"
+                    android:layout_marginEnd="@dimen/dp_15"
+                    android:minHeight="@dimen/dp_20"
+                    android:paddingStart="@dimen/dp_10"
+                    android:paddingEnd="@dimen/dp_10"
+                    android:paddingBottom="@dimen/dp_5"
+                    android:visibility="gone"
+                    android:layout_marginTop="@dimen/dp_m_5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/menu_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:visibility="gone"
+                    android:background="@drawable/home_menu_bg"
+                    android:paddingTop="@dimen/dp_2"
+                    android:paddingBottom="@dimen/dp_20"
+                    android:paddingStart="@dimen/dp_10"
+                    android:paddingEnd="@dimen/dp_10"/>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/integral_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/often_oil_recycler_view"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_12"
+                    android:background="@drawable/shape_white_6raduis"
+                    android:padding="@dimen/dp_10"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/integral_desc"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/dp_10"
+                        android:ellipsize="end"
+                        android:includeFontPadding="false"
+                        android:maxLines="2"
+                        android:text="还需加油0.00元立即领取"
+                        android:textColor="@color/color_34"
+                        android:textSize="@dimen/sp_12"
+                        app:layout_constraintEnd_toStartOf="@+id/integral_iv"
+                        app:layout_constraintStart_toStartOf="@+id/progress"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ProgressBar
+                        android:id="@+id/progress"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="@dimen/dp_200"
+                        android:layout_height="@dimen/dp_8"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="@dimen/dp_5"
+                        android:progressDrawable="@drawable/progress_bar_bg"
+                        android:visibility="visible"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/order_num_dec_view" />
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/integral_iv"
+                        android:layout_width="@dimen/dp_31"
+                        android:layout_height="@dimen/dp_31"
+                        android:layout_marginEnd="@dimen/dp_12"
+                        android:src="@drawable/default_img_bg"
+                        app:layout_constraintBottom_toBottomOf="@+id/award_tv"
+                        app:layout_constraintEnd_toStartOf="@+id/award_tv"
+                        app:layout_constraintTop_toTopOf="@id/award_tv"
+                        app:riv_border_color="@color/color_D8"
+                        app:riv_border_width="@dimen/dp_0_5"
+                        app:riv_corner_radius="@dimen/dp_4" />
+
+                    <TextView
+                        android:id="@+id/award_tv"
+                        android:layout_width="@dimen/dp_72"
+                        android:layout_height="@dimen/dp_31"
+                        android:alpha="0.5"
+                        android:background="@drawable/shape_no_receive_6radius"
+                        android:gravity="center"
+                        android:text="领取奖励"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp_13"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/order_num_dec_view"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:includeFontPadding="false"
+                        android:text="(价值300积分)"
+                        android:textColor="@color/color_9A"
+                        android:textSize="@dimen/sp_10"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toStartOf="@+id/integral_iv"
+                        app:layout_constraintStart_toStartOf="@id/progress"
+                        app:layout_constraintTop_toBottomOf="@id/integral_desc" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <ImageView
+                    android:id="@+id/banner_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_marginLeft="@dimen/dp_12"
+                    android:layout_marginRight="@dimen/dp_12"
+                    android:scaleType="fitXY"
+                    android:visibility="gone" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/oil_task_cl"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:layout_marginLeft="@dimen/dp_12"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_12"
+                    android:background="@drawable/oil_task_bg"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/task_rule_iv"
+                        android:layout_width="@dimen/dp_70"
+                        android:layout_height="@dimen/dp_30"
+                        android:layout_marginTop="@dimen/dp_6"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/oil_task_desc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_100"
+                        android:layout_marginTop="@dimen/dp_12"
+                        android:text="每单加油150元 单单有好礼"
+                        android:textColor="#B0704E"
+                        android:textSize="@dimen/sp_11"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/oil_task_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp_5"
+                        android:includeFontPadding="false"
+                        android:text="当前已加油 0 单"
+                        android:textColor="#B0704E"
+                        android:textSize="@dimen/sp_10"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/progress_cl"
+                        android:layout_width="@dimen/dp_250"
+                        android:layout_height="@dimen/dp_74"
+                        android:layout_marginStart="@dimen/dp_21"
+                        app:layout_constraintBottom_toBottomOf="@+id/oil_task_get"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/oil_task_get">
+
+                        <View
+                            android:id="@+id/task_progress"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/dp_5"
+                            android:layout_marginEnd="@dimen/dp_25"
+                            android:background="@drawable/progress_task_bg"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <View
+                            android:id="@+id/progress_in"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/dp_5"
+                            android:background="@drawable/progree_task_in_bg"
+                            android:visibility="gone"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="@id/task_progress"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/task_node_iv"
+                            android:layout_width="@dimen/dp_0"
+                            android:layout_height="@dimen/dp_26"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/task_node_iv_1"
+                            android:layout_width="@dimen/dp_26"
+                            android:layout_height="@dimen/dp_26"
+                            android:src="@drawable/task_node_icon"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/task_node_iv_2"
+                            app:layout_constraintStart_toEndOf="@+id/task_node_iv"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/task_node_iv_2"
+                            android:layout_width="@dimen/dp_26"
+                            android:layout_height="@dimen/dp_26"
+                            android:src="@drawable/task_node_icon"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/task_node_iv_3"
+                            app:layout_constraintStart_toEndOf="@+id/task_node_iv_1"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/task_node_iv_3"
+                            android:layout_width="@dimen/dp_26"
+                            android:layout_height="@dimen/dp_26"
+                            android:src="@drawable/task_node_icon"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@+id/task_progress"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/task_num_tv1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_6"
+                            android:text="第1单"
+                            android:textColor="#F95D59"
+                            android:textSize="@dimen/sp_12"
+                            app:layout_constraintEnd_toEndOf="@+id/task_node_iv_1"
+                            app:layout_constraintStart_toStartOf="@+id/task_node_iv_1"
+                            app:layout_constraintTop_toBottomOf="@+id/task_node_iv_1" />
+
+                        <TextView
+                            android:id="@+id/task_num_tv2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_6"
+                            android:text="第5单"
+                            android:textColor="#F95D59"
+                            android:textSize="@dimen/sp_12"
+                            app:layout_constraintEnd_toEndOf="@+id/task_node_iv_2"
+                            app:layout_constraintStart_toStartOf="@+id/task_node_iv_2"
+                            app:layout_constraintTop_toBottomOf="@+id/task_node_iv_2" />
+
+                        <TextView
+                            android:id="@+id/task_num_tv3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_6"
+                            android:text="第10单"
+                            android:textColor="#F95D59"
+                            android:textSize="@dimen/sp_12"
+                            app:layout_constraintEnd_toEndOf="@+id/task_node_iv_3"
+                            app:layout_constraintStart_toStartOf="@+id/task_node_iv_3"
+                            app:layout_constraintTop_toBottomOf="@+id/task_node_iv_3" />
+
+                        <TextView
+                            android:id="@+id/task_coupon_tv1"
+                            android:layout_width="@dimen/dp_60"
+                            android:layout_height="@dimen/dp_19"
+                            android:background="@drawable/task_coupon_bg"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:includeFontPadding="false"
+                            android:paddingBottom="@dimen/dp_3"
+                            android:singleLine="true"
+                            android:text="10元加油券"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/sp_10"
+                            app:layout_constraintEnd_toEndOf="@+id/task_node_iv_1"
+                            app:layout_constraintStart_toStartOf="@+id/task_node_iv_1"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/task_coupon_tv2"
+                            android:layout_width="@dimen/dp_60"
+                            android:layout_height="@dimen/dp_19"
+                            android:background="@drawable/task_coupon_bg"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:includeFontPadding="false"
+                            android:paddingBottom="@dimen/dp_3"
+                            android:singleLine="true"
+                            android:text="10元加油券"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/sp_10"
+                            app:layout_constraintEnd_toEndOf="@+id/task_node_iv_2"
+                            app:layout_constraintStart_toStartOf="@+id/task_node_iv_2"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/task_coupon_tv3"
+                            android:layout_width="@dimen/dp_60"
+                            android:layout_height="@dimen/dp_19"
+                            android:background="@drawable/task_coupon_bg"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:includeFontPadding="false"
+                            android:paddingBottom="@dimen/dp_3"
+                            android:singleLine="true"
+                            android:text="10元加油券"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/sp_10"
+                            app:layout_constraintEnd_toEndOf="@+id/task_node_iv_3"
+                            app:layout_constraintStart_toStartOf="@+id/task_node_iv_3"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/oil_task_get"
+                        android:layout_width="@dimen/dp_68"
+                        android:layout_height="@dimen/dp_28"
+                        android:layout_marginTop="@dimen/dp_78"
+                        android:layout_marginEnd="@dimen/dp_21"
+                        android:background="@drawable/shape_task_unclick_14radius"
+                        android:gravity="center"
+                        android:text="待领取"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp_12"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/spike_cl"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_132"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_12"
+                    android:background="@drawable/spike_bg"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/spike_desc_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_106"
+                        android:layout_marginTop="@dimen/dp_16"
+                        android:text="每周三10点开抢 1000份"
+                        android:textColor="@color/color_B7A7"
+                        android:textSize="@dimen/sp_11"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/spike_coupon_tv"
+                        android:layout_width="@dimen/dp_69"
+                        android:layout_height="@dimen/dp_56"
+                        android:layout_marginStart="@dimen/dp_20"
+                        android:layout_marginTop="@dimen/dp_56"
+                        android:background="@drawable/spike_coupon_bg"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/spike_name_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:includeFontPadding="false"
+                        android:text="15元加油立减券"
+                        android:textColor="#292929"
+                        android:textSize="@dimen/sp_16"
+                        app:layout_constraintBottom_toTopOf="@+id/spike_price_tv"
+                        app:layout_constraintStart_toEndOf="@+id/spike_coupon_tv"
+                        app:layout_constraintTop_toTopOf="@+id/spike_coupon_tv"
+                        app:layout_constraintVertical_chainStyle="spread_inside" />
+
+                    <TextView
+                        android:id="@+id/spike_price_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_4"
+                        android:includeFontPadding="false"
+                        android:text="秒杀价：150积分"
+                        android:textColor="@color/color_1300"
+                        android:textSize="@dimen/sp_12"
+                        app:layout_constraintBottom_toTopOf="@+id/spike_origin_price_tv"
+                        app:layout_constraintStart_toStartOf="@+id/spike_name_tv"
+                        app:layout_constraintTop_toBottomOf="@+id/spike_name_tv" />
+
+                    <TextView
+                        android:id="@+id/spike_origin_price_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:includeFontPadding="false"
+                        android:text="300积分"
+                        android:textColor="#C57567"
+                        android:textSize="@dimen/sp_12"
+                        app:layout_constraintBottom_toBottomOf="@+id/spike_coupon_tv"
+                        app:layout_constraintStart_toStartOf="@id/spike_name_tv"
+                        app:layout_constraintTop_toBottomOf="@+id/spike_price_tv" />
+
+                    <TextView
+                        android:id="@+id/spike_button"
+                        android:layout_width="@dimen/dp_68"
+                        android:layout_height="@dimen/dp_28"
+                        android:layout_marginTop="@dimen/dp_6"
+                        android:layout_marginEnd="@dimen/dp_20"
+                        android:background="@drawable/spike_button_bg"
+                        android:gravity="center"
+                        android:text="立即秒杀"
+                        android:textColor="#8B392A"
+                        android:textSize="@dimen/sp_12"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/spike_coupon_tv" />
+
+                    <ProgressBar
+                        android:id="@+id/spike_progress"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="@dimen/dp_68"
+                        android:layout_height="@dimen/dp_5"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="@dimen/dp_12"
+                        android:max="100"
+                        android:progress="30"
+                        android:progressDrawable="@drawable/progress_spike_bg"
+                        android:visibility="visible"
+                        app:layout_constraintEnd_toEndOf="@+id/spike_button"
+                        app:layout_constraintTop_toBottomOf="@+id/spike_button" />
+
+                    <TextView
+                        android:id="@+id/progress_desc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/dp_4"
+                        android:text="已抢42%"
+                        android:textColor="#B55F50"
+                        android:textSize="@dimen/sp_9"
+                        app:layout_constraintBottom_toBottomOf="@id/spike_progress"
+                        app:layout_constraintEnd_toStartOf="@+id/spike_progress"
+                        app:layout_constraintTop_toTopOf="@+id/spike_progress" />
+
+                    <ImageView
+                        android:id="@+id/spike_reservation_iv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/dp_20"
+                        android:layout_marginBottom="@dimen/dp_14"
+                        android:src="@drawable/grab_coupon_icon"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.youth.banner.Banner
+                    android:id="@+id/banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_98"
+                    android:layout_marginLeft="@dimen/dp_12"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_marginRight="@dimen/dp_12"
+                    android:visibility="gone"
+                    app:banner_auto_loop="true"
+                    app:banner_indicator_height="@dimen/dp_2"
+                    app:banner_indicator_margin="@dimen/dp_3"
+                    app:banner_indicator_normal_color="@color/white_20"
+                    app:banner_indicator_normal_width="@dimen/dp_9"
+                    app:banner_indicator_selected_color="@color/white"
+                    app:banner_indicator_selected_width="@dimen/dp_9"
+                    app:banner_loop_time="5000"
+                    app:banner_radius="@dimen/dp_8" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/exchange_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/exchange_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/dp_4"
+                        android:paddingBottom="@dimen/dp_8"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/tv1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_12"
+                            android:text="积分豪礼"
+                            android:textColor="@color/color_34"
+                            android:textSize="@dimen/sp_15"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tv2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_6"
+                            android:text="赚积分兑豪礼"
+                            android:textColor="@color/color_99"
+                            android:textSize="@dimen/sp_11"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/tv1"
+                            app:layout_constraintStart_toEndOf="@+id/tv1" />
+
+                        <TextView
+                            android:id="@+id/go_integral_view"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:drawableRight="@drawable/arrow_right_icon"
+                            android:drawablePadding="@dimen/dp_5"
+                            android:gravity="center"
+                            android:paddingEnd="@dimen/dp_12"
+                            android:text="更多好礼兑换"
+                            android:textColor="@color/color_99"
+                            android:textSize="@dimen/sp_11"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/exchange_recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:layout_marginEnd="@dimen/dp_8"
+                        app:layout_constraintTop_toBottomOf="@+id/exchange_title" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/dp_22"
+                    android:layout_marginBottom="@dimen/dp_30"
+                    android:text="4亿车主都爱用的加油省钱神器"
+                    android:textColor="@color/color_99"
+                    android:textSize="@dimen/sp_11" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
